@@ -63,8 +63,8 @@ class OnboardingVC: UIViewController {
     
     @IBAction func nextButtonClicked(_ sender: UIButton) {
         if currentPage == slides.count-1{
-//            let vc = SignInVC(nibName: "SignInVC", bundle: nil)
-//            self.navigationController?.pushViewController(vc, animated: true)
+            let vc = SignInVC(nibName: "SignInVC", bundle: nil)
+            self.navigationController?.pushViewController(vc, animated: true)
             
         }else{
             OnboardingCollectionView.isPagingEnabled = false
