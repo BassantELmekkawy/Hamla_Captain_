@@ -26,10 +26,11 @@ class OTPTextField: UITextField {
 class VerificationVC: UIViewController{
     
     
-    @IBOutlet weak var instructionLabel: UILabel!
+    @IBOutlet weak var otpVerificationMessage: UILabel!
     @IBOutlet var otpCollection: [OTPTextField]!
     @IBOutlet weak var resendButton: UIButton!
     
+    var phoneNumber = ""
     var timer: Timer?
     let totalTime: TimeInterval = 10
     var remainingTime: TimeInterval = 0
@@ -40,7 +41,9 @@ class VerificationVC: UIViewController{
         self.title = "Verification"
         setupNavigationBar()
         
-        instructionLabel.twoColorLabel(word: "+201149336618", color: UIColor(named: "accent") ?? .black)
+        otpVerificationMessage.text = "We sent an OTP code to +20\(phoneNumber) to verify it’s you!"
+        
+        otpVerificationMessage.twoColorLabel(word: "+20\(phoneNumber)", color: UIColor(named: "accent") ?? .black)
         for (index, textField) in otpCollection.enumerated() {
             textField.tag = index
             //textField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)

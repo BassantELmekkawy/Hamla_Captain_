@@ -9,8 +9,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SignInVC" customModule="Hamla" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SignInVC" customModule="Hamla_iOS_Captain" customModuleProvider="target">
             <connections>
+                <outlet property="activityIndicator" destination="hqF-tE-hG3" id="KBg-Xv-xDe"/>
                 <outlet property="phoneTF" destination="VJB-o1-pcx" id="zpr-hZ-Ffr"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -43,7 +44,7 @@
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="    100 123 5678" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VJB-o1-pcx">
+                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="100 123 5678" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VJB-o1-pcx">
                             <rect key="frame" x="103" y="8" width="222" height="40"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
@@ -199,13 +200,18 @@
                         </stackView>
                     </subviews>
                 </stackView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="hqF-tE-hG3">
+                    <rect key="frame" x="178" y="407.66666666666669" width="37" height="37"/>
+                </activityIndicatorView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="2Ci-pL-WJs" firstAttribute="top" secondItem="4zB-SJ-Vcz" secondAttribute="bottom" constant="33" id="16Z-iH-KOA"/>
+                <constraint firstItem="hqF-tE-hG3" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="26q-Z2-y8f"/>
                 <constraint firstItem="ZKJ-r1-Tdp" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="30" id="3jo-8C-LYa"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="MNr-XP-wSx" secondAttribute="trailing" constant="30" id="8zP-vC-V8d"/>
+                <constraint firstItem="hqF-tE-hG3" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="9Ee-g9-oEg"/>
                 <constraint firstItem="ZKJ-r1-Tdp" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="Alr-Ic-2nv"/>
                 <constraint firstItem="MNr-XP-wSx" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="30" id="CWm-hc-IcQ"/>
                 <constraint firstItem="eFb-Bj-pDT" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="30" id="ED9-U1-Idn"/>

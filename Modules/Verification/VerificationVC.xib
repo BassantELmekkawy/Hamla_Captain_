@@ -9,9 +9,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VerificationVC" customModule="Hamla" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VerificationVC" customModule="Hamla_iOS_Captain" customModuleProvider="target">
             <connections>
-                <outlet property="instructionLabel" destination="Hpn-7R-dEv" id="OCo-aL-N5W"/>
+                <outlet property="otpVerificationMessage" destination="Hpn-7R-dEv" id="exC-uc-Ttk"/>
                 <outlet property="resendButton" destination="Fhe-mD-UFf" id="Sto-BD-hNg"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outletCollection property="otpCollection" destination="wAr-F8-7qm" collectionClass="NSMutableArray" id="VpL-Fy-wNo"/>
@@ -34,7 +34,7 @@
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="Reg-N0-YfN">
                     <rect key="frame" x="45" y="178.33333333333334" width="303" height="56"/>
                     <subviews>
-                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="-" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wAr-F8-7qm" customClass="OTPTextField" customModule="Hamla" customModuleProvider="target">
+                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="-" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wAr-F8-7qm" customClass="OTPTextField" customModule="Hamla_iOS_Captain" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="66" height="56"/>
                             <color key="backgroundColor" name="background"/>
                             <constraints>
@@ -51,7 +51,7 @@
                                 <outlet property="delegate" destination="-1" id="Exk-39-Shd"/>
                             </connections>
                         </textField>
-                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="-" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c4H-rA-cxx" customClass="OTPTextField" customModule="Hamla" customModuleProvider="target">
+                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="-" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c4H-rA-cxx" customClass="OTPTextField" customModule="Hamla_iOS_Captain" customModuleProvider="target">
                             <rect key="frame" x="79" y="0.0" width="66" height="56"/>
                             <color key="backgroundColor" name="background"/>
                             <constraints>
@@ -68,7 +68,7 @@
                                 <outlet property="delegate" destination="-1" id="LlI-5u-oEt"/>
                             </connections>
                         </textField>
-                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="-" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YKX-QU-vwP" customClass="OTPTextField" customModule="Hamla" customModuleProvider="target">
+                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="-" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YKX-QU-vwP" customClass="OTPTextField" customModule="Hamla_iOS_Captain" customModuleProvider="target">
                             <rect key="frame" x="158" y="0.0" width="66" height="56"/>
                             <color key="backgroundColor" name="background"/>
                             <constraints>
@@ -85,7 +85,7 @@
                                 <outlet property="delegate" destination="-1" id="wym-3O-vud"/>
                             </connections>
                         </textField>
-                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="-" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tr1-ao-evz" customClass="OTPTextField" customModule="Hamla" customModuleProvider="target">
+                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="-" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tr1-ao-evz" customClass="OTPTextField" customModule="Hamla_iOS_Captain" customModuleProvider="target">
                             <rect key="frame" x="237" y="0.0" width="66" height="56"/>
                             <color key="backgroundColor" name="background"/>
                             <constraints>
