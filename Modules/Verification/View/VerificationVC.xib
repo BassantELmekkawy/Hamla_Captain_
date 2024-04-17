@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VerificationVC" customModule="Hamla_iOS_Captain" customModuleProvider="target">
             <connections>
+                <outlet property="activityIndicator" destination="jGh-do-1fO" id="dyX-fm-3xn"/>
                 <outlet property="otpVerificationMessage" destination="Hpn-7R-dEv" id="exC-uc-Ttk"/>
                 <outlet property="resendButton" destination="Fhe-mD-UFf" id="Sto-BD-hNg"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -133,12 +134,12 @@
                             <color key="textColor" name="primary-dark"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fhe-mD-UFf">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fhe-mD-UFf">
                             <rect key="frame" x="166.66666666666669" y="0.0" width="58" height="32"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                             <state key="normal" title="Resend">
-                                <color key="titleColor" name="gray1"/>
+                                <color key="titleColor" name="accent"/>
                             </state>
                             <connections>
                                 <action selector="resendCode:" destination="-1" eventType="touchUpInside" id="djz-Wf-oCj"/>
@@ -146,18 +147,23 @@
                         </button>
                     </subviews>
                 </stackView>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="jGh-do-1fO">
+                    <rect key="frame" x="178" y="407.66666666666669" width="37" height="37"/>
+                </activityIndicatorView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Hpn-7R-dEv" secondAttribute="trailing" constant="65" id="CRH-Rj-FoA"/>
                 <constraint firstItem="Thh-e0-bkL" firstAttribute="top" secondItem="XFu-Um-sUk" secondAttribute="bottom" constant="33" id="K0r-hm-EgZ"/>
+                <constraint firstItem="jGh-do-1fO" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Psq-KQ-5Ki"/>
                 <constraint firstItem="Reg-N0-YfN" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="45" id="SRJ-wx-d1t"/>
                 <constraint firstItem="XFu-Um-sUk" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="28" id="TKG-wa-qNQ"/>
                 <constraint firstItem="Hpn-7R-dEv" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="65" id="VSN-Me-rI7"/>
                 <constraint firstItem="Hpn-7R-dEv" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="110" id="YfW-5A-Ac6"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Reg-N0-YfN" secondAttribute="trailing" constant="45" id="Yst-WK-Dmu"/>
                 <constraint firstItem="XFu-Um-sUk" firstAttribute="top" secondItem="Reg-N0-YfN" secondAttribute="bottom" constant="33" id="ZEu-ca-VcM"/>
+                <constraint firstItem="jGh-do-1fO" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="bBk-5g-YIW"/>
                 <constraint firstItem="Thh-e0-bkL" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="blO-wQ-l2H"/>
                 <constraint firstItem="Reg-N0-YfN" firstAttribute="top" secondItem="Hpn-7R-dEv" secondAttribute="bottom" constant="30" id="gBk-Mu-ABG"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="XFu-Um-sUk" secondAttribute="trailing" constant="28" id="ghs-lL-qlF"/>
@@ -166,11 +172,11 @@
         </view>
     </objects>
     <resources>
+        <namedColor name="accent">
+            <color red="0.27450980392156865" green="0.70980392156862748" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="background">
             <color red="0.94509803921568625" green="0.95686274509803926" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="gray1">
-            <color red="0.69019607843137254" green="0.69803921568627447" blue="0.73333333333333328" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="primary">
             <color red="0.035294117647058823" green="0.3843137254901961" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

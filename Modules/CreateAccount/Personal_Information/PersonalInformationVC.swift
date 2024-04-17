@@ -11,6 +11,9 @@ class PersonalInformationVC: UIViewController {
 
     @IBOutlet weak var fullName: UITextField!
     @IBOutlet weak var governmentID: UITextField!
+    @IBOutlet weak var phoneTF: UITextField!
+    
+    var phoneNumber = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +27,8 @@ class PersonalInformationVC: UIViewController {
         let governmentPlaceholder = governmentID.placeholder ?? ""
         fullName.attributedPlaceholder = NSAttributedString(string: fullNamePlaceholder, attributes: [NSAttributedString.Key.foregroundColor : color ?? .placeholderText])
         governmentID.attributedPlaceholder = NSAttributedString(string: governmentPlaceholder, attributes: [NSAttributedString.Key.foregroundColor : color ?? .placeholderText])
+        
+        phoneTF.text = phoneNumber
     }
     
 

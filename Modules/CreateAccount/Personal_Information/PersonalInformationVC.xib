@@ -9,10 +9,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PersonalInformationVC" customModule="Hamla" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PersonalInformationVC" customModule="Hamla_iOS_Captain" customModuleProvider="target">
             <connections>
                 <outlet property="fullName" destination="3On-L0-4NE" id="8RK-qr-18o"/>
                 <outlet property="governmentID" destination="bjZ-6V-DTb" id="n8c-eD-djB"/>
+                <outlet property="phoneTF" destination="sYd-33-weJ" id="cLz-Rn-bQh"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -165,7 +166,7 @@
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Lq7-9V-61w">
                             <rect key="frame" x="0.0" y="281" width="333" height="142"/>
                             <subviews>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Pc-ut-3IX" customClass="DashedBorderView" customModule="Hamla" customModuleProvider="target">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Pc-ut-3IX" customClass="DashedBorderView" customModule="Hamla_iOS_Captain" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="156.66666666666666" height="142"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Upload to Cloud" translatesAutoresizingMaskIntoConstraints="NO" id="9g3-64-dDI">
@@ -195,7 +196,7 @@
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fCN-Zd-LGS" customClass="DashedBorderView" customModule="Hamla" customModuleProvider="target">
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fCN-Zd-LGS" customClass="DashedBorderView" customModule="Hamla_iOS_Captain" customModuleProvider="target">
                                     <rect key="frame" x="176.66666666666663" y="0.0" width="156.33333333333337" height="142"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Government ID Photo" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nBM-oB-ePJ">
@@ -231,7 +232,7 @@
                                 <constraint firstAttribute="height" constant="142" id="jEf-2V-4E6"/>
                             </constraints>
                         </stackView>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zyB-ry-5Qh" customClass="DashedBorderView" customModule="Hamla" customModuleProvider="target">
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zyB-ry-5Qh" customClass="DashedBorderView" customModule="Hamla_iOS_Captain" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="443" width="154" height="125"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="OT3-gS-XXG">
