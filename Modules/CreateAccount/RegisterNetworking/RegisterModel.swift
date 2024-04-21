@@ -10,10 +10,10 @@ import Foundation
 struct RegisterModel: Codable {
     let status: Int
     let message: String
-    let data: RegisterData?
+    let data: CaptainData?
 }
 
-struct RegisterData: Codable {
+struct CaptainData: Codable {
     let id: Int?
     let fullName: String?
     let code: String?

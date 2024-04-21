@@ -51,7 +51,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func openFirstVC(scene: UIWindowScene){
         let window = UIWindow(windowScene: scene)
 
-        let vc = SignInVC()
+        let vc = UserInfo.shared.getLogin() ? HomeVC() : OnboardingManager.isFirstLaunch() ? OnboardingVC() : SignInVC()
         let navigation = UINavigationController(rootViewController: vc)
         window.rootViewController = navigation
         self.window = window

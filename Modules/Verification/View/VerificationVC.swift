@@ -65,6 +65,7 @@ class VerificationVC: UIViewController{
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             else{
+                UserInfo.shared.setLogin(value: true)
                 let vc = HomeVC(nibName: "HomeVC", bundle: nil)
                 self.navigationController?.pushViewController(vc, animated: true)
             }

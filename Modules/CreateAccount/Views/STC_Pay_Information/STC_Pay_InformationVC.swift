@@ -56,6 +56,8 @@ class STC_Pay_InformationVC: UIViewController {
             }
             else{
                 print("registered successfully")
+                UserInfo.shared.setLogin(value: true)
+                UserInfo.shared.setData(model: (result?.data)!)
                 let vc = HomeVC(nibName: "HomeVC", bundle: nil)
                 self.navigationController?.pushViewController(vc, animated: true)
             }

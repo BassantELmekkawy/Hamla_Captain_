@@ -95,11 +95,11 @@ class BaseAPI<T: TargetType> {
     
     private func getHeaders() -> HTTPHeaders?{
         var HttpHeaders = HTTPHeaders()
-        //let User = UserInfo.shared
+        let User = UserInfo.shared
         
         HttpHeaders = ["Accept-Language": MOLHLanguage.currentAppleLanguage(),
                        "Accept": "application/json",
-                       //"Authorization": "Bearer \(User.get_token())",
+                       "Authorization": "Bearer \(User.get_token())",
                        "Content-Type":"application/json"
         ]
         
