@@ -13,6 +13,7 @@ class HomeVC: UIViewController, CustomAlertDelegate {
     @IBOutlet weak var CollectionView: UICollectionView!
     @IBOutlet weak var mapView: UIView!
     
+    var sideMenuViewController: SideMenuVC!
     var sideMenuWidth: CGFloat = 260
     var overlay = UIView()
     
@@ -26,11 +27,59 @@ class HomeVC: UIViewController, CustomAlertDelegate {
         CollectionView.delegate = self
         CollectionView.dataSource = self
         CollectionView.register(UINib(nibName: "UpcomingRequestsCell", bundle: nil), forCellWithReuseIdentifier: "UpcomingRequestsCell")
+        setupSideMenu()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
+    }
+    
+    func setupSideMenu() {
+        addOverlay(view: self.view)
+        overlay.isHidden = true
+        sideMenuViewController = SideMenuVC(nibName: "SideMenuVC", bundle: nil)
+        addChild(sideMenuViewController)
+        sideMenuViewController.view.frame = CGRect(x: -sideMenuWidth, y: 0, width: sideMenuWidth, height: view.frame.height)
+        view.addSubview(sideMenuViewController.view)
+        sideMenuViewController.didMove(toParent: self)
+        
+        // Add tap gesture to close side menu
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func handleTap(_ sender: UITapGestureRecognizer) {
+        let location = sender.location(in: sideMenuViewController.view)
+        if !sideMenuViewController.view.frame.contains(location) {
+            hideSideMenu()
+        }
+    }
+    
+    func showSideMenu() {
+        //self.addOverlay(view: self.view)
+        overlay.isHidden = false
+        UIView.animate(withDuration: 0.3) {
+            self.sideMenuViewController.view.frame.origin.x = 0
+            //self.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+            
+        }
+    }
+    
+    func hideSideMenu() {
+        UIView.animate(withDuration: 0.3) {
+            self.sideMenuViewController.view.frame.origin.x = -self.sideMenuWidth
+            //self.overlay.removeFromSuperview()
+            self.overlay.isHidden = true
+        }
+    }
+    
+    func addOverlay(view: UIView) {
+        overlay = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))
+        overlay.backgroundColor = .black
+        overlay.layer.opacity = 0.8
+        view.addSubview(overlay)
     }
 
     func showRequest(controller : UIViewController) {
@@ -67,11 +116,9 @@ class HomeVC: UIViewController, CustomAlertDelegate {
         showRequest(controller: CurrentRequestVC())
     }
     func seeDetail(indexPath: IndexPath) {
-//        let vc = OrderDetailsVC(nibName: "OrderDetailsVC", bundle: nil)
-//        print("\(upcomingRequests[indexPath.row])")
-//        //vc.number = "\(upcomingRequests[indexPath.row])"
-//        self.navigationController?.pushViewController(vc, animated: true)
+        
     }
+    
     func reject(at indexPath: IndexPath) {
         print("Deleted IndexPath = \(indexPath.row)")
         self.upcomingRequests.remove(at: indexPath.row)
@@ -81,7 +128,7 @@ class HomeVC: UIViewController, CustomAlertDelegate {
     }
     
     @IBAction func ShowSideMenu(_ sender: Any) {
-        
+        showSideMenu()
     }
     
 }
