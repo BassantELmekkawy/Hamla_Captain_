@@ -9,31 +9,42 @@ import Foundation
 
 protocol CreateAccountViewModelProtocol {
     
-
-    func uploadImageToserver(file: Data)
-    var uploadImageResult:Observable<UploadFileModel?> { get set }
-    var errorMessage:Observable<String?> { get set }
+    func register(fullName: String, birthday: String, mobile: String, nationalID: String, nationalExpiryDate: String, nationalIDImage: String, licenseExpiryDate: String, licenseImage: String, avatar: String, plateNumber: String, color: String, size: String, truckTypeID: String, truckImage: String, licenseTruckImage: String, licenseTruckExpireDate: String, stcAccount: String, deviceID: String, deviceType: String, deviceToken: String)
+    func uploadImageToserver(file: Data, tag: Int, progressHandler: @escaping (Double) -> Void)
+    var registerResult: Observable<RegisterModel?> { get set }
+    var uploadImageResult: Observable<(Int, UploadFileModel?)> { get set }
+    var errorMessage: Observable<String?> { get set }
+    var tag: Observable<Int?>{get set}
     var isLoading:Observable<Bool?>{get set}
-
 }
 
 class CreateAccountViewModel: CreateAccountViewModelProtocol {
     
-    var isLoading: Observable<Bool?>  = Observable(false)
-    var uploadImageResult: Observable<UploadFileModel?> = Observable(nil)
+    var tag: Observable<Int?>  = Observable(0)
+    var uploadImageResult: Observable<(Int, UploadFileModel?)> = Observable((0, nil))
+    var registerResult: Observable<RegisterModel?>  = Observable(nil)
     var errorMessage: Observable<String?> = Observable(nil)
+    var isLoading: Observable<Bool?>  = Observable(false)
     
-    func uploadImageToserver(file: Data) {
-        //self.isLoading.value = true
+    var api: RegisterApiProtocol
+    
+    init(api: RegisterApi) {
+        self.api = api
+    }
+    
+    func uploadImageToserver(file: Data, tag: Int, progressHandler: @escaping (Double) -> Void) {
         ImageUploader
             .shared
-            .uploadImageToServer(File: file, url: URLs.baseDashBoardUrl.rawValue) { result in
-                //self.isLoading.value = false
+            .uploadImageToServer(File: file, url: URLs.baseDashBoardUrl.rawValue, progressHandler: { progress in
+                print("Upload progress: \(progress * 100)%")
+                progressHandler(progress)
+            }) { result in
+                self.tag.value = tag
                 switch result{
                 case .success(let result):
                     print(result)
                     if result?.status == 1 {
-                        self.uploadImageResult.value = result
+                        self.uploadImageResult.value = (tag, result)
                     }else{
                         self.errorMessage.value = result?.message
                     }
@@ -41,6 +52,28 @@ class CreateAccountViewModel: CreateAccountViewModelProtocol {
                     self.errorMessage.value = error.message
                 }
             }
+    }
+    
+    func register(fullName: String, birthday: String, mobile: String, nationalID: String, nationalExpiryDate: String, nationalIDImage: String, licenseExpiryDate: String, licenseImage: String, avatar: String, plateNumber: String, color: String, size: String, truckTypeID: String, truckImage: String, licenseTruckImage: String, licenseTruckExpireDate: String, stcAccount: String, deviceID: String, deviceType: String, deviceToken: String) {
+        self.isLoading.value = true
+        self.api.register(fullName: fullName, birthday: birthday, mobile: mobile, nationalID: nationalID, nationalExpiryDate: nationalExpiryDate, nationalIDImage: nationalIDImage, licenseExpiryDate: licenseExpiryDate, licenseImage: licenseImage, avatar: avatar, plateNumber: plateNumber, color: color, size: size, truckTypeID: truckTypeID, truckImage: truckImage, licenseTruckImage: licenseTruckImage, licenseTruckExpireDate: licenseTruckExpireDate, stcAccount: stcAccount, deviceID: deviceID, deviceType: deviceType, deviceToken: deviceToken) { [weak self] result in
+            guard let self = self else { return }
+            self.isLoading.value = false
+            
+            switch result {
+            case .success(let result):
+                print(result)
+                self.registerResult.value = result
+                
+                if let status = result?.status, status == 0 {
+                    self.errorMessage.value = result?.message
+                }
+            case .failure(let error):
+                self.errorMessage.value = error.message
+                print("error", error.message)
+
+            }
+        }
     }
     
 }

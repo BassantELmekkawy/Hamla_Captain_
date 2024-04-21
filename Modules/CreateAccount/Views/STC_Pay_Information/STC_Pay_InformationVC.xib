@@ -9,10 +9,12 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="STC_Pay_InformationVC" customModule="Hamla" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="STC_Pay_InformationVC" customModule="Hamla_iOS_Captain" customModuleProvider="target">
             <connections>
+                <outlet property="STC_AccountNumberLabel" destination="c7H-f4-pQV" id="CC6-tY-XZh"/>
                 <outlet property="STC_AccountNumberTF" destination="G6l-LX-OrS" id="1Zc-GB-vzQ"/>
                 <outlet property="STC_AccountNumberView" destination="ssN-3P-KBh" id="v0e-kO-nTQ"/>
+                <outlet property="activityIndicator" destination="1vr-9D-l2S" id="yCt-u8-iQp"/>
                 <outlet property="authenticatedView" destination="ZfA-uU-AXj" id="h2o-4U-2Tb"/>
                 <outlet property="changeNumberBtn" destination="qjZ-JP-7lH" id="7sj-kb-0rD"/>
                 <outlet property="startAuthentication" destination="mGt-fS-1Fp" id="d33-NG-P5T"/>
@@ -50,7 +52,7 @@
                         <constraint firstItem="NXJ-DP-Egg" firstAttribute="centerY" secondItem="E9W-fS-NKE" secondAttribute="centerY" id="xzg-mw-MvL"/>
                     </constraints>
                 </view>
-                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="   STC account number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="G6l-LX-OrS">
+                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="STC account number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="G6l-LX-OrS">
                     <rect key="frame" x="30" y="165" width="333" height="56"/>
                     <color key="backgroundColor" name="LightGray"/>
                     <constraints>
@@ -194,6 +196,9 @@
                         <color key="baseForegroundColor" name="quaternary"/>
                     </buttonConfiguration>
                 </button>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="1vr-9D-l2S">
+                    <rect key="frame" x="178" y="407.66666666666669" width="37" height="37"/>
+                </activityIndicatorView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="2AI-Eu-be0"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -204,6 +209,7 @@
                 <constraint firstItem="ssN-3P-KBh" firstAttribute="top" secondItem="E9W-fS-NKE" secondAttribute="bottom" constant="30" id="BZ4-Ho-fVV"/>
                 <constraint firstItem="mGt-fS-1Fp" firstAttribute="height" secondItem="G6l-LX-OrS" secondAttribute="height" id="CAq-I9-dho"/>
                 <constraint firstItem="2AI-Eu-be0" firstAttribute="trailing" secondItem="Mij-KZ-967" secondAttribute="trailing" constant="30" id="Cf6-ln-AV6"/>
+                <constraint firstItem="1vr-9D-l2S" firstAttribute="centerX" secondItem="12Z-cr-ewl" secondAttribute="centerX" id="DMp-xB-6jy"/>
                 <constraint firstItem="G6l-LX-OrS" firstAttribute="leading" secondItem="2AI-Eu-be0" secondAttribute="leading" constant="30" id="HIU-dk-Wjh"/>
                 <constraint firstItem="mGt-fS-1Fp" firstAttribute="trailing" secondItem="G6l-LX-OrS" secondAttribute="trailing" id="Hdi-r2-1RP"/>
                 <constraint firstItem="ssN-3P-KBh" firstAttribute="leading" secondItem="2AI-Eu-be0" secondAttribute="leading" constant="30" id="MMc-DC-Lhh"/>
@@ -221,6 +227,7 @@
                 <constraint firstItem="pLw-ja-hPQ" firstAttribute="top" secondItem="Mij-KZ-967" secondAttribute="bottom" constant="20" id="o9l-6s-x4d"/>
                 <constraint firstItem="E9W-fS-NKE" firstAttribute="leading" secondItem="2AI-Eu-be0" secondAttribute="leading" id="ogE-eA-vXO"/>
                 <constraint firstItem="mGt-fS-1Fp" firstAttribute="top" secondItem="G6l-LX-OrS" secondAttribute="bottom" constant="20" id="sE9-Ob-ccD"/>
+                <constraint firstItem="1vr-9D-l2S" firstAttribute="centerY" secondItem="12Z-cr-ewl" secondAttribute="centerY" id="sXO-5b-ZQO"/>
                 <constraint firstItem="pLw-ja-hPQ" firstAttribute="centerX" secondItem="2AI-Eu-be0" secondAttribute="centerX" id="tne-jF-EDf"/>
             </constraints>
             <point key="canvasLocation" x="-132.06106870229007" y="-11.267605633802818"/>

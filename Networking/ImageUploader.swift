@@ -14,7 +14,8 @@ final class ImageUploader {
     
    
     func uploadImageToServer(File fileData: Data ,
-                             url:String,
+                             url: String,
+                             progressHandler: @escaping (Double) -> Void,
                              completion:@escaping (Result<UploadFileModel?, (CustomError)>) -> Void
     ){
         
@@ -29,8 +30,8 @@ final class ImageUploader {
             multipartFormData.append("captains".data(using: .utf8) ?? Data(), withName: "path")
             
         }, to: url + "upload" ,method: .post, headers: headers).uploadProgress(closure: { (progress) in
-            
-            //to show progress here
+            print(progress.fractionCompleted)
+            progressHandler(progress.fractionCompleted)
             
         }) .responseDecodable { (response: DataResponse<UploadFileModel, AFError>) in
             

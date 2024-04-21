@@ -11,6 +11,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PersonalInformationVC" customModule="Hamla_iOS_Captain" customModuleProvider="target">
             <connections>
+                <outlet property="calender" destination="eUA-CU-Kkd" id="PLo-7c-zBZ"/>
+                <outlet property="dateOfBirth" destination="WpG-bK-ESV" id="WDj-Qz-qub"/>
+                <outlet property="dateOfBirthLabel" destination="lKe-lG-bmc" id="xME-V5-DkM"/>
                 <outlet property="fullName" destination="3On-L0-4NE" id="8RK-qr-18o"/>
                 <outlet property="governmentID" destination="bjZ-6V-DTb" id="n8c-eD-djB"/>
                 <outlet property="phoneTF" destination="sYd-33-weJ" id="aKE-o2-RSj"/>
@@ -51,10 +54,10 @@
                     </constraints>
                 </view>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Lq7-9V-61w">
-                    <rect key="frame" x="30" y="390" width="333" height="156.66666666666663"/>
+                    <rect key="frame" x="30" y="423" width="333" height="140"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Pc-ut-3IX" customClass="DashedBorderView" customModule="Hamla_iOS_Captain" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="156.66666666666666" height="156.66666666666666"/>
+                            <rect key="frame" x="0.0" y="0.0" width="156.66666666666666" height="140"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Upload to Cloud" translatesAutoresizingMaskIntoConstraints="NO" id="9g3-64-dDI">
                                     <rect key="frame" x="66.333333333333329" y="38" width="24" height="24"/>
@@ -70,7 +73,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Uso-Lz-Z1B">
-                                    <rect key="frame" x="0.0" y="0.0" width="156.66666666666666" height="156.66666666666666"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="156.66666666666666" height="140"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                             <real key="value" value="8"/>
@@ -78,7 +81,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </imageView>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NGM-YI-T3q">
-                                    <rect key="frame" x="0.0" y="0.0" width="156.66666666666666" height="156.66666666666666"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="156.66666666666666" height="140"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="plain"/>
                                     <connections>
@@ -108,7 +111,7 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fCN-Zd-LGS" customClass="DashedBorderView" customModule="Hamla_iOS_Captain" customModuleProvider="target">
-                            <rect key="frame" x="176.66666666666663" y="0.0" width="156.33333333333337" height="156.66666666666666"/>
+                            <rect key="frame" x="176.66666666666663" y="0.0" width="156.33333333333337" height="140"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Government ID Photo" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nBM-oB-ePJ">
                                     <rect key="frame" x="25.999999999999993" y="72" width="104.33333333333331" height="33.666666666666657"/>
@@ -124,7 +127,7 @@
                                     </constraints>
                                 </imageView>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Lsa-Md-MBT">
-                                    <rect key="frame" x="0.0" y="0.0" width="156.33333333333334" height="156.66666666666666"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="156.33333333333334" height="140"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                             <real key="value" value="8"/>
@@ -132,7 +135,7 @@
                                     </userDefinedRuntimeAttributes>
                                 </imageView>
                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Blj-vz-ged">
-                                    <rect key="frame" x="0.0" y="0.0" width="156.33333333333334" height="156.66666666666666"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="156.33333333333334" height="140"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="plain"/>
                                     <connections>
@@ -150,7 +153,6 @@
                                 <constraint firstItem="nBM-oB-ePJ" firstAttribute="centerX" secondItem="fCN-Zd-LGS" secondAttribute="centerX" id="ThT-lA-hnU"/>
                                 <constraint firstItem="sek-9L-bWs" firstAttribute="top" secondItem="fCN-Zd-LGS" secondAttribute="top" constant="38" id="VGz-0N-S3J"/>
                                 <constraint firstItem="sek-9L-bWs" firstAttribute="centerX" secondItem="fCN-Zd-LGS" secondAttribute="centerX" id="cO5-An-ZEP"/>
-                                <constraint firstAttribute="width" secondItem="fCN-Zd-LGS" secondAttribute="height" multiplier="1:1" id="f5W-n6-RDe"/>
                                 <constraint firstAttribute="trailing" secondItem="Blj-vz-ged" secondAttribute="trailing" id="lCq-e4-vjN"/>
                                 <constraint firstItem="Lsa-Md-MBT" firstAttribute="leading" secondItem="fCN-Zd-LGS" secondAttribute="leading" id="meS-fg-jdf"/>
                                 <constraint firstItem="nBM-oB-ePJ" firstAttribute="top" secondItem="sek-9L-bWs" secondAttribute="bottom" constant="10" id="nAc-OZ-hdD"/>
@@ -164,12 +166,15 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                     </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="140" id="RQ4-Lh-FOK"/>
+                    </constraints>
                 </stackView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zyB-ry-5Qh" customClass="DashedBorderView" customModule="Hamla_iOS_Captain" customModuleProvider="target">
-                    <rect key="frame" x="30" y="566.66666666666663" width="156.66666666666666" height="156.33333333333337"/>
+                    <rect key="frame" x="30" y="583" width="156.66666666666666" height="140"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="OT3-gS-XXG">
-                            <rect key="frame" x="26.000000000000007" y="37.999999999999993" width="104.66666666666669" height="80.333333333333314"/>
+                            <rect key="frame" x="26.000000000000007" y="38" width="104.66666666666669" height="64"/>
                             <subviews>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Upload to Cloud" translatesAutoresizingMaskIntoConstraints="NO" id="foW-Tr-mXa">
                                     <rect key="frame" x="40.333333333333329" y="0.0" width="24" height="24"/>
@@ -179,7 +184,7 @@
                                     </constraints>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Driving license" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zU6-Bc-TeQ">
-                                    <rect key="frame" x="4.6666666666666643" y="32" width="95" height="48.333333333333343"/>
+                                    <rect key="frame" x="4.6666666666666643" y="32" width="95" height="32"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <color key="textColor" red="0.10980392156862745" green="0.14117647058823529" blue="0.22352941176470589" alpha="0.49627685546875" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
@@ -187,7 +192,7 @@
                             </subviews>
                         </stackView>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MFZ-cB-m0h">
-                            <rect key="frame" x="0.0" y="0.0" width="156.66666666666666" height="156.33333333333334"/>
+                            <rect key="frame" x="0.0" y="0.0" width="156.66666666666666" height="140"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                     <real key="value" value="8"/>
@@ -195,7 +200,7 @@
                             </userDefinedRuntimeAttributes>
                         </imageView>
                         <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rh5-dH-kXb">
-                            <rect key="frame" x="0.0" y="0.0" width="156.66666666666666" height="156.33333333333334"/>
+                            <rect key="frame" x="0.0" y="0.0" width="156.66666666666666" height="140"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain"/>
                             <connections>
@@ -244,10 +249,10 @@
                     </connections>
                 </button>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Op0-go-pZa">
-                    <rect key="frame" x="30" y="155" width="333" height="215"/>
+                    <rect key="frame" x="30" y="155" width="333" height="248"/>
                     <subviews>
-                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="   Full name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3On-L0-4NE">
-                            <rect key="frame" x="0.0" y="0.0" width="333" height="42.666666666666664"/>
+                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Full name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3On-L0-4NE">
+                            <rect key="frame" x="0.0" y="0.0" width="333" height="50.666666666666664"/>
                             <color key="backgroundColor" name="background"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
@@ -258,29 +263,29 @@
                             </userDefinedRuntimeAttributes>
                         </textField>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SSo-wx-WcX">
-                            <rect key="frame" x="0.0" y="57.666666666666657" width="333" height="42.333333333333343"/>
+                            <rect key="frame" x="0.0" y="65.666666666666657" width="333" height="51"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DXZ-DG-YLB">
-                                    <rect key="frame" x="8" y="7.9999999999999982" width="86" height="26.333333333333329"/>
+                                    <rect key="frame" x="8" y="8" width="86" height="35"/>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="plain"/>
                                 </button>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Flag" translatesAutoresizingMaskIntoConstraints="NO" id="iRo-HN-QKN">
-                                    <rect key="frame" x="16" y="11.666666666666686" width="28.666666666666671" height="19"/>
+                                    <rect key="frame" x="16" y="16" width="28.666666666666671" height="19"/>
                                 </imageView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+20" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="igW-py-bTp">
-                                    <rect key="frame" x="44.666666666666671" y="12.999999999999998" width="49.333333333333329" height="16.333333333333329"/>
+                                    <rect key="frame" x="44.666666666666671" y="17.333333333333343" width="49.333333333333329" height="16.333333333333329"/>
                                     <fontDescription key="fontDescription" name="SFCompactDisplay-Bold" family="SF Compact Display" pointSize="14"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="    100 123 5678" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sYd-33-weJ">
-                                    <rect key="frame" x="103" y="7.9999999999999982" width="222" height="26.333333333333329"/>
+                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="100 123 5678" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sYd-33-weJ">
+                                    <rect key="frame" x="103" y="8" width="222" height="35"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
                                 <view alpha="0.10000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2UQ-UA-UlU">
-                                    <rect key="frame" x="102" y="9.9999999999999982" width="1" height="22.333333333333329"/>
+                                    <rect key="frame" x="102" y="10" width="1" height="31"/>
                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="1" id="Wnm-m4-k62"/>
@@ -314,16 +319,16 @@
                             </userDefinedRuntimeAttributes>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WpG-bK-ESV">
-                            <rect key="frame" x="0.0" y="115.00000000000001" width="333" height="42.666666666666671"/>
+                            <rect key="frame" x="0.0" y="131.66666666666669" width="333" height="50.666666666666657"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date of birth" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lKe-lG-bmc">
-                                    <rect key="frame" x="14" y="12.999999999999998" width="77.666666666666671" height="16.333333333333329"/>
+                                    <rect key="frame" x="14" y="17" width="77.666666666666671" height="16.333333333333329"/>
                                     <fontDescription key="fontDescription" name="SFCompactDisplay-Regular" family="SF Compact Display" pointSize="14"/>
                                     <color key="textColor" red="0.10980392156862745" green="0.14117647058823529" blue="0.22352941176470589" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Rescheduling A Task" translatesAutoresizingMaskIntoConstraints="NO" id="eUA-CU-Kkd">
-                                    <rect key="frame" x="295" y="9.3333333333333144" width="24" height="24"/>
+                                    <rect key="frame" x="295" y="13.333333333333314" width="24" height="24"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="24" id="TFo-Vp-di7"/>
                                         <constraint firstAttribute="width" constant="24" id="qXk-sX-Q3C"/>
@@ -343,8 +348,8 @@
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                         </view>
-                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="   Government ID" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bjZ-6V-DTb">
-                            <rect key="frame" x="0.0" y="172.66666666666669" width="333" height="42.333333333333343"/>
+                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Government ID" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bjZ-6V-DTb">
+                            <rect key="frame" x="0.0" y="197.33333333333331" width="333" height="50.666666666666657"/>
                             <color key="backgroundColor" name="background"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>

@@ -65,8 +65,8 @@ class VerificationVC: UIViewController{
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             else{
-//                let vc = HomeVC(nibName: "HomeVC", bundle: nil)
-//                self.navigationController?.pushViewController(vc, animated: true)
+                let vc = HomeVC(nibName: "HomeVC", bundle: nil)
+                self.navigationController?.pushViewController(vc, animated: true)
             }
             print(message)
         }
@@ -130,7 +130,7 @@ class VerificationVC: UIViewController{
         for otpTextField in otpCollection{
             if otpTextField.text!.isEmpty{
                 self.showAlert(message: "Please fill in all fields")
-                break
+                return
             }
             verificationCode += otpTextField.text ?? ""
         }
