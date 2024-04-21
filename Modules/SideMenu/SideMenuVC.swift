@@ -23,8 +23,14 @@ class SideMenuVC: UIViewController {
     }
     
     @IBAction func goToProfile(_ sender: Any) {
-//        let vc = MyProfileVC(nibName: "MyProfileVC", bundle: nil)
-//        self.navigationController?.pushViewController(vc, animated: true)
+        let vc = MyProfileVC(nibName: "MyProfileVC", bundle: nil)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    
+    @IBAction func logout(_ sender: Any) {
+        UserInfo.shared.logOut()
+        UserInfo.shared.setRootViewController(SignInVC())
     }
 }
 
