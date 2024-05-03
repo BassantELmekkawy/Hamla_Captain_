@@ -14,11 +14,13 @@ class DropdownMenu: NSObject {
     private let transparentView = UIView()
     private var dataSource = [String]()
     private var tableViewButton: UIButton?
+    
+    var selectedElement: ((String) -> Void)?
 
     init(dataSource: [String], button: UIButton) {
         self.dataSource = dataSource
         self.tableViewButton = button
-
+        
         super.init()
 
         tableView.delegate = self
@@ -101,6 +103,7 @@ extension DropdownMenu: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedElement?(dataSource[indexPath.row])
         tableViewButton?.setTitle(dataSource[indexPath.row], for: .normal)
         hideTableView()
     }

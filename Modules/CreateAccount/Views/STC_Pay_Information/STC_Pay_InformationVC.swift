@@ -20,11 +20,7 @@ class STC_Pay_InformationVC: UIViewController {
     
     var viewModel: CreateAccountViewModel?
     
-    var fullName = ""
-    var phoneNumber = ""
-    var governmentID = ""
-    var plateNumber = ""
-    var imageDictionary: [Int: String] = [:]
+    var captainRegisterData = registerData()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,30 +83,36 @@ class STC_Pay_InformationVC: UIViewController {
     }
     
     @IBAction func SubmitMyRequest(_ sender: UIButton) {
-        
-        viewModel?.register(fullName: fullName,
-                            birthday: "2001-01-01",
-                            mobile: "20\(phoneNumber)",
-                            nationalID: governmentID,
+        viewModel?.register(fullName: captainRegisterData.fullName ?? "",
+                            birthday: captainRegisterData.dateOfBirth ?? "",
+                            mobile: "20\(captainRegisterData.phoneNumber ?? "")",
+                            nationalID: captainRegisterData.governmentID ?? "",
                             nationalExpiryDate: "2025-12-31",
-                            nationalIDImage: imageDictionary[1] ?? "",
+                            nationalIDImage: captainRegisterData.imageDictionary?[1] ?? "",
                             licenseExpiryDate: "2025-12-31",
-                            licenseImage: imageDictionary[2] ?? "",
-                            avatar: imageDictionary[0] ?? "",
-                            plateNumber: plateNumber,
-                            color: "white",
-                            size: "10",
+                            licenseImage: captainRegisterData.imageDictionary?[2] ?? "",
+                            avatar: captainRegisterData.imageDictionary?[0] ?? "",
+                            plateNumber: captainRegisterData.plateNumber ?? "",
+                            color: captainRegisterData.fleetColor ?? "",
+                            size: captainRegisterData.fleetSize ?? "",
                             truckTypeID: "1",
-                            truckImage: imageDictionary[3] ?? "",
-                            licenseTruckImage: imageDictionary[4] ?? "",
+                            truckImage: captainRegisterData.imageDictionary?[3] ?? "",
+                            licenseTruckImage: captainRegisterData.imageDictionary?[4] ?? "",
                             licenseTruckExpireDate: "2025-12-31",
                             stcAccount: STC_AccountNumberTF.text ?? "",
                             deviceID: "123456",
                             deviceType: "ios",
                             deviceToken: "123456")
+
     }
 
     @IBAction func StartAuthentication(_ sender: Any) {
+        guard let STC_Account = STC_AccountNumberTF.text, !STC_Account.isEmpty
+        else {
+            self.showAlert(message: "Please enter STC account number")
+            return
+        }
+        captainRegisterData.STC_Account = STC_Account
         STC_AccountNumberTF.isHidden = true
         startAuthentication.isHidden = true
         STC_AccountNumberView.isHidden = false
@@ -125,21 +127,21 @@ class STC_Pay_InformationVC: UIViewController {
 //        let vc = HomeVC(nibName: "HomeVC", bundle: nil)
 //        self.navigationController?.pushViewController(vc, animated: true)
         
-        viewModel?.register(fullName: "Test Captain",
-                            birthday: "2001-01-01",
-                            mobile: "20\(phoneNumber)",
-                            nationalID: "12345688",
+        viewModel?.register(fullName: captainRegisterData.fullName ?? "",
+                            birthday: captainRegisterData.dateOfBirth ?? "",
+                            mobile: "20\(captainRegisterData.phoneNumber ?? "")",
+                            nationalID: captainRegisterData.governmentID ?? "",
                             nationalExpiryDate: "2025-12-31",
-                            nationalIDImage: "captains/0201220020000/111111.jpg",
+                            nationalIDImage: captainRegisterData.imageDictionary?[1] ?? "",
                             licenseExpiryDate: "2025-12-31",
-                            licenseImage: "captains/0201220020000/111112.jpg",
-                            avatar: "captains/0201220020000/111113.jpg",
-                            plateNumber: "1226 س ص ع",
-                            color: "white",
-                            size: "10",
+                            licenseImage: captainRegisterData.imageDictionary?[2] ?? "",
+                            avatar: captainRegisterData.imageDictionary?[0] ?? "",
+                            plateNumber: captainRegisterData.plateNumber ?? "",
+                            color: captainRegisterData.fleetColor ?? "",
+                            size: captainRegisterData.fleetSize ?? "",
                             truckTypeID: "1",
-                            truckImage: "captains/0201220020000/111113.jpg",
-                            licenseTruckImage: "captains/0201220020000/111114.jpg",
+                            truckImage: captainRegisterData.imageDictionary?[3] ?? "",
+                            licenseTruckImage: captainRegisterData.imageDictionary?[4] ?? "",
                             licenseTruckExpireDate: "2025-12-31",
                             stcAccount: STC_AccountNumberTF.text ?? "",
                             deviceID: "123456",
