@@ -76,4 +76,10 @@ class CreateAccountViewModel: CreateAccountViewModelProtocol {
         }
     }
     
+    func isValidPhone(phone: String) -> Bool {
+        let PHONE_REGEX = #"^(010|011|012|015)\d{8}$"#
+        let predicate = NSPredicate(format: "SELF MATCHES %@", PHONE_REGEX)
+        let result = predicate.evaluate(with: phone)
+        return result
+    }
 }

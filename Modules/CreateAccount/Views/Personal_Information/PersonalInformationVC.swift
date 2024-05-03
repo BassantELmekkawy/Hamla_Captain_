@@ -8,6 +8,18 @@
 import UIKit
 import PhotosUI
 
+struct registerData{
+    var fullName: String?
+    var phoneNumber: String?
+    var dateOfBirth: String?
+    var governmentID: String?
+    var imageDictionary: [Int: String]?
+    var plateNumber: String?
+    var fleetType: String?
+    var fleetColor: String?
+    var fleetSize: String?
+    var STC_Account: String?
+}
 class PersonalInformationVC: UIViewController {
     
     @IBOutlet weak var fullName: UITextField!
@@ -22,6 +34,7 @@ class PersonalInformationVC: UIViewController {
     
     var phoneNumber = ""
     var tag = 0
+    var selectedDate = ""
     let pickerVC = PhotoActionSheet()
     var image: UIImage?
     var datePicker: UIDatePicker?
@@ -43,7 +56,9 @@ class PersonalInformationVC: UIViewController {
         self.title = "Create account"
         setupNavigationBar()
         
-        //phoneTF.text = phoneNumber
+        if !phoneNumber.isEmpty {
+            phoneTF.text = phoneNumber
+        }
         
         fullName.addPadding()
         phoneTF.addPadding()
@@ -69,6 +84,7 @@ class PersonalInformationVC: UIViewController {
         alertViewController.modalTransitionStyle = .crossDissolve
         alertViewController.didSelectDate = { selectedDate in
             print("Date of birth: \(selectedDate)")
+            self.selectedDate = selectedDate
             self.dateOfBirthLabel.text = selectedDate
         }
         present(alertViewController, animated: true, completion: nil)
@@ -100,14 +116,49 @@ class PersonalInformationVC: UIViewController {
         }
         
     }
+    
+    func isValidData() -> Bool {
+        if let fullName = fullName.text, fullName.isEmpty{
+            self.showAlert(message: "Please enter your full name")
+        }
+        else if let phone = phoneTF.text, phone.isEmpty{
+            self.showAlert(message: "Please enter phone number")
+        }
+        else if !viewModel!.isValidPhone(phone: "0\(phoneTF.text ?? "")"){
+            self.showAlert(message: "Invalid phone number")
+        }
+        else if selectedDate.isEmpty{
+            self.showAlert(message: "Please enter your date of birth")
+        }
+        else if let governmentID = governmentID.text, governmentID.isEmpty{
+            self.showAlert(message: "Please enter government ID")
+        }
+        else {
+            let photoArray = ["Personal", "Government ID", "Driving license"]
+            for (index, image) in imageCollection.enumerated() {
+                if image.image == nil {
+                    self.showAlert(message: "Please upload \(photoArray[index]) photo")
+                    return false
+                }
+            }
+            return true
+        }
+        return false
+    }
 
     @IBAction func Continue(_ sender: Any) {
-        let vc = FleetInformationVC(nibName: "FleetInformationVC", bundle: nil)
-        vc.fullName = fullName.text ?? ""
-        vc.phoneNumber = phoneTF.text ?? ""
-        vc.governmentID = governmentID.text ?? ""
-        vc.imageDictionary = imageDictionary
-        self.navigationController?.pushViewController(vc, animated: true)
+        if isValidData() {
+            var captainRegisterData = registerData(
+                fullName: fullName.text,
+                phoneNumber: phoneTF.text,
+                dateOfBirth: selectedDate,
+                governmentID: governmentID.text,
+                imageDictionary: imageDictionary
+            )
+            let vc = FleetInformationVC(nibName: "FleetInformationVC", bundle: nil)
+            vc.captainRegisterData = captainRegisterData
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 
     @IBAction func openPhoto(_ sender: UIButton) {

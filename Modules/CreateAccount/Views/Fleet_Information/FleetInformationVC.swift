@@ -13,13 +13,9 @@ class FleetInformationVC: UIViewController {
     @IBOutlet var imageCollection: [UIImageView]!
     @IBOutlet var fleetInfo: [UIButton]!
     
+    var captainRegisterData = registerData()
     var tag = 0
     let pickerVC = PhotoActionSheet()
-    var image: UIImage?
-    var fullName = ""
-    var phoneNumber = ""
-    var governmentID = ""
-    var imageDictionary: [Int: String] = [:]
     var fleetData: [String] = []
     
     var dropDownMenu: DropdownMenu!
@@ -55,6 +51,7 @@ class FleetInformationVC: UIViewController {
     }
     
     func bindData(){
+        
         viewModel?.uploadImageResult.bind { [self] result in
             guard let message = result.1?.message else { return }
             if result.1?.status == 0 {
@@ -62,7 +59,7 @@ class FleetInformationVC: UIViewController {
             }
             else {
                 self.imageCollection[result.0].subviews.forEach { $0.removeFromSuperview() }
-                self.imageDictionary[result.0 + 3] = result.1?.data  // 3 indicates the number of the previous screen uploaded images
+                self.captainRegisterData.imageDictionary?[result.0 + 3] = result.1?.data  // 3 indicates the number of the previous screen uploaded images
             }
 
             print(message)
@@ -100,6 +97,20 @@ class FleetInformationVC: UIViewController {
         dropDownMenu = DropdownMenu(dataSource: fleetData, button: sender)
         dropDownMenu.setupDropdownMenu()
         dropDownMenu.showTableView(frames: sender.frame)
+        
+        dropDownMenu.selectedElement = { element in
+            //self.selectedFleetData[sender.tag] = element
+            switch sender.tag{
+            case 0:
+                self.captainRegisterData.fleetType = element
+            case 1:
+                self.captainRegisterData.fleetColor = element
+            case 2:
+                self.captainRegisterData.fleetSize = element
+            default:
+                break
+            }
+        }
     }
     
     @IBAction func openPhoto(_ sender: UIButton) {
@@ -107,15 +118,39 @@ class FleetInformationVC: UIViewController {
         pickerVC.delegate = self
         pickerVC.showActionSheet(from: self)
     }
+    func isValidData() -> Bool {
+        if let plateNumber = plateNumber.text, plateNumber.isEmpty{
+            self.showAlert(message: "Please enter plate number")
+        }
+        else if captainRegisterData.fleetType == nil {
+            self.showAlert(message: "Please select fleet type")
+        }
+        else if captainRegisterData.fleetColor == nil {
+            self.showAlert(message: "Please select fleet color")
+        }
+        else if captainRegisterData.fleetSize == nil {
+            self.showAlert(message: "Please select fleet size")
+        }
+        else {
+            let photoArray = ["fleet photo", "fleet license"]
+            for (index, image) in imageCollection.enumerated() {
+                if image.image == nil {
+                    self.showAlert(message: "Please upload \(photoArray[index])")
+                    return false
+                }
+            }
+            return true
+        }
+        return false
+    }
     
     @IBAction func Continue(_ sender: Any) {
-        let vc = STC_Pay_InformationVC(nibName: "STC_Pay_InformationVC", bundle: nil)
-        vc.fullName = fullName
-        vc.phoneNumber = phoneNumber
-        vc.governmentID = governmentID
-        vc.plateNumber = plateNumber.text ?? ""
-        vc.imageDictionary = imageDictionary
-        self.navigationController?.pushViewController(vc, animated: true)
+        if isValidData() {
+            captainRegisterData.plateNumber = plateNumber.text
+            let vc = STC_Pay_InformationVC(nibName: "STC_Pay_InformationVC", bundle: nil)
+            vc.captainRegisterData = captainRegisterData
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 
 }
