@@ -1,52 +1,49 @@
 //
-//  VerificationViewModel.swift
-//  Hamla
+//  viewModel.swift
+//  Hamla_iOS_Captain
 //
-//  Created by Bassant on 06/04/2024.
+//  Created by Bassant on 21/04/2024.
 //
 
 import Foundation
 
-protocol VerificationViewModelProtocol {
+protocol MyProfileViewModelProtocol {
     
-    func checkCode(mobile: String, verificationCode: String, deviceToken: String, deviceType: String)
+    func checkPhone(mobile: String)
     func updateProfile(mobile: String)
-    var checkCodeResult:Observable<CheckCodeModel?> { get set }
+    func isValidPhone(phone: String) -> Bool
+    var checkPhoneResult: Observable<SendCodeModel?> { get set }
     var updateProfileResult: Observable<RegisterModel?> { get set }
-    var errorMessage:Observable<String?> { get set }
-    var isLoading:Observable<Bool?>{get set}
+    var errorMessage: Observable<String?> { get set }
+    var isLoading: Observable<Bool?>{get set}
     
 }
 
-class VerificationViewModel: VerificationViewModelProtocol {
+class MyProfileViewModel: MyProfileViewModelProtocol {
     
     var isLoading: Observable<Bool?>  = Observable(false)
-    var checkCodeResult: Observable<CheckCodeModel?>  = Observable(nil)
+    var checkPhoneResult: Observable<SendCodeModel?>  = Observable(nil)
     var updateProfileResult: Observable<RegisterModel?> = Observable(nil)
     var errorMessage: Observable<String?> = Observable(nil)
     
-    var api: VerificationApiProtocol
+    var api: MyProfileApiProtocol
     
-    init(api: VerificationApi) {
+    init(api: MyProfileApi) {
         self.api = api
     }
     
-    func checkCode(mobile: String, verificationCode: String, deviceToken: String, deviceType: String) {
+    func checkPhone(mobile: String) {
         self.isLoading.value = true
-        self.api.checkCode(mobile: mobile, verificationCode: verificationCode, deviceToken: deviceToken, deviceType: deviceType) { [weak self] result in
-            guard let self = self else { return }
+        self.api.checkPhone(mobile: mobile) { result in
             self.isLoading.value = false
             
             switch result {
             case .success(let result):
                 print(result)
-                self.checkCodeResult.value = result
-                
-                if let status = result?.status, status == 0 {
-                    self.errorMessage.value = result?.message
-                }
+                self.checkPhoneResult.value = result
             case .failure(let error):
                 self.errorMessage.value = error.message
+                
                 print("error", error.message)
 
             }
@@ -69,6 +66,13 @@ class VerificationViewModel: VerificationViewModelProtocol {
 
             }
         }
+    }
+    
+    func isValidPhone(phone: String) -> Bool {
+        let PHONE_REGEX = #"^2(010|011|012|015)\d{8}$"#
+        let predicate = NSPredicate(format: "SELF MATCHES %@", PHONE_REGEX)
+        let result = predicate.evaluate(with: phone)
+        return result
     }
     
 }

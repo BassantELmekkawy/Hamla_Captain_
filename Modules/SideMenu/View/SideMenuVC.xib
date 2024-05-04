@@ -11,6 +11,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SideMenuVC" customModule="Hamla_iOS_Captain" customModuleProvider="target">
             <connections>
+                <outlet property="name" destination="mps-fS-iqL" id="Abk-vm-zRQ"/>
+                <outlet property="phone" destination="BL6-h7-z5F" id="kE0-lH-5Ks"/>
+                <outlet property="photo" destination="wyp-9h-dCU" id="TSI-UX-Ywb"/>
                 <outlet property="sideMenuTable" destination="ul4-Qx-N1l" id="dpQ-PM-9yi"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -26,12 +29,17 @@
                         <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Kc9-lI-NfN">
                             <rect key="frame" x="14" y="10" width="145.66666666666666" height="40"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CustomerPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="wyp-9h-dCU">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CustomerPhoto" translatesAutoresizingMaskIntoConstraints="NO" id="wyp-9h-dCU">
                                     <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="40" id="8wd-cY-GjR"/>
                                         <constraint firstAttribute="height" constant="40" id="zth-2T-JhO"/>
                                     </constraints>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="8"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
                                 </imageView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="pVY-Xx-RNT">
                                     <rect key="frame" x="60.000000000000007" y="0.0" width="85.666666666666686" height="40"/>

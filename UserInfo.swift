@@ -113,7 +113,8 @@ class UserInfo{
      func setRootViewController(_ viewController: UIViewController) {
          if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
              if let window = windowScene.windows.first {
-                 window.rootViewController = viewController
+                 let navigationController = UINavigationController(rootViewController: viewController)
+                 window.rootViewController = navigationController
              }
          }
     }
