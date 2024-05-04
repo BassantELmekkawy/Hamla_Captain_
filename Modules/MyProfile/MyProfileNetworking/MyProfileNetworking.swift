@@ -1,19 +1,19 @@
 //
-//  VerificationNetworking.swift
-//  Hamla
+//  MyProfileNetworking.swift
+//  Hamla_iOS_Captain
 //
-//  Created by Bassant on 06/04/2024.
+//  Created by Bassant on 21/04/2024.
 //
 
 import Foundation
 import Alamofire
 
-enum VerificationNetworking {
-    case checkCode(mobile: String, verificationCode: String, deviceToken: String, deviceType: String)
+enum MyProfileNetworking {
+    case checkPhone(mobile: String)
     case updateProfile(mobile: String)
 }
 
-extension VerificationNetworking: TargetType {
+extension MyProfileNetworking: TargetType {
     
     var baseURL: String {
         switch self {
@@ -24,8 +24,8 @@ extension VerificationNetworking: TargetType {
     
     var path: String {
         switch self {
-        case .checkCode:
-            return "check-code"
+        case .checkPhone:
+            return "check-phone"
         case .updateProfile:
             return "update-profile"
         }
@@ -33,7 +33,7 @@ extension VerificationNetworking: TargetType {
     
     var method: HTTPMethod {
         switch self {
-        case .checkCode:
+        case .checkPhone:
             return .post
         case .updateProfile:
             return .post
@@ -42,8 +42,8 @@ extension VerificationNetworking: TargetType {
     
     var task: Task {
         switch self{
-        case .checkCode(mobile: let mobile, verificationCode: let code, deviceToken: let deviceToken, deviceType: let deviceType):
-            return .requestParameters(parameters: ["mobile" : mobile, "verification_code" : code, "device_token" : deviceToken, "device_type" : deviceType], encoding: JSONEncoding.default)
+        case .checkPhone(mobile: let mobile):
+            return .requestParameters(parameters: ["mobile" : mobile], encoding: JSONEncoding.default)
         case .updateProfile(mobile: let mobile):
             return .requestParameters(parameters: ["mobile" : mobile], encoding: JSONEncoding.default)
         }

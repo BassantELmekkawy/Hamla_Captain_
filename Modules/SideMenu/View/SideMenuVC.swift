@@ -6,9 +6,13 @@
 //
 
 import UIKit
+import Kingfisher
 
 class SideMenuVC: UIViewController {
 
+    @IBOutlet weak var photo: UIImageView!
+    @IBOutlet weak var name: UILabel!
+    @IBOutlet weak var phone: UILabel!
     @IBOutlet weak var sideMenuTable: UITableView!
     
     let sideMenu: [sideMenuModel] = [sideMenuModel(image: "wallet", label: "My wallet"), sideMenuModel(image: "delivery-truck", label: "Order history"), sideMenuModel(image: "settings", label: "Settings"), sideMenuModel(image: "credit-card", label: "Bank accounts"), sideMenuModel(image: "wallet-2", label: "STC account"), sideMenuModel(image: "Help Center", label: "Help center")]
@@ -17,9 +21,17 @@ class SideMenuVC: UIViewController {
         super.viewDidLoad()
         sideMenuTable.delegate = self
         sideMenuTable.dataSource = self
-        
+        setupView()
         sideMenuTable.register(UINib(nibName: "SideMenuCell", bundle: nil), forCellReuseIdentifier: "SideMenuCell")
         
+    }
+    
+    func setupView() {
+        let user = UserInfo.shared
+        let url = URL(string: user.get_image())
+        photo.kf.setImage(with: url)
+        name.text = user.get_username()
+        phone.text = user.get_phone()
     }
     
     @IBAction func goToProfile(_ sender: Any) {

@@ -60,14 +60,32 @@ class VerificationVC: UIViewController{
                 self.otpCollection[0].becomeFirstResponder()
             }
             else if result?.is_new == true {
-                let vc = PersonalInformationVC(nibName: "PersonalInformationVC", bundle: nil)
-                vc.phoneNumber = self.phoneNumber
-                self.navigationController?.pushViewController(vc, animated: true)
+                if UserInfo.shared.getLogin() {
+                    self.viewModel?.updateProfile(mobile: "20\(self.phoneNumber)")
+                    self.navigationController?.popViewController(animated: true)
+                }
+                else {
+                    let vc = PersonalInformationVC(nibName: "PersonalInformationVC", bundle: nil)
+                    vc.phoneNumber = self.phoneNumber
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
             }
             else{
                 UserInfo.shared.setLogin(value: true)
+                UserInfo.shared.setData(model: (result?.data)!)
                 let vc = HomeVC(nibName: "HomeVC", bundle: nil)
                 self.navigationController?.pushViewController(vc, animated: true)
+            }
+            print(message)
+        }
+        
+        viewModel?.updateProfileResult.bind { result in
+            guard let message = result?.message else { return }
+            if result?.status == 0 {
+                self.showAlert(message: message)
+            }
+            else {
+                self.showAlert(message: message)
             }
             print(message)
         }

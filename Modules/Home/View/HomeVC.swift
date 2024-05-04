@@ -17,12 +17,18 @@ class HomeVC: UIViewController, CustomAlertDelegate {
     var sideMenuWidth: CGFloat = 260
     var overlay = UIView()
     
+    var viewModel: HomeViewModel? 
+    
     var upcomingRequests:[UpcomingRequest] = [.pendingAcceptance, .pendingPrice]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
         mapView.isHidden = true
+        
+        self.viewModel = HomeViewModel(api: HomeApi())
+        bindData()
+        viewModel?.getCaptainDetails()
         
         CollectionView.delegate = self
         CollectionView.dataSource = self
@@ -48,6 +54,28 @@ class HomeVC: UIViewController, CustomAlertDelegate {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
+    }
+    
+    func bindData(){
+        viewModel?.captainDetailsResult.bind { result in
+            guard let message = result?.message else { return }
+            if result?.status == 0 {
+                //self.showAlert(message: message)
+                UserInfo.shared.setRootViewController(SignInVC())
+            }
+            else {
+                UserInfo.shared.setData(model: (result?.data)!)
+            }
+            print(message)
+        }
+        
+        viewModel?.errorMessage.bind{ error in
+            if let error = error {
+                self.showAlert(message: error)
+                print(error)
+            }
+        }
+        
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
