@@ -52,10 +52,26 @@ class STC_Pay_InformationVC: UIViewController {
             }
             else{
                 print("registered successfully")
-                UserInfo.shared.setLogin(value: true)
+                
                 UserInfo.shared.setData(model: (result?.data)!)
-                let vc = HomeVC(nibName: "HomeVC", bundle: nil)
-                self.navigationController?.pushViewController(vc, animated: true)
+                if UserInfo.shared.isPhoneVerified() {
+                    UserInfo.shared.setLogin(value: true)
+                    let vc = HomeVC(nibName: "HomeVC", bundle: nil)
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+                else {
+                    let vm = SignInViewModel(api: SignInApi())
+                    vm.sendCode(mobile: "20\(self.captainRegisterData.phoneNumber ?? "")")
+                    let vc = VerificationVC(nibName: "VerificationVC", bundle: nil)
+                    vm.sendCodeResult.bind { sendCodeResult in
+                        guard let message = sendCodeResult?.message else { return }
+                        if result?.status == 0 {
+                            vc.showAlert(message: message)
+                        }
+                    }
+                    vc.phoneNumber = self.captainRegisterData.phoneNumber ?? ""
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
             }
             print(message)
         }

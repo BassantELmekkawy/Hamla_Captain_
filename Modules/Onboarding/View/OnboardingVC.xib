@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OnboardingVC" customModule="Hamla" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OnboardingVC" customModule="Hamla_iOS_Captain" customModuleProvider="target">
             <connections>
                 <outlet property="OnboardingCollectionView" destination="vGE-jV-vbi" id="g66-id-8jZ"/>
                 <outlet property="nextButton" destination="CpI-ep-PpR" id="Scu-6e-6hL"/>
@@ -37,18 +37,21 @@
                     </collectionViewFlowLayout>
                 </collectionView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dpj-Cn-PaY">
-                    <rect key="frame" x="18" y="54" width="68" height="34.333333333333343"/>
+                    <rect key="frame" x="18" y="59" width="68" height="34.333333333333343"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" title="العربية" titleAlignment="leading">
                         <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </buttonConfiguration>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lIm-Hg-xNV">
-                    <rect key="frame" x="318" y="54" width="57" height="34.333333333333343"/>
+                    <rect key="frame" x="318" y="59" width="57" height="34.333333333333343"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" title="Skip" titleAlignment="trailing">
                         <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </buttonConfiguration>
+                    <connections>
+                        <action selector="skip:" destination="-1" eventType="touchUpInside" id="AF4-jE-V4s"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CpI-ep-PpR">
                     <rect key="frame" x="30" y="738" width="333" height="60"/>
@@ -90,12 +93,12 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="CpI-ep-PpR" secondAttribute="bottom" constant="20" id="4pl-19-yGr"/>
-                <constraint firstItem="Dpj-Cn-PaY" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="54" id="J3t-ag-ueX"/>
+                <constraint firstItem="Dpj-Cn-PaY" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="J3t-ag-ueX"/>
                 <constraint firstItem="vGE-jV-vbi" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="OBE-Fh-9Gs"/>
                 <constraint firstAttribute="trailing" secondItem="E8i-m9-Aev" secondAttribute="trailing" id="Q6w-qC-Gbz"/>
                 <constraint firstItem="E8i-m9-Aev" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="VrF-bT-oVN"/>
                 <constraint firstItem="E8i-m9-Aev" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="YSS-xy-byO"/>
-                <constraint firstItem="lIm-Hg-xNV" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="54" id="Yl7-re-Hfj"/>
+                <constraint firstItem="lIm-Hg-xNV" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Yl7-re-Hfj"/>
                 <constraint firstAttribute="bottom" secondItem="vGE-jV-vbi" secondAttribute="bottom" id="Zef-ZH-sRu"/>
                 <constraint firstItem="E8i-m9-Aev" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="aFP-7i-zpy"/>
                 <constraint firstItem="E8i-m9-Aev" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="b7q-Nn-v2E"/>

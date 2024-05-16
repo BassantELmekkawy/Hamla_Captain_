@@ -15,16 +15,19 @@ class VerificationVC: UIViewController{
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var viewModel: VerificationViewModel?
+    var signInViewModel: SignInViewModel?
     
     var phoneNumber = ""
     var timer: Timer?
-    let totalTime: TimeInterval = 10
+    let totalTime: TimeInterval = 90
     var remainingTime: TimeInterval = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.viewModel = VerificationViewModel(api: VerificationApi())
+        viewModel = VerificationViewModel(api: VerificationApi())
+        signInViewModel = SignInViewModel(api: SignInApi())
+        startTimer()
         setUpView()
         bindData()
         
@@ -60,6 +63,7 @@ class VerificationVC: UIViewController{
                 self.otpCollection[0].becomeFirstResponder()
             }
             else if result?.is_new == true {
+                UserInfo.shared.isPhoneVerified(status: true)
                 if UserInfo.shared.getLogin() {
                     self.viewModel?.updateProfile(mobile: "20\(self.phoneNumber)")
                     self.navigationController?.popViewController(animated: true)
@@ -71,6 +75,7 @@ class VerificationVC: UIViewController{
                 }
             }
             else{
+                UserInfo.shared.isPhoneVerified(status: true)
                 UserInfo.shared.setLogin(value: true)
                 UserInfo.shared.setData(model: (result?.data)!)
                 let vc = HomeVC(nibName: "HomeVC", bundle: nil)
@@ -81,12 +86,7 @@ class VerificationVC: UIViewController{
         
         viewModel?.updateProfileResult.bind { result in
             guard let message = result?.message else { return }
-            if result?.status == 0 {
-                self.showAlert(message: message)
-            }
-            else {
-                self.showAlert(message: message)
-            }
+            self.showAlert(message: message)
             print(message)
         }
         
@@ -106,6 +106,18 @@ class VerificationVC: UIViewController{
             } else {
                 self.activityIndicator.stopAnimating()
                 self.view.isUserInteractionEnabled = true
+            }
+        }
+        
+        signInViewModel?.sendCodeResult.bind{ result in
+            guard let message = result?.message else { return }
+            self.showAlert(message: message)
+        }
+        
+        signInViewModel?.errorMessage.bind{ error in
+            if let error = error {
+                self.showAlert(message: error)
+                print(error)
             }
         }
     }
@@ -158,8 +170,7 @@ class VerificationVC: UIViewController{
     
     @IBAction func resendCode(_ sender: Any) {
         startTimer()
-        let vm = SignInViewModel(api: SignInApi())
-        vm.sendCode(mobile: "20\(phoneNumber)")
+        signInViewModel?.sendCode(mobile: "20\(phoneNumber)")
     }
     
 }

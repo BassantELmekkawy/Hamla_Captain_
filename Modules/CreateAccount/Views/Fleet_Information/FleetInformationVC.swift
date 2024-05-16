@@ -145,7 +145,7 @@ class FleetInformationVC: UIViewController {
     }
     
     @IBAction func Continue(_ sender: Any) {
-        if isValidData() {
+        if isValidData() && captainRegisterData.imageDictionary?.count == 5 {
             captainRegisterData.plateNumber = plateNumber.text
             let vc = STC_Pay_InformationVC(nibName: "STC_Pay_InformationVC", bundle: nil)
             vc.captainRegisterData = captainRegisterData

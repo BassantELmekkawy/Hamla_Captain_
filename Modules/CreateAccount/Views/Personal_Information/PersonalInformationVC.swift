@@ -20,6 +20,7 @@ struct registerData{
     var fleetSize: String?
     var STC_Account: String?
 }
+
 class PersonalInformationVC: UIViewController {
     
     @IBOutlet weak var fullName: UITextField!
@@ -31,6 +32,7 @@ class PersonalInformationVC: UIViewController {
     @IBOutlet weak var dateOfBirthLabel: UILabel!
     
     @IBOutlet var imageCollection: [UIImageView]!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     var phoneNumber = ""
     var tag = 0
@@ -75,6 +77,13 @@ class PersonalInformationVC: UIViewController {
         // Add tap gesture recognizer to the date view
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dateViewTapped))
         dateOfBirth.addGestureRecognizer(tapGesture)
+        
+        self.automaticallyAdjustsScrollViewInsets = false
+//        if #available(iOS 11.0, *) {
+//            scrollView.contentInsetAdjustmentBehavior = .never
+//        } else {
+//            automaticallyAdjustsScrollViewInsets = false
+//        }
         
     }
     
@@ -147,14 +156,17 @@ class PersonalInformationVC: UIViewController {
     }
 
     @IBAction func Continue(_ sender: Any) {
-        if isValidData() {
-            var captainRegisterData = registerData(
+        if isValidData() && imageDictionary.count == 3 {
+            let captainRegisterData = registerData(
                 fullName: fullName.text,
                 phoneNumber: phoneTF.text,
                 dateOfBirth: selectedDate,
                 governmentID: governmentID.text,
                 imageDictionary: imageDictionary
             )
+            if !phoneNumber.isEmpty && phoneTF.text != phoneNumber{
+                UserInfo.shared.isPhoneVerified(status: false)
+            }
             let vc = FleetInformationVC(nibName: "FleetInformationVC", bundle: nil)
             vc.captainRegisterData = captainRegisterData
             self.navigationController?.pushViewController(vc, animated: true)

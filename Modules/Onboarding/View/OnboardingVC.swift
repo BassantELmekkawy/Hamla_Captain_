@@ -26,6 +26,7 @@ class OnboardingVC: UIViewController {
                 skipBtn.isHidden = true
             }else{
                 nextButton.setTitle("Next", for: .normal)
+                skipBtn.isHidden = false
             }
         }
     }
@@ -59,7 +60,11 @@ class OnboardingVC: UIViewController {
         
     }
 
-
+    @IBAction func skip(_ sender: Any) {
+        OnboardingManager.setFirstLaunch()
+        let vc = SignInVC(nibName: "SignInVC", bundle: nil)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     
     @IBAction func nextButtonClicked(_ sender: UIButton) {
         if currentPage == slides.count-1{

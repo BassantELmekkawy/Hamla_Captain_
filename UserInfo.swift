@@ -23,6 +23,7 @@ class UserModelKeys{
     var rank             = "rank"
     var heroCode         = "captain_code"
     var isDarkMode       = "isDarkMode"
+    var isPhoneVerified  = "isPhoneVerified"
 }
  
 
@@ -75,6 +76,10 @@ class UserInfo{
         UserDefaults.standard.setValue(status , forKey: Keys.isDarkMode)
     }
     
+    func isPhoneVerified(status:Bool) {
+        UserDefaults.standard.setValue(status , forKey: Keys.isPhoneVerified)
+    }
+    
     
     func getLogin() -> Bool{ return UserDefaults.standard.value(forKey: Keys.login) as? Bool ?? false }
     
@@ -92,12 +97,14 @@ class UserInfo{
     func get_rank ()-> Int { UserDefaults.standard.value(forKey: Keys.rank) as? Int ?? 0}
     func getheroCode() -> String { UserDefaults.standard.value(forKey: Keys.heroCode) as? String ?? ""}
     func getStatusDarkMode() -> Bool { UserDefaults.standard.value(forKey: Keys.isDarkMode) as? Bool ?? false}
+    func isPhoneVerified() -> Bool { UserDefaults.standard.value(forKey: Keys.isPhoneVerified) as? Bool ?? false}
 
     // MARK: - logOut
     
     func logOut() {
         UserDefaults.standard.removeObject(forKey: Keys.lang)
         UserDefaults.standard.setValue(false, forKey: Keys.login)
+        UserDefaults.standard.setValue(false, forKey: Keys.isPhoneVerified)
         UserDefaults.standard.removeObject(forKey: Keys.email)
         UserDefaults.standard.removeObject(forKey: Keys.gender)
         UserDefaults.standard.removeObject(forKey: Keys.username)
