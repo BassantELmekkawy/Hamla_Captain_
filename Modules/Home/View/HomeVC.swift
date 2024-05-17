@@ -11,7 +11,6 @@ import FittedSheets
 class HomeVC: UIViewController, CustomAlertDelegate {
 
     @IBOutlet weak var CollectionView: UICollectionView!
-    @IBOutlet weak var mapView: UIView!
     
     var sideMenuViewController: SideMenuVC!
     var sideMenuWidth: CGFloat = 260
@@ -24,7 +23,6 @@ class HomeVC: UIViewController, CustomAlertDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
-        mapView.isHidden = true
         
         self.viewModel = HomeViewModel(api: HomeApi())
         bindData()
@@ -110,28 +108,7 @@ class HomeVC: UIViewController, CustomAlertDelegate {
         view.addSubview(overlay)
     }
 
-    func showRequest(controller : UIViewController) {
-        let options = SheetOptions(
-            pullBarHeight: 0,
-            useFullScreenMode: false,
-            shrinkPresentingViewController: false,
-            useInlineMode: true,
-            horizontalPadding: 30,
-            maxWidth: self.view.frame.width
-            
-        )
-        
-        let sheet = SheetViewController(controller: controller, sizes: [.fixed(240) , .fixed(30)] , options: options)
-        sheet.dismissOnPull = false
-        sheet.allowPullingPastMaxHeight = false
-        sheet.overlayColor = UIColor.clear
-        sheet.dismissOnOverlayTap = false
-        sheet.contentBackgroundColor = .clear
-        sheet.cornerRadius = 20
-        sheet.allowGestureThroughOverlay = true
-        sheet.animateIn(to: view, in: self)
-        //self.present(sheet, animated: true, completion: nil)
-    }
+
 
     func showPriceAlert() {
         let alertViewController = SetPriceAlertView(nibName: "SetPriceAlertView", bundle: nil)
@@ -140,9 +117,10 @@ class HomeVC: UIViewController, CustomAlertDelegate {
         present(alertViewController, animated: true, completion: nil)
     }
     func acceptRequest() {
-        mapView.isHidden = false
-        showRequest(controller: CurrentRequestVC())
+        let mapVC = MapVC(nibName: "MapVC", bundle: nil)
+        self.navigationController?.pushViewController(mapVC, animated: true)
     }
+    
     func seeDetail(indexPath: IndexPath) {
         
     }

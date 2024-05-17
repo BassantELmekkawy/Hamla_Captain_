@@ -12,7 +12,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeVC" customModule="Hamla_iOS_Captain" customModuleProvider="target">
             <connections>
                 <outlet property="CollectionView" destination="FAr-QA-e5B" id="0JA-h1-Ks5"/>
-                <outlet property="mapView" destination="lxl-CL-Myz" id="E7m-ja-DT3"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -141,10 +140,6 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lxl-CL-Myz">
-                    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                    <color key="backgroundColor" systemColor="systemGray5Color"/>
-                </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yvl-nT-syQ">
                     <rect key="frame" x="20" y="49" width="34" height="34"/>
                     <constraints>
@@ -162,7 +157,6 @@
             <color key="backgroundColor" name="Primary"/>
             <constraints>
                 <constraint firstItem="zJS-cn-X6H" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="4w4-QN-RTv"/>
-                <constraint firstItem="lxl-CL-Myz" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="7zi-ms-aZy"/>
                 <constraint firstItem="Yvl-nT-syQ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="49" id="ACW-5S-dJe"/>
                 <constraint firstItem="GeS-3I-ktC" firstAttribute="top" secondItem="ylc-SS-5tZ" secondAttribute="bottom" constant="20" id="I5G-ug-g2Y"/>
                 <constraint firstItem="ylc-SS-5tZ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="O27-u1-PdO"/>
@@ -171,9 +165,6 @@
                 <constraint firstItem="YLW-rN-YPS" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="45" id="Ria-Cp-E6h"/>
                 <constraint firstItem="FAr-QA-e5B" firstAttribute="top" secondItem="GeS-3I-ktC" secondAttribute="bottom" constant="20" id="YhQ-aL-Ceh"/>
                 <constraint firstItem="ylc-SS-5tZ" firstAttribute="top" secondItem="YLW-rN-YPS" secondAttribute="bottom" constant="10" id="ZnA-3k-qiy"/>
-                <constraint firstItem="lxl-CL-Myz" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="e2p-vb-KuD"/>
-                <constraint firstItem="lxl-CL-Myz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="fPE-w2-s1t"/>
-                <constraint firstAttribute="bottom" secondItem="lxl-CL-Myz" secondAttribute="bottom" id="iD9-41-bIn"/>
                 <constraint firstItem="GeS-3I-ktC" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="m7D-Y4-ELH"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="FAr-QA-e5B" secondAttribute="trailing" constant="20" id="mhq-et-Plt"/>
                 <constraint firstItem="YLW-rN-YPS" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="nP2-U0-Zrm"/>
@@ -202,9 +193,6 @@
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGray5Color">
-            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
