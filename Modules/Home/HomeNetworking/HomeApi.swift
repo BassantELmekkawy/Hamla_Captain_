@@ -10,6 +10,7 @@ import Foundation
 protocol HomeApiProtocol {
     
     func getCaptainDetails(completion: @escaping (Result<RegisterModel? , CustomError>) -> Void)
+    func getOrdersDetails(orderIDs: [String], completion: @escaping (Result<OrdersDetailsModel? , CustomError>) -> Void)
 }
 
 class HomeApi: BaseAPI<HomeNetworking>,HomeApiProtocol{
@@ -20,5 +21,13 @@ class HomeApi: BaseAPI<HomeNetworking>,HomeApiProtocol{
             completion(result)
         }
     }
+    
+    func getOrdersDetails(orderIDs: [String], completion: @escaping (Result<OrdersDetailsModel?, CustomError>) -> Void) {
+        self.performRequest(target: .getOrdersDetails(orderIDs: orderIDs), responseClass: OrdersDetailsModel.self) { result in
+            print("result", result)
+            completion(result)
+        }
+    }
+
     
 }

@@ -10,6 +10,7 @@ import Alamofire
 
 enum HomeNetworking {
     case captainDetails
+    case getOrdersDetails(orderIDs: [String])
 }
 
 extension HomeNetworking: TargetType {
@@ -25,6 +26,8 @@ extension HomeNetworking: TargetType {
         switch self {
         case .captainDetails:
             return "captain-details"
+        case .getOrdersDetails:
+            return "get-orders-details"
         }
     }
     
@@ -32,6 +35,8 @@ extension HomeNetworking: TargetType {
         switch self {
         case .captainDetails:
             return .get
+        case .getOrdersDetails:
+            return .post
         }
     }
     
@@ -39,6 +44,8 @@ extension HomeNetworking: TargetType {
         switch self{
         case .captainDetails:
             return .requestPlain
+        case .getOrdersDetails(orderIDs: let orderIDs):
+            return.requestParameters(parameters: ["order_ids": orderIDs], encoding: JSONEncoding.default)
         }
     }
     

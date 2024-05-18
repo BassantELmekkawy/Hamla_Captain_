@@ -27,6 +27,7 @@ class HomeVC: UIViewController, CustomAlertDelegate {
         self.viewModel = HomeViewModel(api: HomeApi())
         bindData()
         viewModel?.getCaptainDetails()
+        viewModel?.getOrdersDetails(orderIDs: ["1"])
         
         CollectionView.delegate = self
         CollectionView.dataSource = self
@@ -63,6 +64,14 @@ class HomeVC: UIViewController, CustomAlertDelegate {
             }
             else {
                 UserInfo.shared.setData(model: (result?.data)!)
+            }
+            print(message)
+        }
+        
+        viewModel?.orderDetailsResult.bind { result in
+            guard let message = result?.message else { return }
+            if result?.status == 0 {
+                self.showAlert(message: message)
             }
             print(message)
         }
