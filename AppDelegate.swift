@@ -7,6 +7,7 @@
 
 import UIKit
 import GoogleMaps
+import FirebaseCore
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         setUpNavigationBar()
         GMSServices.provideAPIKey("AIzaSyB9Gu55XnI_UEP_hnW5GKVtWiAt-nxxxeU")
+        FirebaseApp.configure()
         return true
     }
 
