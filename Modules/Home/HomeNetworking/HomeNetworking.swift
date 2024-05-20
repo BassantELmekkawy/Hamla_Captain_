@@ -10,6 +10,7 @@ import Alamofire
 
 enum HomeNetworking {
     case captainDetails
+    case updateAvailability(lat: String, lng: String)
 }
 
 extension HomeNetworking: TargetType {
@@ -25,6 +26,8 @@ extension HomeNetworking: TargetType {
         switch self {
         case .captainDetails:
             return "captain-details"
+        case .updateAvailability:
+            return "update-availability"
         }
     }
     
@@ -32,6 +35,8 @@ extension HomeNetworking: TargetType {
         switch self {
         case .captainDetails:
             return .get
+        case .updateAvailability:
+            return .post
         }
     }
     
@@ -39,6 +44,8 @@ extension HomeNetworking: TargetType {
         switch self{
         case .captainDetails:
             return .requestPlain
+        case .updateAvailability(lat: let lat, lng: let lng):
+            return .requestParameters(parameters: ["lat" : lat, "lng" : lng], encoding: JSONEncoding.default)
         }
     }
     

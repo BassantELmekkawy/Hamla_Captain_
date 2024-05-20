@@ -11,6 +11,7 @@ import FittedSheets
 class HomeVC: UIViewController, CustomAlertDelegate {
 
     @IBOutlet weak var CollectionView: UICollectionView!
+    @IBOutlet weak var captainStatus: UILabel!
     
     var sideMenuViewController: SideMenuVC!
     var sideMenuWidth: CGFloat = 260
@@ -33,6 +34,14 @@ class HomeVC: UIViewController, CustomAlertDelegate {
         CollectionView.register(UINib(nibName: "UpcomingRequestsCell", bundle: nil), forCellWithReuseIdentifier: "UpcomingRequestsCell")
         setupSideMenu()
         
+        var status = UserInfo.shared.getCaptainStatus()
+        switch status {
+        case true:
+            captainStatus.text = "Online"
+        case false:
+            captainStatus.text = "Offline"
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,6 +63,17 @@ class HomeVC: UIViewController, CustomAlertDelegate {
         view.addGestureRecognizer(tapGesture)
     }
     
+    func updateStatus(status: Bool) {
+        switch status {
+        case true:
+            captainStatus.text = "Online"
+            UserInfo.shared.setCaptainStatus(status: true)
+        case false:
+            captainStatus.text = "Offline"
+            UserInfo.shared.setCaptainStatus(status: false)
+        }
+    }
+    
     func bindData(){
         viewModel?.captainDetailsResult.bind { result in
             guard let message = result?.message else { return }
@@ -63,6 +83,17 @@ class HomeVC: UIViewController, CustomAlertDelegate {
             }
             else {
                 UserInfo.shared.setData(model: (result?.data)!)
+            }
+            print(message)
+        }
+        
+        viewModel?.updateAvailabilityResult.bind { result in
+            guard let message = result?.message else { return }
+            if result?.status == 0 {
+                self.showAlert(message: message)
+            }
+            else {
+                self.updateStatus(status: (result?.available)!)
             }
             print(message)
         }
@@ -109,7 +140,6 @@ class HomeVC: UIViewController, CustomAlertDelegate {
     }
 
 
-
     func showPriceAlert() {
         let alertViewController = SetPriceAlertView(nibName: "SetPriceAlertView", bundle: nil)
         alertViewController.modalPresentationStyle = .overCurrentContext
@@ -135,6 +165,10 @@ class HomeVC: UIViewController, CustomAlertDelegate {
     
     @IBAction func ShowSideMenu(_ sender: Any) {
         showSideMenu()
+    }
+    
+    @IBAction func UpdateAvailability(_ sender: Any) {
+        viewModel?.updateAvailability(lat: "30.12345", lng: "31.12345")
     }
     
 }
