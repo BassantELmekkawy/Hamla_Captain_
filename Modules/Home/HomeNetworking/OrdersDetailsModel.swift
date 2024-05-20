@@ -16,21 +16,21 @@ struct OrdersDetailsModel: Codable {
 
 // MARK: - Order
 struct Order: Codable {
-    let id: Int
-    let code: String
-    let status: String
-    let statusTitle: String
-    let cost: String
-    let estimateTime: String
-    let dropoffLocationName: String
-    let dropoffLat: String
-    let dropoffLng: String
-    let pickupLocationName: String
-    let pickupLat: String
-    let pickupLng: String
-    let paymentMethod: String
-    let customer: Customer
-    let type: String
+    let id: Int?
+    let code: String?
+    let status: String?
+    let statusTitle: String?
+    let cost: String?
+    let estimateTime: String?
+    let dropoffLocationName: String?
+    let dropoffLat: String?
+    let dropoffLng: String?
+    let pickupLocationName: String?
+    let pickupLat: String?
+    let pickupLng: String?
+    let paymentMethod: String?
+    let customer: Customer?
+    let type: String?
     let estimateCost: String?
 
     enum CodingKeys: String, CodingKey {
@@ -52,12 +52,12 @@ struct Order: Codable {
 
 // MARK: - Customer
 struct Customer: Codable {
-    let id: Int
-    let fullName: String
-    let mobile: String
-    let code: String
-    let rate: Int
-    let avatar: String
+    let id: Int?
+    let fullName: String?
+    let mobile: String?
+    let code: String?
+    let rate: Int?
+    let avatar: String?
 
     enum CodingKeys: String, CodingKey {
         case id

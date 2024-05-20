@@ -15,10 +15,13 @@ class HomeVC: UIViewController, CustomAlertDelegate {
     var sideMenuViewController: SideMenuVC!
     var sideMenuWidth: CGFloat = 260
     var overlay = UIView()
+    var ordersDetails: [Order]?
+    var ordersIDs: [Int] = []
+    var selectedOrderID: Int!
     
     var viewModel: HomeViewModel? 
     
-    var upcomingRequests:[UpcomingRequest] = [.pendingAcceptance, .pendingPrice]
+    //var upcomingRequests:[UpcomingRequest] = [.pendingAcceptance, .pendingPrice]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +30,7 @@ class HomeVC: UIViewController, CustomAlertDelegate {
         self.viewModel = HomeViewModel(api: HomeApi())
         bindData()
         viewModel?.getCaptainDetails()
-        viewModel?.getOrdersDetails(orderIDs: ["1"])
+        viewModel?.observeOrders(captainId: String(UserInfo.shared.get_ID()))
         
         CollectionView.delegate = self
         CollectionView.dataSource = self
@@ -73,7 +76,46 @@ class HomeVC: UIViewController, CustomAlertDelegate {
             if result?.status == 0 {
                 self.showAlert(message: message)
             }
+            else {
+                self.ordersDetails = result?.data
+                DispatchQueue.main.async {
+                    self.CollectionView.reloadData()
+                }
+            }
             print(message)
+        }
+        
+        viewModel?.acceptResult.bind { result in
+            guard let message = result?.message else { return }
+            if result?.status == 0 {
+                self.showAlert(message: message)
+                //print("Order ID:....... \(self.ordersIDs)")
+            }
+            else {
+                let mapVC = MapVC(nibName: "MapVC", bundle: nil)
+                mapVC.orderID = String(self.selectedOrderID)
+                self.navigationController?.pushViewController(mapVC, animated: true)
+                print("Order ID:....... \(self.ordersIDs)")
+            }
+            print(message)
+        }
+        
+        viewModel?.captainData.bind { captainData in
+            guard let orders = captainData?["assignOrder"] as? [Int] else {
+                self.ordersIDs = []
+                return
+            }
+            self.ordersIDs = orders
+            let orderIDsStrings = orders.map { String($0) }
+            
+            // Debugging statements
+            print("orders: \(orders)")
+            print("orderIDsStrings: \(orderIDsStrings)")
+            
+            self.viewModel?.getOrdersDetails(orderIDs: orderIDsStrings)
+            
+            
+            print("orderrrrrrrss:  \(self.ordersIDs)")
         }
         
         viewModel?.errorMessage.bind{ error in
@@ -125,9 +167,9 @@ class HomeVC: UIViewController, CustomAlertDelegate {
         alertViewController.modalTransitionStyle = .crossDissolve
         present(alertViewController, animated: true, completion: nil)
     }
-    func acceptRequest() {
-        let mapVC = MapVC(nibName: "MapVC", bundle: nil)
-        self.navigationController?.pushViewController(mapVC, animated: true)
+    func acceptRequest(indexPath: IndexPath) {
+        selectedOrderID = ordersIDs[indexPath.row]
+        viewModel?.acceptOrder(orderID: String(self.ordersIDs[indexPath.row]), captainLat: "30.12345", captainLng: "31.12345")
     }
     
     func seeDetail(indexPath: IndexPath) {
@@ -136,7 +178,7 @@ class HomeVC: UIViewController, CustomAlertDelegate {
     
     func reject(at indexPath: IndexPath) {
         print("Deleted IndexPath = \(indexPath.row)")
-        self.upcomingRequests.remove(at: indexPath.row)
+        self.ordersIDs.remove(at: indexPath.row)
         //self.CollectionView.deleteItems(at: [indexPath])
         self.CollectionView.reloadData()
         print(self.CollectionView.numberOfItems(inSection: 0))
@@ -150,13 +192,27 @@ class HomeVC: UIViewController, CustomAlertDelegate {
 
 extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        upcomingRequests.count
+        //upcomingRequests.count
+        ordersIDs.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UpcomingRequestsCell", for: indexPath) as! UpcomingRequestsCell
         cell.indexPath = indexPath
-        cell.requestStatus = upcomingRequests[indexPath.row]
+        //cell.requestStatus = upcomingRequests[indexPath.row]
+        let order = ordersDetails?[indexPath.row]
+        switch order?.status {
+        case "pending":
+            cell.requestStatus = .pendingAcceptance
+        case .none:
+            break
+        case .some(_):
+            break
+        }
+        cell.price.text = order?.cost
+        cell.paymentMethod.text = order?.paymentMethod
+        cell.pickupLocation.text = order?.pickupLocationName
+        cell.dropoffLocation.text = order?.dropoffLocationName
         cell.delegate = self
         return cell
     }

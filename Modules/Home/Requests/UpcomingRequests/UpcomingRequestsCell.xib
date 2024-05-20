@@ -10,7 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="UpcomingRequestsCell" customModule="Hamla" customModuleProvider="target">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="UpcomingRequestsCell" customModule="Hamla_iOS_Captain" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="346" height="256"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -225,6 +225,9 @@
             </constraints>
             <size key="customSize" width="346" height="256"/>
             <connections>
+                <outlet property="dropoffLocation" destination="apo-Cx-0f6" id="pc6-Ji-XbD"/>
+                <outlet property="paymentMethod" destination="ZgP-5O-SAi" id="UQF-c6-lCQ"/>
+                <outlet property="pickupLocation" destination="88X-Y2-2Ox" id="oim-vU-Emx"/>
                 <outlet property="price" destination="q0e-KS-woI" id="kJY-XM-CRc"/>
                 <outlet property="setPriceBtn" destination="5Mj-DQ-dps" id="u2v-ZL-jTF"/>
             </connections>

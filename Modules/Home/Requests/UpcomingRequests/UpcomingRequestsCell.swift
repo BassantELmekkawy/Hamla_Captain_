@@ -11,7 +11,7 @@ protocol CustomAlertDelegate: AnyObject {
     func seeDetail(indexPath: IndexPath)
     func reject(at indexPath: IndexPath)
     func showPriceAlert()
-    func acceptRequest()
+    func acceptRequest(indexPath: IndexPath)
 }
 
 enum UpcomingRequest{
@@ -22,7 +22,10 @@ enum UpcomingRequest{
 class UpcomingRequestsCell: UICollectionViewCell {
 
     @IBOutlet weak var price: UILabel!
+    @IBOutlet weak var paymentMethod: UILabel!
     @IBOutlet weak var setPriceBtn: UIButton!
+    @IBOutlet weak var pickupLocation: UILabel!
+    @IBOutlet weak var dropoffLocation: UILabel!
     
     weak var delegate: CustomAlertDelegate?
     var indexPath: IndexPath!
@@ -57,7 +60,7 @@ class UpcomingRequestsCell: UICollectionViewCell {
         case .pendingPrice:
             delegate?.showPriceAlert()
         case .pendingAcceptance:
-            delegate?.acceptRequest()
+            delegate?.acceptRequest(indexPath: indexPath)
         }
     }
     
