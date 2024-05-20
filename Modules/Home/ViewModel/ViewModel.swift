@@ -17,6 +17,9 @@ protocol HomeViewModelProtocol {
     var orderDetailsResult:Observable<OrdersDetailsModel?> { get set }
     var acceptResult:Observable<Model?> { get set }
     var captainData: Observable<[String: Any]?>{get set}
+    func updateAvailability(lat: String, lng: String)
+    var captainDetailsResult: Observable<RegisterModel?> { get set }
+    var updateAvailabilityResult:Observable<UpdateAvailabilityModel?> { get set }
     var errorMessage:Observable<String?> { get set }
     
 }
@@ -27,6 +30,7 @@ class HomeViewModel: HomeViewModelProtocol {
     var orderDetailsResult: Observable<OrdersDetailsModel?>  = Observable(nil)
     var acceptResult: Observable<Model?>  = Observable(nil)
     var captainData: Observable<[String: Any]?> = Observable(nil)
+    var updateAvailabilityResult: Observable<UpdateAvailabilityModel?>  = Observable(nil)
     var errorMessage: Observable<String?> = Observable(nil)
     
     var api: HomeApiProtocol
@@ -54,11 +58,26 @@ class HomeViewModel: HomeViewModelProtocol {
     func getOrdersDetails(orderIDs: [String]) {
         print("Received orderIDs: \(orderIDs)")
         self.api.getOrdersDetails(orderIDs: orderIDs) { result in
+        switch result {
+            case .success(let result):
+                print(result)
+                self.orderDetailsResult.value = result
+            case .failure(let error):
+                self.errorMessage.value = error.message
+                
+                print("error", error.message)
+
+            }
+        }
+    }
+    
+    func updateAvailability(lat: String, lng: String) {
+        self.api.updateAvailability(lat: lat, lng: lng) { result in
             
             switch result {
             case .success(let result):
                 print(result)
-                self.orderDetailsResult.value = result
+                self.updateAvailabilityResult.value = result
             case .failure(let error):
                 self.errorMessage.value = error.message
                 
