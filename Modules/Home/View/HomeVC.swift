@@ -12,6 +12,7 @@ class HomeVC: UIViewController, CustomAlertDelegate {
 
     @IBOutlet weak var CollectionView: UICollectionView!
     @IBOutlet weak var captainStatus: UILabel!
+    @IBOutlet weak var availabilitySwitch: UISwitch!
     
     var sideMenuViewController: SideMenuVC!
     var sideMenuWidth: CGFloat = 260
@@ -38,12 +39,14 @@ class HomeVC: UIViewController, CustomAlertDelegate {
         CollectionView.register(UINib(nibName: "UpcomingRequestsCell", bundle: nil), forCellWithReuseIdentifier: "UpcomingRequestsCell")
         setupSideMenu()
         
-        var status = UserInfo.shared.getCaptainStatus()
+        let status = UserInfo.shared.getCaptainStatus()
         switch status {
         case true:
             captainStatus.text = "Online"
+            availabilitySwitch.isOn = true
         case false:
             captainStatus.text = "Offline"
+            availabilitySwitch.isOn = false
         }
         
     }
@@ -97,7 +100,10 @@ class HomeVC: UIViewController, CustomAlertDelegate {
                 self.showAlert(message: message)
             }
             else {
-                self.updateStatus(status: (result?.available)!)
+                self.ordersDetails = result?.data
+                DispatchQueue.main.async {
+                    self.CollectionView.reloadData()
+                }
             }
             print(message)
         }
@@ -106,9 +112,12 @@ class HomeVC: UIViewController, CustomAlertDelegate {
             guard let message = result?.message else { return }
             if result?.status == 0 {
                 self.showAlert(message: message)
+                self.availabilitySwitch.isOn.toggle()
             }
             else {
-                self.ordersDetails = result?.data
+                self.updateStatus(status: (result?.available)!)
+                //self.viewModel?.observeOrders(captainId: String(UserInfo.shared.get_ID()))
+                //self.ordersIDs = []
                 DispatchQueue.main.async {
                     self.CollectionView.reloadData()
                 }
@@ -218,7 +227,7 @@ class HomeVC: UIViewController, CustomAlertDelegate {
         showSideMenu()
     }
     
-    @IBAction func UpdateAvailability(_ sender: Any) {
+    @IBAction func UpdateAvailability(_ sender: UISwitch) {
         viewModel?.updateAvailability(lat: "30.12345", lng: "31.12345")
     }
     

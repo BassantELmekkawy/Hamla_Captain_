@@ -18,7 +18,6 @@ protocol HomeViewModelProtocol {
     var acceptResult:Observable<Model?> { get set }
     var captainData: Observable<[String: Any]?>{get set}
     func updateAvailability(lat: String, lng: String)
-    var captainDetailsResult: Observable<RegisterModel?> { get set }
     var updateAvailabilityResult:Observable<UpdateAvailabilityModel?> { get set }
     var errorMessage:Observable<String?> { get set }
     

@@ -44,6 +44,7 @@ extension HomeNetworking: TargetType {
         case .getOrdersDetails:
             return .post
         case .acceptOrder:
+            return .post
         case .updateAvailability:
             return .post
         }

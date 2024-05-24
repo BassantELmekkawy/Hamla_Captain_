@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeVC" customModule="Hamla_iOS_Captain" customModuleProvider="target">
             <connections>
                 <outlet property="CollectionView" destination="FAr-QA-e5B" id="0JA-h1-Ks5"/>
+                <outlet property="availabilitySwitch" destination="RkU-Rr-CDW" id="wEl-GB-aaA"/>
                 <outlet property="captainStatus" destination="6Ax-N1-yy8" id="ljb-R8-bEK"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
