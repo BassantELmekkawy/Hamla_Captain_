@@ -13,7 +13,7 @@ enum MapNetworking {
     case arrivedOrder(orderID: String)
     case cancelOrder(orderID: String)
     case startOrder(orderID: String)
-    case endOrder(orderID: String)
+    case endOrder(orderID: String, dropoffLat: String, dropoffLng: String)
 }
 
 extension MapNetworking: TargetType {
@@ -54,8 +54,8 @@ extension MapNetworking: TargetType {
             return.requestParameters(parameters: ["order_id": orderID], encoding: JSONEncoding.default)
         case .startOrder(orderID: let orderID):
             return.requestParameters(parameters: ["order_id": orderID], encoding: JSONEncoding.default)
-        case .endOrder(orderID: let orderID):
-            return.requestParameters(parameters: ["order_id": orderID], encoding: JSONEncoding.default)
+        case .endOrder(orderID: let orderID, dropoffLat: let dropoffLat, dropoffLng: let dropoffLng):
+            return.requestParameters(parameters: ["order_id": orderID, "dropoff_lat": dropoffLat, "dropoff_lng": dropoffLng], encoding: JSONEncoding.default)
         }
     }
     

@@ -16,22 +16,22 @@ struct OrdersDetailsModel: Codable {
 
 // MARK: - Order
 struct Order: Codable {
-    let id: Int?
-    let code: String?
-    let status: String?
-    let statusTitle: String?
-    let cost: String?
-    let estimateTime: String?
-    let dropoffLocationName: String?
-    let dropoffLat: String?
-    let dropoffLng: String?
-    let pickupLocationName: String?
-    let pickupLat: String?
-    let pickupLng: String?
-    let paymentMethod: String?
-    let customer: Customer?
-    let type: String?
-    let estimateCost: String?
+    var id: Int?
+    var code: String?
+    var status: String?
+    var statusTitle: String?
+    var cost: String?
+    var estimateTime: String?
+    var dropoffLocationName: String?
+    var dropoffLat: String?
+    var dropoffLng: String?
+    var pickupLocationName: String?
+    var pickupLat: String?
+    var pickupLng: String?
+    var paymentMethod: String?
+    var customer: Customer?
+    var type: String?
+    var estimateCost: String?
 
     enum CodingKeys: String, CodingKey {
         case id, code, status

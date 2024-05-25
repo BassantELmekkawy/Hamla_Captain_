@@ -40,13 +40,9 @@ class HomeApi: BaseAPI<HomeNetworking>,HomeApiProtocol{
     
     func acceptOrder(orderID: String, captainLat: String, captainLng: String, completion: @escaping (Result<Model? , CustomError>) -> Void) {
         self.performRequest(target: .acceptOrder(orderID: orderID, captainLat: captainLat, captainLng: captainLng), responseClass: Model.self) { result in
-            func updateAvailability(lat: String, lng: String, completion: @escaping (Result<UpdateAvailabilityModel?, CustomError>) -> Void) {
-                self.performRequest(target: .updateAvailability(lat: lat, lng: lng), responseClass: UpdateAvailabilityModel.self) { result in
-                    print("result", result)
-                    completion(result)
-                }
-            }
-            
+            print("result", result)
+            completion(result)
         }
     }
+    
 }

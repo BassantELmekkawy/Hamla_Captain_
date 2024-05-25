@@ -13,7 +13,7 @@ protocol MapApiProtocol {
     func arrivedOrder(orderID: String, completion: @escaping (Result<Model? , CustomError>) -> Void)
     func cancelOrder(orderID: String, completion: @escaping (Result<Model? , CustomError>) -> Void)
     func startOrder(orderID: String, completion: @escaping (Result<Model? , CustomError>) -> Void)
-    func endOrder(orderID: String, completion: @escaping (Result<Model? , CustomError>) -> Void)
+    func endOrder(orderID: String, dropoffLat: String, dropoffLng: String, completion: @escaping (Result<EndOrderModel? , CustomError>) -> Void)
 }
 
 class MapApi: BaseAPI<MapNetworking>,MapApiProtocol{
@@ -46,8 +46,8 @@ class MapApi: BaseAPI<MapNetworking>,MapApiProtocol{
         }
     }
     
-    func endOrder(orderID: String, completion: @escaping (Result<Model? , CustomError>) -> Void) {
-        self.performRequest(target: .endOrder(orderID: orderID), responseClass: Model.self) { result in
+    func endOrder(orderID: String, dropoffLat: String, dropoffLng: String, completion: @escaping (Result<EndOrderModel? , CustomError>) -> Void) {
+        self.performRequest(target: .endOrder(orderID: orderID, dropoffLat: dropoffLat, dropoffLng: dropoffLng), responseClass: EndOrderModel.self) { result in
             print("result", result)
             completion(result)
         }

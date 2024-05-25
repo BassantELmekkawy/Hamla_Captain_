@@ -12,8 +12,12 @@ import FittedSheets
 class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate {
 
     @IBOutlet weak var mapView: GMSMapView!
+    var carMarker: GMSMarker?
+    var pickupMarker: GMSMarker?
+    var dropoffMarker: GMSMarker?
     
-    var orderID: String = ""
+    var orderDetails: Order = Order()
+    var currentLocation = CLLocation()
     var status: orderStatus = .arrivedToPickup
     var viewModel: MapViewModel?
     var currentRequestVC: CurrentRequestVC = CurrentRequestVC()
@@ -27,8 +31,41 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate 
         self.navigationController?.navigationBar.isHidden = false
         currentRequestVC.delegate = self
         orderStatusSheet.delegate = self
+        setupMapView()
         showRequest()
         bindData()
+    }
+    
+    func setupMapView() {
+        let camera = GMSCameraPosition.camera(withLatitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude, zoom: 10.0)
+        let mapView = GMSMapView.map(withFrame: self.view.frame, camera: camera)
+        self.view.addSubview(mapView)
+        
+        carMarker = GMSMarker()
+        carMarker?.position = CLLocationCoordinate2D(latitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude)
+        carMarker?.icon = UIImage(named: "car-icon")
+        carMarker?.map = mapView
+        
+        if let pickupLat = orderDetails.pickupLat, let pickupLng = orderDetails.pickupLng {
+            pickupMarker = GMSMarker()
+            pickupMarker?.position = CLLocationCoordinate2D(latitude: Double(pickupLat)!, longitude: Double(pickupLng)!)
+            pickupMarker?.icon = UIImage(named: "pickup-dropoff-icon")
+            pickupMarker?.map = mapView
+        }
+        
+        if let dropoffLat = orderDetails.dropoffLat, let dropoffLng = orderDetails.dropoffLng {
+            dropoffMarker = GMSMarker()
+            dropoffMarker?.position = CLLocationCoordinate2D(latitude: Double(dropoffLat)!, longitude: Double(dropoffLng)!)
+            dropoffMarker?.icon = UIImage(named: "pickup-dropoff-icon")
+            dropoffMarker?.map = mapView
+        }
+        
+        viewModel?.drawPath(start: carMarker!.position, end: pickupMarker!.position, mapView: mapView)
+    }
+    
+    func changeCameraPosition(latitude: CLLocationDegrees, longitude: CLLocationDegrees, zoom: Float) {
+        let newPosition = GMSCameraPosition.camera(withLatitude: latitude, longitude: longitude, zoom: zoom)
+        mapView.animate(to: newPosition)
     }
     
     func bindData(){
@@ -38,6 +75,10 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate 
                 self?.showAlert(message: message)
             } else {
                 self?.currentRequestVC.updateStatusUI(status: self!.status)
+                self?.carMarker?.position = self!.pickupMarker!.position
+                self?.pickupMarker?.map = nil
+                self?.viewModel?.removeCurrentPolyline()
+                self?.changeCameraPosition(latitude: (self?.carMarker?.position.latitude)!, longitude: (self?.carMarker?.position.longitude)!, zoom: 10.0)
             }
             print(message)
         }
@@ -48,6 +89,7 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate 
                 self?.showAlert(message: message)
             } else {
                 self?.currentRequestVC.updateStatusUI(status: self!.status)
+                self?.viewModel?.drawPath(start: self!.carMarker!.position, end: self!.dropoffMarker!.position, mapView: self!.mapView)
             }
             print(message)
         }
@@ -78,6 +120,10 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate 
                 self?.showAlert(message: message)
             } else {
                 self?.currentRequestVC.updateStatusUI(status: self!.status)
+                self?.carMarker?.position = self!.dropoffMarker!.position
+                self?.viewModel?.removeCurrentPolyline()
+                self?.dropoffMarker?.map = nil
+                self?.changeCameraPosition(latitude: (self?.carMarker?.position.latitude)!, longitude: (self?.carMarker?.position.longitude)!, zoom: 10.0)
             }
             print(message)
         }
@@ -137,6 +183,8 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate 
     }
     
     func updateOrderStatus(status: orderStatus) {
+        guard let id = orderDetails.id else { return }
+        let orderID = String(id)
         switch status {
         case .arrivedToPickup:
             viewModel?.pickupOrder(orderID: orderID)
@@ -145,7 +193,7 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate 
         case .arrivedToDropoff:
             viewModel?.startOrder(orderID: orderID)
         case .shipmentCompleted:
-            viewModel?.endOrder(orderID: orderID)
+            viewModel?.endOrder(orderID: orderID, dropoffLat: String((dropoffMarker?.position.latitude)!), dropoffLng: String((dropoffMarker?.position.longitude)!))
         }
         //currentRequestVC.updateStatusUI(status: status)
         self.status = status

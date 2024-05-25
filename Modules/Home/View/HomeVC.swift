@@ -7,6 +7,7 @@
 
 import UIKit
 import FittedSheets
+import CoreLocation
 
 class HomeVC: UIViewController, CustomAlertDelegate {
 
@@ -19,7 +20,10 @@ class HomeVC: UIViewController, CustomAlertDelegate {
     var overlay = UIView()
     var ordersDetails: [Order]?
     var ordersIDs: [Int] = []
-    var selectedOrderID: Int!
+    var selectedOrderDetails: Order?
+    var selectedOrderID: Int?
+    let locationManager = CLLocationManager()
+    var currentLocation = CLLocation()
     
     var viewModel: HomeViewModel? 
     
@@ -49,10 +53,26 @@ class HomeVC: UIViewController, CustomAlertDelegate {
             availabilitySwitch.isOn = false
         }
         
+        getCurrentLocation()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
+    }
+    
+    func getCurrentLocation() {
+        locationManager.requestWhenInUseAuthorization()
+        let status = locationManager.authorizationStatus
+        
+        switch status {
+        case .authorizedAlways, .authorizedWhenInUse:
+            currentLocation = locationManager.location!
+            print("Lat: ************ \(currentLocation.coordinate.latitude)")
+            print("Lng: ************ \(currentLocation.coordinate.longitude)")
+        default:
+            break
+        }
     }
     
     func setupSideMenu() {
@@ -133,7 +153,8 @@ class HomeVC: UIViewController, CustomAlertDelegate {
             }
             else {
                 let mapVC = MapVC(nibName: "MapVC", bundle: nil)
-                mapVC.orderID = String(self.selectedOrderID)
+                mapVC.orderDetails = self.selectedOrderDetails!
+                mapVC.currentLocation = self.currentLocation
                 self.navigationController?.pushViewController(mapVC, animated: true)
                 print("Order ID:....... \(self.ordersIDs)")
             }
@@ -207,8 +228,12 @@ class HomeVC: UIViewController, CustomAlertDelegate {
         present(alertViewController, animated: true, completion: nil)
     }
     func acceptRequest(indexPath: IndexPath) {
-        selectedOrderID = ordersIDs[indexPath.row]
-        viewModel?.acceptOrder(orderID: String(self.ordersIDs[indexPath.row]), captainLat: "30.12345", captainLng: "31.12345")
+        selectedOrderDetails = ordersDetails?[indexPath.row]
+        viewModel?.acceptOrder(orderID: String(self.ordersIDs[indexPath.row]), captainLat: String(currentLocation.coordinate.latitude), captainLng: String(currentLocation.coordinate.longitude))
+//        let mapVC = MapVC(nibName: "MapVC", bundle: nil)
+//        mapVC.orderDetails = self.selectedOrderDetails!
+//        mapVC.currentLocation = self.currentLocation
+//        self.navigationController?.pushViewController(mapVC, animated: true)
     }
     
     func seeDetail(indexPath: IndexPath) {
@@ -224,11 +249,13 @@ class HomeVC: UIViewController, CustomAlertDelegate {
     }
     
     @IBAction func ShowSideMenu(_ sender: Any) {
-        showSideMenu()
+        //showSideMenu()
+        let vm = MapViewModel(api: MapApi())
+        vm.cancelOrder(orderID: "482")
     }
     
     @IBAction func UpdateAvailability(_ sender: UISwitch) {
-        viewModel?.updateAvailability(lat: "30.12345", lng: "31.12345")
+        viewModel?.updateAvailability(lat: String(currentLocation.coordinate.latitude), lng: String(currentLocation.coordinate.longitude))
     }
     
 }
