@@ -15,12 +15,16 @@ protocol MapViewModelProtocol {
     func cancelOrder(orderID: String)
     func startOrder(orderID: String)
     func endOrder(orderID: String, dropoffLat: String, dropoffLng: String)
+    func confirmPaymentCash(orderID: String, amount: String)
+    func rateOrder(orderID: String, rate: String)
 
     var pickupResult:Observable<Model?> { get set }
     var arrivedResult:Observable<Model?> { get set }
     var cancelResult:Observable<Model?> { get set }
     var startResult:Observable<Model?> { get set }
     var endResult:Observable<EndOrderModel?> { get set }
+    var confirmPaymentCashResult:Observable<Model?> { get set }
+    var rateOrderResult:Observable<Model?> { get set }
     var errorMessage:Observable<String?> { get set }
     
 }
@@ -31,7 +35,9 @@ class MapViewModel: MapViewModelProtocol {
     var arrivedResult: Observable<Model?> = Observable(nil)
     var cancelResult: Observable<Model?>  = Observable(nil)
     var startResult: Observable<Model?>   = Observable(nil)
-    var endResult: Observable<EndOrderModel?>     = Observable(nil)
+    var endResult: Observable<EndOrderModel?> = Observable(nil)
+    var confirmPaymentCashResult: Observable<Model?>  = Observable(nil)
+    var rateOrderResult: Observable<Model?>  = Observable(nil)
     var errorMessage: Observable<String?> = Observable(nil)
     var currentPolyline: GMSPolyline?
     
@@ -112,6 +118,38 @@ class MapViewModel: MapViewModelProtocol {
             case .success(let result):
                 print(result)
                 self.endResult.value = result
+            case .failure(let error):
+                self.errorMessage.value = error.message
+                
+                print("error", error.message)
+
+            }
+        }
+    }
+    
+    func confirmPaymentCash(orderID: String, amount: String) {
+        self.api.confirmPaymentCash(orderID: orderID, amount: amount) { result in
+            
+            switch result {
+            case .success(let result):
+                print(result)
+                self.confirmPaymentCashResult.value = result
+            case .failure(let error):
+                self.errorMessage.value = error.message
+                
+                print("error", error.message)
+
+            }
+        }
+    }
+    
+    func rateOrder(orderID: String, rate: String) {
+        self.api.rateOrder(orderID: orderID, rate: rate) { result in
+            
+            switch result {
+            case .success(let result):
+                print(result)
+                self.rateOrderResult.value = result
             case .failure(let error):
                 self.errorMessage.value = error.message
                 

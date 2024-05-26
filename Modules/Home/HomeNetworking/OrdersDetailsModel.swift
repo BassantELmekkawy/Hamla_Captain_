@@ -28,11 +28,18 @@ struct Order: Codable {
     var pickupLocationName: String?
     var pickupLat: String?
     var pickupLng: String?
-    var paymentMethod: String?
+    var paymentMethod: PaymentMethod?
     var customer: Customer?
+    var pickType: String?
+    var truckType: String?
+    var weight: String?
+    var pickAmount: String?
     var type: String?
-    var estimateCost: String?
+    var date: String?
+    var estimateCostFrom: String?
+    var estimateCostTo: String?
 
+    // Coding keys to match the JSON keys with Swift property names
     enum CodingKeys: String, CodingKey {
         case id, code, status
         case statusTitle = "status_title"
@@ -45,9 +52,22 @@ struct Order: Codable {
         case pickupLat = "pickup_lat"
         case pickupLng = "pickup_lng"
         case paymentMethod = "payment_method"
-        case customer, type
-        case estimateCost = "estimate_cost"
+        case customer
+        case pickType = "pick_type"
+        case truckType = "truck_type"
+        case weight
+        case pickAmount = "pick_amount"
+        case type, date
+        case estimateCostFrom = "estimate_cost_from"
+        case estimateCostTo = "estimate_cost_to"
     }
+}
+
+struct PaymentMethod: Codable {
+    let id: Int?
+    let name: String?
+    let type: String?
+    let icon: String?
 }
 
 // MARK: - Customer

@@ -11,9 +11,11 @@ import CoreLocation
 
 class HomeVC: UIViewController, CustomAlertDelegate {
 
+    @IBOutlet weak var captainName: UILabel!
     @IBOutlet weak var CollectionView: UICollectionView!
     @IBOutlet weak var captainStatus: UILabel!
     @IBOutlet weak var availabilitySwitch: UISwitch!
+    @IBOutlet weak var availabilityInfo: UILabel!
     
     var sideMenuViewController: SideMenuVC!
     var sideMenuWidth: CGFloat = 260
@@ -25,7 +27,7 @@ class HomeVC: UIViewController, CustomAlertDelegate {
     let locationManager = CLLocationManager()
     var currentLocation = CLLocation()
     
-    var viewModel: HomeViewModel? 
+    var viewModel: HomeViewModel?
     
     //var upcomingRequests:[UpcomingRequest] = [.pendingAcceptance, .pendingPrice]
     
@@ -48,9 +50,11 @@ class HomeVC: UIViewController, CustomAlertDelegate {
         case true:
             captainStatus.text = "Online"
             availabilitySwitch.isOn = true
+            availabilityInfo.text = "You can receive requests normally."
         case false:
             captainStatus.text = "Offline"
             availabilitySwitch.isOn = false
+            availabilityInfo.text = "You can’t receive any requests now."
         }
         
         getCurrentLocation()
@@ -161,6 +165,16 @@ class HomeVC: UIViewController, CustomAlertDelegate {
             print(message)
         }
         
+        viewModel?.rejectResult.bind { [weak self] result in
+            guard let message = result?.message else { return }
+            if result?.status == 0 {
+                self?.showAlert(message: message)
+            } else {
+                
+            }
+            print(message)
+        }
+        
         viewModel?.captainData.bind { captainData in
             guard let orders = captainData?["assignOrder"] as? [Int] else {
                 self.ordersIDs = []
@@ -241,17 +255,18 @@ class HomeVC: UIViewController, CustomAlertDelegate {
     }
     
     func reject(at indexPath: IndexPath) {
-        print("Deleted IndexPath = \(indexPath.row)")
-        self.ordersIDs.remove(at: indexPath.row)
-        //self.CollectionView.deleteItems(at: [indexPath])
-        self.CollectionView.reloadData()
-        print(self.CollectionView.numberOfItems(inSection: 0))
+//        print("Deleted IndexPath = \(indexPath.row)")
+//        self.ordersIDs.remove(at: indexPath.row)
+//        //self.CollectionView.deleteItems(at: [indexPath])
+//        self.CollectionView.reloadData()
+//        print(self.CollectionView.numberOfItems(inSection: 0))
+        viewModel?.rejectOrder(orderID: String(self.ordersIDs[indexPath.row]))
     }
     
     @IBAction func ShowSideMenu(_ sender: Any) {
-        //showSideMenu()
-        let vm = MapViewModel(api: MapApi())
-        vm.cancelOrder(orderID: "482")
+        showSideMenu()
+        //let vm = MapViewModel(api: MapApi())
+        //vm.cancelOrder(orderID: "505")
     }
     
     @IBAction func UpdateAvailability(_ sender: UISwitch) {
@@ -279,8 +294,9 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource{
         case .some(_):
             break
         }
-        cell.price.text = order?.cost
-        cell.paymentMethod.text = order?.paymentMethod
+        cell.orderID.text = "#\(order?.id ?? 0) "
+        cell.price.text = "\(order?.cost ?? "0") EGP"
+        cell.paymentMethod.text = order?.paymentMethod?.name
         cell.pickupLocation.text = order?.pickupLocationName
         cell.dropoffLocation.text = order?.dropoffLocationName
         cell.delegate = self

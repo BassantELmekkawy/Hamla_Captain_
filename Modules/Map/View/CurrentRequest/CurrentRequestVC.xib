@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CurrentRequestVC" customModule="Hamla" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CurrentRequestVC" customModule="Hamla_iOS_Captain" customModuleProvider="target">
             <connections>
                 <outlet property="statusBar" destination="mbR-DY-Tye" id="upg-C3-6Cp"/>
                 <outlet property="statusTitle" destination="pvM-Um-bjB" id="Vpt-m9-C4H"/>
@@ -53,8 +53,8 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="Fq1-Py-tnR">
                                     <rect key="frame" x="0.0" y="0.0" width="251" height="40"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="John Doe" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="27T-Zn-SnV">
-                                            <rect key="frame" x="0.0" y="0.0" width="80.666666666666671" height="21.666666666666668"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mohamed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="27T-Zn-SnV">
+                                            <rect key="frame" x="0.0" y="0.0" width="85.666666666666671" height="21.666666666666668"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                             <color key="textColor" name="primary-dark"/>
                                             <nil key="highlightedColor"/>
@@ -77,7 +77,7 @@
                                                 <userDefinedRuntimeAttribute type="image" keyPath="filledImage" value="StarFilled"/>
                                                 <userDefinedRuntimeAttribute type="image" keyPath="emptyImage" value="StarEmpty"/>
                                                 <userDefinedRuntimeAttribute type="color" keyPath="textColor">
-                                                    <color key="value" name="TextfieldColor"/>
+                                                    <color key="value" name="primary-dark"/>
                                                 </userDefinedRuntimeAttribute>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="textSize">
                                                     <real key="value" value="10"/>
@@ -226,9 +226,6 @@
         <image name="StarEmpty" width="13" height="13"/>
         <image name="StarFilled" width="13" height="13"/>
         <image name="arrow-right-blue" width="16" height="16"/>
-        <namedColor name="TextfieldColor">
-            <color red="0.10980392156862745" green="0.14117647058823529" blue="0.22352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="gray1">
             <color red="0.69019607843137254" green="0.69803921568627447" blue="0.73333333333333328" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

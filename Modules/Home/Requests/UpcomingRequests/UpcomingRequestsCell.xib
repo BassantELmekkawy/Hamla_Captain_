@@ -226,6 +226,7 @@
             <size key="customSize" width="346" height="256"/>
             <connections>
                 <outlet property="dropoffLocation" destination="apo-Cx-0f6" id="pc6-Ji-XbD"/>
+                <outlet property="orderID" destination="wJD-Mk-X8p" id="ec2-jD-uzo"/>
                 <outlet property="paymentMethod" destination="ZgP-5O-SAi" id="UQF-c6-lCQ"/>
                 <outlet property="pickupLocation" destination="88X-Y2-2Ox" id="oim-vU-Emx"/>
                 <outlet property="price" destination="q0e-KS-woI" id="kJY-XM-CRc"/>

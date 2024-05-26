@@ -14,6 +14,8 @@ enum MapNetworking {
     case cancelOrder(orderID: String)
     case startOrder(orderID: String)
     case endOrder(orderID: String, dropoffLat: String, dropoffLng: String)
+    case confirmPaymentCash(orderID: String, amount: String)
+    case rateOrder(orderID: String, rate: String)
 }
 
 extension MapNetworking: TargetType {
@@ -37,6 +39,10 @@ extension MapNetworking: TargetType {
             return "start-order"
         case .endOrder:
             return "end-order"
+        case .confirmPaymentCash:
+            return "confirm-payment-cash"
+        case .rateOrder:
+            return "rate-order"
         }
     }
     
@@ -56,6 +62,10 @@ extension MapNetworking: TargetType {
             return.requestParameters(parameters: ["order_id": orderID], encoding: JSONEncoding.default)
         case .endOrder(orderID: let orderID, dropoffLat: let dropoffLat, dropoffLng: let dropoffLng):
             return.requestParameters(parameters: ["order_id": orderID, "dropoff_lat": dropoffLat, "dropoff_lng": dropoffLng], encoding: JSONEncoding.default)
+        case .confirmPaymentCash(orderID: let orderID, amount: let amount):
+            return.requestParameters(parameters: ["order_id": orderID, "amount": amount], encoding: JSONEncoding.default)
+        case .rateOrder(orderID: let orderID, rate: let rate):
+            return.requestParameters(parameters: ["order_id": orderID, "rate": rate], encoding: JSONEncoding.default)
         }
     }
     

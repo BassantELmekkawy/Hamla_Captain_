@@ -21,6 +21,7 @@ enum UpcomingRequest{
 
 class UpcomingRequestsCell: UICollectionViewCell {
 
+    @IBOutlet weak var orderID: UILabel!
     @IBOutlet weak var price: UILabel!
     @IBOutlet weak var paymentMethod: UILabel!
     @IBOutlet weak var setPriceBtn: UIButton!

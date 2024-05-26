@@ -9,8 +9,8 @@ import UIKit
 import GoogleMaps
 import FittedSheets
 
-class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate {
-
+class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate, OrderCompletedSheetDelegate {
+    
     @IBOutlet weak var mapView: GMSMapView!
     var carMarker: GMSMarker?
     var pickupMarker: GMSMarker?
@@ -22,8 +22,10 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate 
     var viewModel: MapViewModel?
     var currentRequestVC: CurrentRequestVC = CurrentRequestVC()
     let orderStatusSheet = OrderStatusSheet()
+    let orderCompletedSheet = OrderCompletedSheet()
     
     var sheet: SheetViewController?
+    var isOrderCompleted: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,13 +33,14 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate 
         self.navigationController?.navigationBar.isHidden = false
         currentRequestVC.delegate = self
         orderStatusSheet.delegate = self
+        orderCompletedSheet.delegate = self
         setupMapView()
         showRequest()
         bindData()
     }
     
     func setupMapView() {
-        let camera = GMSCameraPosition.camera(withLatitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude, zoom: 10.0)
+        let camera = GMSCameraPosition.camera(withLatitude: currentLocation.coordinate.latitude, longitude: currentLocation.coordinate.longitude, zoom: 12.0)
         let mapView = GMSMapView.map(withFrame: self.view.frame, camera: camera)
         self.view.addSubview(mapView)
         
@@ -78,7 +81,7 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate 
                 self?.carMarker?.position = self!.pickupMarker!.position
                 self?.pickupMarker?.map = nil
                 self?.viewModel?.removeCurrentPolyline()
-                self?.changeCameraPosition(latitude: (self?.carMarker?.position.latitude)!, longitude: (self?.carMarker?.position.longitude)!, zoom: 10.0)
+                self?.changeCameraPosition(latitude: (self?.carMarker?.position.latitude)!, longitude: (self?.carMarker?.position.longitude)!, zoom: 12.0)
             }
             print(message)
         }
@@ -124,6 +127,26 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate 
                 self?.viewModel?.removeCurrentPolyline()
                 self?.dropoffMarker?.map = nil
                 self?.changeCameraPosition(latitude: (self?.carMarker?.position.latitude)!, longitude: (self?.carMarker?.position.longitude)!, zoom: 10.0)
+            }
+            print(message)
+        }
+        
+        viewModel?.confirmPaymentCashResult.bind { [weak self] result in
+            guard let message = result?.message else { return }
+            if result?.status == 0 {
+                self?.showAlert(message: message)
+            } else {
+                
+            }
+            print(message)
+        }
+        
+        viewModel?.rateOrderResult.bind { [weak self] result in
+            guard let message = result?.message else { return }
+            if result?.status == 0 {
+                self?.showAlert(message: message)
+            } else {
+                self?.navigationController?.popViewController(animated: true)
             }
             print(message)
         }
@@ -176,10 +199,12 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate 
     }
     
     func updateStatus(status: orderStatus) {
-        print("dismissssssssssssss")
         sheet?.animateOut()
-        
-        showSheet(controller: orderStatusSheet, sizes: [.fixed(400)])
+        if isOrderCompleted {
+            showSheet(controller: orderCompletedSheet, sizes: [.fixed(370)], horizontalPadding: 30)
+        } else{
+            showSheet(controller: orderStatusSheet, sizes: [.fixed(400)])
+        }
     }
     
     func updateOrderStatus(status: orderStatus) {
@@ -194,11 +219,25 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate 
             viewModel?.startOrder(orderID: orderID)
         case .shipmentCompleted:
             viewModel?.endOrder(orderID: orderID, dropoffLat: String((dropoffMarker?.position.latitude)!), dropoffLng: String((dropoffMarker?.position.longitude)!))
+            isOrderCompleted = true
         }
         //currentRequestVC.updateStatusUI(status: status)
         self.status = status
         sheet?.animateOut()
         showRequest()
+    }
+    
+    func submitAmount(amount: String) {
+        guard let id = orderDetails.id else { return }
+        let orderID = String(id)
+        switch orderCompletedSheet.isPaymentConfirmed{
+        case true:
+            print(orderCompletedSheet.rating)
+            let rate = String(orderCompletedSheet.rating)
+            viewModel?.rateOrder(orderID: orderID, rate: rate)
+        case false:
+            viewModel?.confirmPaymentCash(orderID: orderID, amount: amount)
+        }
     }
     
 }
