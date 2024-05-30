@@ -10,6 +10,7 @@ import Cosmos
 
 protocol OrderCompletedSheetDelegate: AnyObject {
     func submitAmount(amount: String)
+    func submitRating(rate: Int)
 }
 
 class OrderCompletedSheet: UIViewController {
@@ -28,9 +29,14 @@ class OrderCompletedSheet: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupUI()
+    }
+    
+    func setupUI(){
         switch isPaymentConfirmed {
         case false:
             ratingView.isHidden = true
+            amount.addPadding()
         case true:
             ratingView.isHidden = false
             amount.isHidden = true
@@ -40,7 +46,13 @@ class OrderCompletedSheet: UIViewController {
     }
 
     @IBAction func submit(_ sender: Any) {
-        rating = Int(cosmosView.rating)
-        delegate?.submitAmount(amount: amount.text ?? "")
+        switch isPaymentConfirmed {
+        case false:
+            delegate?.submitAmount(amount: amount.text ?? "")
+        case true:
+            rating = Int(cosmosView.rating)
+            delegate?.submitRating(rate: rating)
+        }
     }
+    
 }

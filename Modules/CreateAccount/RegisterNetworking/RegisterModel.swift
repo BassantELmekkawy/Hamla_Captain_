@@ -26,10 +26,13 @@ struct CaptainData: Codable {
     let rate: Int?
     let isActive: Bool?
     let available: Bool?
-    let inTrip: Bool?
+    let inOrder: Bool?
+    let truck: Truck?
+    let ordersCount: Int?
+    let walletBalance: Double?
     let language: String?
     let isDarkMode: Bool?
-    let verified: Bool?
+    let verified: String?
     let tokenType: String?
     let accessToken: String?
     let appVersionIos: String?
@@ -38,6 +41,36 @@ struct CaptainData: Codable {
     let minVersionAndroid: [String: String]?
 
     enum CodingKeys: String, CodingKey {
-        case id, fullName = "full_name", code, gender, suspend, birthday, mobile, email, avatar, rate, isActive = "is_active", available, inTrip = "in_trip", language, isDarkMode = "is_dark_mode", verified, tokenType = "token_type", accessToken = "access_token", appVersionIos = "app_version_ios", minVersionIos = "min_version_ios", appVersionAndroid = "app_version_android", minVersionAndroid = "min_version_android"
+        case id
+        case fullName = "full_name"
+        case code
+        case gender
+        case suspend
+        case birthday
+        case mobile
+        case email
+        case avatar
+        case rate
+        case isActive = "is_active"
+        case available
+        case inOrder = "in_order"
+        case truck
+        case ordersCount = "orders_count"
+        case walletBalance = "wallet_balance"
+        case language
+        case isDarkMode = "is_dark_mode"
+        case verified
+        case tokenType = "token_type"
+        case accessToken = "access_token"
+        case appVersionIos = "app_version_ios"
+        case minVersionIos = "min_version_ios"
+        case appVersionAndroid = "app_version_android"
+        case minVersionAndroid = "min_version_android"
     }
+}
+
+struct Truck: Codable {
+    let plate: String?
+    let color: String?
+    let type: String?
 }

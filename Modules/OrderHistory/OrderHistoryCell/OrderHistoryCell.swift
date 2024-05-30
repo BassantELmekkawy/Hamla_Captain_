@@ -9,7 +9,11 @@ import UIKit
 
 class OrderHistoryCell: UITableViewCell {
 
+    @IBOutlet weak var orderID: UILabel!
+    @IBOutlet weak var cost: UILabel!
     @IBOutlet weak var orderStateBtn: UIButton!
+    @IBOutlet weak var pickupLocation: UILabel!
+    @IBOutlet weak var dropoffLocation: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

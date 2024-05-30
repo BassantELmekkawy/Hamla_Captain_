@@ -17,6 +17,7 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
     var dropoffMarker: GMSMarker?
     
     var orderDetails: Order = Order()
+    var cost: Double = 0.0
     var currentLocation = CLLocation()
     var status: orderStatus = .arrivedToPickup
     var viewModel: MapViewModel?
@@ -122,6 +123,7 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
             if result?.status == 0 {
                 self?.showAlert(message: message)
             } else {
+                self?.cost = result?.data?.cost ?? 0.0
                 self?.currentRequestVC.updateStatusUI(status: self!.status)
                 self?.carMarker?.position = self!.dropoffMarker!.position
                 self?.viewModel?.removeCurrentPolyline()
@@ -136,7 +138,8 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
             if result?.status == 0 {
                 self?.showAlert(message: message)
             } else {
-                
+                self?.orderCompletedSheet.isPaymentConfirmed = true
+                self?.orderCompletedSheet.setupUI()
             }
             print(message)
         }
@@ -202,6 +205,7 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
         sheet?.animateOut()
         if isOrderCompleted {
             showSheet(controller: orderCompletedSheet, sizes: [.fixed(370)], horizontalPadding: 30)
+            orderCompletedSheet.cost.text = String(cost)
         } else{
             showSheet(controller: orderStatusSheet, sizes: [.fixed(400)])
         }
@@ -230,14 +234,15 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
     func submitAmount(amount: String) {
         guard let id = orderDetails.id else { return }
         let orderID = String(id)
-        switch orderCompletedSheet.isPaymentConfirmed{
-        case true:
-            print(orderCompletedSheet.rating)
-            let rate = String(orderCompletedSheet.rating)
-            viewModel?.rateOrder(orderID: orderID, rate: rate)
-        case false:
-            viewModel?.confirmPaymentCash(orderID: orderID, amount: amount)
-        }
+        viewModel?.confirmPaymentCash(orderID: orderID, amount: amount)
     }
     
+    func submitRating(rate: Int) {
+        guard let id = orderDetails.id else { return }
+        let orderID = String(id)
+        
+        print(orderCompletedSheet.rating)
+        let rate = String(orderCompletedSheet.rating)
+        viewModel?.rateOrder(orderID: orderID, rate: rate)
+    }
 }

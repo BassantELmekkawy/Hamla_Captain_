@@ -7,6 +7,8 @@
 
 import Foundation
 
+import Foundation
+
 // MARK: - Response
 struct OrdersDetailsModel: Codable {
     let status: Int
@@ -31,7 +33,7 @@ struct Order: Codable {
     var paymentMethod: PaymentMethod?
     var customer: Customer?
     var pickType: String?
-    var truckType: String?
+    var truckType: TruckType?
     var weight: String?
     var pickAmount: String?
     var type: String?
@@ -63,6 +65,7 @@ struct Order: Codable {
     }
 }
 
+// MARK: - PaymentMethod
 struct PaymentMethod: Codable {
     let id: Int?
     let name: String?
@@ -84,4 +87,13 @@ struct Customer: Codable {
         case fullName = "full_name"
         case mobile, code, rate, avatar
     }
+}
+
+// MARK: - TruckType
+struct TruckType: Codable {
+    let id: Int?
+    let name: String?
+    let description: String?
+    let icon: String?
+    let weights: [Int]?
 }

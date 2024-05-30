@@ -59,20 +59,20 @@ extension SideMenuVC: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        var vc: UIViewController?
-//        switch indexPath.row{
-//        case 0:
-//            vc = MyWalletVC(nibName: "MyWalletVC", bundle: nil)
-//        case 1:
-//            vc = OrderHistoryVC(nibName: "OrderHistoryVC", bundle: nil)
-//        case 3:
-//            vc = BankAccountsVC(nibName: "BankAccountsVC", bundle: nil)
-//        default:
-//            print("default")
-//        }
-//        if let viewController = vc{
-//            self.navigationController?.pushViewController(viewController, animated: true)
-//        }
+        var vc: UIViewController?
+        switch indexPath.row{
+        case 0:
+            vc = MyWalletVC(nibName: "MyWalletVC", bundle: nil)
+        case 1:
+            vc = OrderHistoryVC(nibName: "OrderHistoryVC", bundle: nil)
+        case 3:
+            vc = BankAccountsVC(nibName: "BankAccountsVC", bundle: nil)
+        default:
+            print("default")
+        }
+        if let viewController = vc{
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

@@ -157,7 +157,10 @@ class HomeVC: UIViewController, CustomAlertDelegate {
             }
             else {
                 let mapVC = MapVC(nibName: "MapVC", bundle: nil)
+                let orderID = String(self.selectedOrderID!)
+                //self.viewModel?.getOrdersDetails(orderIDs: [orderID])
                 mapVC.orderDetails = self.selectedOrderDetails!
+                //mapVC.orderID = self.selectedOrderID!
                 mapVC.currentLocation = self.currentLocation
                 self.navigationController?.pushViewController(mapVC, animated: true)
                 print("Order ID:....... \(self.ordersIDs)")
@@ -243,6 +246,7 @@ class HomeVC: UIViewController, CustomAlertDelegate {
     }
     func acceptRequest(indexPath: IndexPath) {
         selectedOrderDetails = ordersDetails?[indexPath.row]
+        selectedOrderID = ordersIDs[indexPath.row]
         viewModel?.acceptOrder(orderID: String(self.ordersIDs[indexPath.row]), captainLat: String(currentLocation.coordinate.latitude), captainLng: String(currentLocation.coordinate.longitude))
 //        let mapVC = MapVC(nibName: "MapVC", bundle: nil)
 //        mapVC.orderDetails = self.selectedOrderDetails!
