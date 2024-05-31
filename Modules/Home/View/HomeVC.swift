@@ -12,7 +12,7 @@ import CoreLocation
 class HomeVC: UIViewController {
 
     @IBOutlet weak var captainName: UILabel!
-    @IBOutlet weak var CollectionView: UICollectionView!
+    @IBOutlet weak var ordersTableView: UITableView!
     @IBOutlet weak var captainStatus: UILabel!
     @IBOutlet weak var availabilitySwitch: UISwitch!
     @IBOutlet weak var availabilityInfo: UILabel!
@@ -39,9 +39,9 @@ class HomeVC: UIViewController {
         bindData()
         viewModel?.getCaptainDetails()
         
-        CollectionView.delegate = self
-        CollectionView.dataSource = self
-        CollectionView.register(UINib(nibName: "UpcomingRequestsCell", bundle: nil), forCellWithReuseIdentifier: "UpcomingRequestsCell")
+        ordersTableView.delegate = self
+        ordersTableView.dataSource = self
+        ordersTableView.register(UINib(nibName: "UpcomingRequestsCell", bundle: nil), forCellReuseIdentifier: "UpcomingRequestsCell")
         setupSideMenu()
         
         let status = UserInfo.shared.getCaptainStatus()
@@ -63,7 +63,7 @@ class HomeVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
         viewModel?.observeOrders(captainId: String(UserInfo.shared.get_ID()))
-        CollectionView.reloadData()
+        ordersTableView.reloadData()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -131,7 +131,7 @@ class HomeVC: UIViewController {
             else {
                 self.ordersDetails = result?.data
                 DispatchQueue.main.async {
-                    self.CollectionView.reloadData()
+                    self.ordersTableView.reloadData()
                 }
             }
             print(message)
@@ -148,7 +148,7 @@ class HomeVC: UIViewController {
                 //self.viewModel?.observeOrders(captainId: String(UserInfo.shared.get_ID()))
                 //self.ordersIDs = []
                 DispatchQueue.main.async {
-                    self.CollectionView.reloadData()
+                    self.ordersTableView.reloadData()
                 }
             }
             print(message)
@@ -259,8 +259,8 @@ extension HomeVC: UpcomingRequestsDelegate, OrderDetailsDelegate {
     }
     func acceptRequest(indexPath: IndexPath) {
         selectedOrderDetails = ordersDetails?[indexPath.row]
-        selectedOrderID = ordersIDs[indexPath.row]
-        viewModel?.acceptOrder(orderID: String(self.ordersIDs[indexPath.row]), captainLat: String(currentLocation.coordinate.latitude), captainLng: String(currentLocation.coordinate.longitude))
+        selectedOrderID = ordersDetails?[indexPath.row].id
+        viewModel?.acceptOrder(orderID: String(self.selectedOrderID!), captainLat: String(currentLocation.coordinate.latitude), captainLng: String(currentLocation.coordinate.longitude))
     }
     
     func seeDetail(indexPath: IndexPath) {
@@ -278,19 +278,22 @@ extension HomeVC: UpcomingRequestsDelegate, OrderDetailsDelegate {
 //        //self.CollectionView.deleteItems(at: [indexPath])
 //        self.CollectionView.reloadData()
 //        print(self.CollectionView.numberOfItems(inSection: 0))
-        viewModel?.rejectOrder(orderID: String(self.ordersIDs[indexPath.row]))
+        viewModel?.rejectOrder(orderID: String(self.ordersDetails![indexPath.row].id!))
+        ordersIDs.remove(at: indexPath.row)
+        ordersDetails?.remove(at: indexPath.row)
+        ordersTableView.deleteRows(at: [indexPath], with: .automatic)
     }
 }
 
-extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource{
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //upcomingRequests.count
+extension HomeVC: UITableViewDelegate, UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         ordersIDs.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UpcomingRequestsCell", for: indexPath) as! UpcomingRequestsCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = ordersTableView.dequeueReusableCell(withIdentifier: "UpcomingRequestsCell", for: indexPath) as! UpcomingRequestsCell
         cell.indexPath = indexPath
+        //cell.backgroundColor = .clear
         //cell.requestStatus = upcomingRequests[indexPath.row]
         let order = ordersDetails?[indexPath.row]
         switch order?.status {
@@ -309,13 +312,44 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource{
         cell.delegate = self
         return cell
     }
+    
+    
 }
 
-extension HomeVC: UICollectionViewDelegateFlowLayout{
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            let width = collectionView.bounds.width
-            let height: CGFloat = 230
-            
-            return CGSize(width: width, height: height)
-        }
-}
+//extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource{
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        //upcomingRequests.count
+//        ordersIDs.count
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UpcomingRequestsCell", for: indexPath) as! UpcomingRequestsCell
+//        cell.indexPath = indexPath
+//        //cell.requestStatus = upcomingRequests[indexPath.row]
+//        let order = ordersDetails?[indexPath.row]
+//        switch order?.status {
+//        case "pending":
+//            cell.requestStatus = .pendingAcceptance
+//        case .none:
+//            break
+//        case .some(_):
+//            break
+//        }
+//        cell.orderID.text = "#\(order?.id ?? 0) "
+//        cell.price.text = "\(order?.cost ?? "0") EGP"
+//        cell.paymentMethod.text = order?.paymentMethod?.name
+//        cell.pickupLocation.text = order?.pickupLocationName
+//        cell.dropoffLocation.text = order?.dropoffLocationName
+//        cell.delegate = self
+//        return cell
+//    }
+//}
+//
+//extension HomeVC: UICollectionViewDelegateFlowLayout{
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//            let width = collectionView.bounds.width
+//            let height: CGFloat = 230
+//
+//            return CGSize(width: width, height: height)
+//        }
+//}

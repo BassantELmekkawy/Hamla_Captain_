@@ -1,8 +1,8 @@
 //
 //  UpcomingRequestsCell.swift
-//  Hamla
+//  Hamla_iOS_Captain
 //
-//  Created by Bassant on 11/03/2024.
+//  Created by Bassant on 31/05/2024.
 //
 
 import UIKit
@@ -19,14 +19,14 @@ enum UpcomingRequest{
     case pendingAcceptance
 }
 
-class UpcomingRequestsCell: UICollectionViewCell {
+class UpcomingRequestsCell: UITableViewCell {
 
     @IBOutlet weak var orderID: UILabel!
     @IBOutlet weak var price: UILabel!
     @IBOutlet weak var paymentMethod: UILabel!
-    @IBOutlet weak var setPriceBtn: UIButton!
     @IBOutlet weak var pickupLocation: UILabel!
     @IBOutlet weak var dropoffLocation: UILabel!
+    @IBOutlet weak var setPriceBtn: UIButton!
     
     weak var delegate: UpcomingRequestsDelegate?
     var indexPath: IndexPath!
@@ -47,15 +47,25 @@ class UpcomingRequestsCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.contentView.layer.cornerRadius = 30
+                self.contentView.layer.masksToBounds = true
+    }
+
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+
+        // Configure the view for the selected state
     }
     
-    @IBAction func SeeDetail(_ sender: Any) {
+    
+    @IBAction func SeeDetails(_ sender: Any) {
         delegate?.seeDetail(indexPath: indexPath)
     }
     
     @IBAction func Reject(_ sender: Any) {
         delegate?.reject(at: indexPath)
     }
+    
     @IBAction func SetPrice(_ sender: Any) {
         switch requestStatus {
         case .pendingPrice:
@@ -64,5 +74,4 @@ class UpcomingRequestsCell: UICollectionViewCell {
             delegate?.acceptRequest(indexPath: indexPath)
         }
     }
-    
 }
