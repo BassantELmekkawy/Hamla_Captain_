@@ -9,7 +9,7 @@ import UIKit
 import FittedSheets
 import CoreLocation
 
-class HomeVC: UIViewController, CustomAlertDelegate {
+class HomeVC: UIViewController {
 
     @IBOutlet weak var captainName: UILabel!
     @IBOutlet weak var CollectionView: UICollectionView!
@@ -38,7 +38,6 @@ class HomeVC: UIViewController, CustomAlertDelegate {
         self.viewModel = HomeViewModel(api: HomeApi())
         bindData()
         viewModel?.getCaptainDetails()
-        viewModel?.observeOrders(captainId: String(UserInfo.shared.get_ID()))
         
         CollectionView.delegate = self
         CollectionView.dataSource = self
@@ -63,6 +62,12 @@ class HomeVC: UIViewController, CustomAlertDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
+        viewModel?.observeOrders(captainId: String(UserInfo.shared.get_ID()))
+        CollectionView.reloadData()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        viewModel?.removeOrdersObserver()
     }
     
     func getCurrentLocation() {
@@ -157,7 +162,7 @@ class HomeVC: UIViewController, CustomAlertDelegate {
             }
             else {
                 let mapVC = MapVC(nibName: "MapVC", bundle: nil)
-                let orderID = String(self.selectedOrderID!)
+                //let orderID = String(self.selectedOrderID!)
                 //self.viewModel?.getOrdersDetails(orderIDs: [orderID])
                 mapVC.orderDetails = self.selectedOrderDetails!
                 //mapVC.orderID = self.selectedOrderID!
@@ -217,8 +222,6 @@ class HomeVC: UIViewController, CustomAlertDelegate {
         overlay.isHidden = false
         UIView.animate(withDuration: 0.3) {
             self.sideMenuViewController.view.frame.origin.x = 0
-            //self.view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-            
         }
     }
     
@@ -236,8 +239,18 @@ class HomeVC: UIViewController, CustomAlertDelegate {
         overlay.layer.opacity = 0.8
         view.addSubview(overlay)
     }
+    
+    @IBAction func ShowSideMenu(_ sender: Any) {
+        showSideMenu()
+    }
+    
+    @IBAction func UpdateAvailability(_ sender: UISwitch) {
+        viewModel?.updateAvailability(lat: String(currentLocation.coordinate.latitude), lng: String(currentLocation.coordinate.longitude))
+    }
+    
+}
 
-
+extension HomeVC: UpcomingRequestsDelegate, OrderDetailsDelegate {
     func showPriceAlert() {
         let alertViewController = SetPriceAlertView(nibName: "SetPriceAlertView", bundle: nil)
         alertViewController.modalPresentationStyle = .overCurrentContext
@@ -248,14 +261,15 @@ class HomeVC: UIViewController, CustomAlertDelegate {
         selectedOrderDetails = ordersDetails?[indexPath.row]
         selectedOrderID = ordersIDs[indexPath.row]
         viewModel?.acceptOrder(orderID: String(self.ordersIDs[indexPath.row]), captainLat: String(currentLocation.coordinate.latitude), captainLng: String(currentLocation.coordinate.longitude))
-//        let mapVC = MapVC(nibName: "MapVC", bundle: nil)
-//        mapVC.orderDetails = self.selectedOrderDetails!
-//        mapVC.currentLocation = self.currentLocation
-//        self.navigationController?.pushViewController(mapVC, animated: true)
     }
     
     func seeDetail(indexPath: IndexPath) {
-        
+        let vc = OrderDetailsVC(nibName: "OrderDetailsVC", bundle: nil)
+        vc.orderDetails = self.ordersDetails![indexPath.row]
+        vc.orderStatus = .pendingAcceptance
+        vc.delegate = self
+        vc.indexPath = indexPath
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func reject(at indexPath: IndexPath) {
@@ -266,17 +280,6 @@ class HomeVC: UIViewController, CustomAlertDelegate {
 //        print(self.CollectionView.numberOfItems(inSection: 0))
         viewModel?.rejectOrder(orderID: String(self.ordersIDs[indexPath.row]))
     }
-    
-    @IBAction func ShowSideMenu(_ sender: Any) {
-        showSideMenu()
-        //let vm = MapViewModel(api: MapApi())
-        //vm.cancelOrder(orderID: "505")
-    }
-    
-    @IBAction func UpdateAvailability(_ sender: UISwitch) {
-        viewModel?.updateAvailability(lat: String(currentLocation.coordinate.latitude), lng: String(currentLocation.coordinate.longitude))
-    }
-    
 }
 
 extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource{

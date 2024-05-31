@@ -122,12 +122,17 @@ class HomeViewModel: HomeViewModelProtocol {
     }
     
     func observeOrders(captainId: String) {
+        removeOrdersObserver()
         FirebaseManager.shared.observeNewOrdersAddedToCaptain(captainId: captainId) { captainData in
-                guard let captainData = captainData else {
-                    return
-                }
-                self.captainData.value = captainData
-                print("New Orders: \(captainData)")
+            guard let captainData = captainData else {
+                return
             }
+            self.captainData.value = captainData
+            print("New Orders: \(captainData)")
         }
+    }
+    
+    func removeOrdersObserver() {
+        FirebaseManager.shared.removeObserverForCaptain(captainId: String(UserInfo.shared.get_ID()))
+    }
 }

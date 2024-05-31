@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol CustomAlertDelegate: AnyObject {
+protocol UpcomingRequestsDelegate: AnyObject {
     func seeDetail(indexPath: IndexPath)
     func reject(at indexPath: IndexPath)
     func showPriceAlert()
@@ -28,7 +28,7 @@ class UpcomingRequestsCell: UICollectionViewCell {
     @IBOutlet weak var pickupLocation: UILabel!
     @IBOutlet weak var dropoffLocation: UILabel!
     
-    weak var delegate: CustomAlertDelegate?
+    weak var delegate: UpcomingRequestsDelegate?
     var indexPath: IndexPath!
     var requestStatus: UpcomingRequest = .pendingPrice {
         didSet {
