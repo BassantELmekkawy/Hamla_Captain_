@@ -18,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ebl-TN-jqj">
-                        <rect key="frame" x="0.0" y="0.0" width="407" height="264"/>
+                        <rect key="frame" x="0.0" y="0.0" width="407" height="249"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#48768576" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WAH-OZ-MBJ">
                                 <rect key="frame" x="16" y="16" width="103" height="25"/>
@@ -66,16 +66,16 @@
                                 </buttonConfiguration>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ag0-et-ERA">
-                                <rect key="frame" x="16" y="88.333333333333314" width="375" height="104.66666666666669"/>
+                                <rect key="frame" x="16" y="88.333333333333314" width="375" height="89.666666666666686"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Road Icon" translatesAutoresizingMaskIntoConstraints="NO" id="gCD-F4-GsC">
-                                        <rect key="frame" x="0.0" y="26" width="10" height="53"/>
+                                        <rect key="frame" x="0.0" y="18.333333333333343" width="10" height="53"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="10" id="VsB-Os-hVN"/>
                                         </constraints>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="9" translatesAutoresizingMaskIntoConstraints="NO" id="eiV-0C-Syy">
-                                        <rect key="frame" x="20" y="26" width="355" height="53"/>
+                                        <rect key="frame" x="20" y="18.333333333333343" width="355" height="53"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12 B Zayed park, Giza" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="59c-Rq-Lge">
                                                 <rect key="frame" x="0.0" y="0.0" width="140" height="17"/>
@@ -84,14 +84,14 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IKZ-4y-zX3">
-                                                <rect key="frame" x="0.0" y="26.000000000000014" width="292" height="1"/>
+                                                <rect key="frame" x="0.0" y="25.999999999999986" width="292" height="1"/>
                                                 <color key="backgroundColor" name="background"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="gIs-Ix-u7l"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="749" text="1256 Boulevard, Sixth of October" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ywH-8Z-L8V">
-                                                <rect key="frame" x="0.0" y="36.000000000000014" width="214" height="17"/>
+                                                <rect key="frame" x="0.0" y="35.999999999999986" width="214" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" name="primary-dark"/>
                                                 <nil key="highlightedColor"/>
@@ -101,7 +101,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="eSf-UB-e4M">
-                                <rect key="frame" x="16" y="213" width="375" height="35"/>
+                                <rect key="frame" x="16" y="198" width="375" height="35"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ug2-ZD-Gcn">
                                         <rect key="frame" x="0.0" y="0.0" width="120" height="35"/>
@@ -185,6 +185,23 @@
                                             <action selector="SetPrice:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="kIs-oR-LAE"/>
                                         </connections>
                                     </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bg2-O6-S8p">
+                                        <rect key="frame" x="375" y="0.0" width="0.0" height="35"/>
+                                        <color key="backgroundColor" name="primary"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Navigate to map">
+                                            <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="10"/>
+                                            <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </buttonConfiguration>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="8"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="navigateToMap:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="7Ou-Mh-j6Q"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="JLW-Fq-GNW"/>
@@ -220,17 +237,19 @@
                     <constraint firstItem="Ebl-TN-jqj" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="7X8-M3-pTw"/>
                     <constraint firstAttribute="trailing" secondItem="Ebl-TN-jqj" secondAttribute="trailing" id="CEi-hP-Ga4"/>
                     <constraint firstItem="Ebl-TN-jqj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="bCU-4Q-FJB"/>
-                    <constraint firstAttribute="bottom" secondItem="Ebl-TN-jqj" secondAttribute="bottom" id="lsn-7X-POU"/>
+                    <constraint firstAttribute="bottom" secondItem="Ebl-TN-jqj" secondAttribute="bottom" constant="15" id="lsn-7X-POU"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="dropoffLocation" destination="ywH-8Z-L8V" id="90t-sB-I4x"/>
+                <outlet property="navigateToMapBtn" destination="bg2-O6-S8p" id="5Sy-s9-BCD"/>
                 <outlet property="orderID" destination="WAH-OZ-MBJ" id="PpT-yR-BNK"/>
                 <outlet property="paymentMethod" destination="nwI-wx-f4b" id="5pz-7b-gkW"/>
                 <outlet property="pickupLocation" destination="59c-Rq-Lge" id="cfz-bo-phX"/>
                 <outlet property="price" destination="Uku-c0-9c6" id="eo5-J4-uYg"/>
+                <outlet property="rejectBtn" destination="AJD-uW-sJg" id="VkG-uS-wxa"/>
                 <outlet property="setPriceBtn" destination="cTx-DK-DSR" id="rdT-38-GQr"/>
             </connections>
             <point key="canvasLocation" x="-8.3969465648854964" y="30.281690140845072"/>

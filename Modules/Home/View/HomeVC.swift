@@ -20,7 +20,7 @@ class HomeVC: UIViewController {
     var sideMenuViewController: SideMenuVC!
     var sideMenuWidth: CGFloat = 260
     var overlay = UIView()
-    var ordersDetails: [Order]?
+    var ordersDetails: [Order]? = []
     var ordersIDs: [Int] = []
     var selectedOrderDetails: Order?
     var selectedOrderID: Int?
@@ -44,6 +44,8 @@ class HomeVC: UIViewController {
         ordersTableView.register(UINib(nibName: "UpcomingRequestsCell", bundle: nil), forCellReuseIdentifier: "UpcomingRequestsCell")
         setupSideMenu()
         
+        captainName.text = UserInfo.shared.get_username()
+        
         let status = UserInfo.shared.getCaptainStatus()
         switch status {
         case true:
@@ -62,12 +64,12 @@ class HomeVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.isHidden = true
-        viewModel?.observeOrders(captainId: String(UserInfo.shared.get_ID()))
+        viewModel?.isCaptainOnOrder()
         ordersTableView.reloadData()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        viewModel?.removeOrdersObserver()
+        //viewModel?.removeOrdersObserver()
     }
     
     func getCurrentLocation() {
@@ -123,6 +125,23 @@ class HomeVC: UIViewController {
             print(message)
         }
         
+        viewModel?.captainOnOrderResult.bind { result in
+            guard let message = result?.message else { return }
+            if result?.status == 0 {
+                self.viewModel?.observeOrders(captainId: String(UserInfo.shared.get_ID()))
+            }
+            else {
+                if let currentOrder = result?.data, let orderID = currentOrder.id {
+                    self.ordersIDs = [orderID]
+                    self.ordersDetails = [currentOrder]
+                }
+                DispatchQueue.main.async {
+                    self.ordersTableView.reloadData()
+                }
+            }
+            print(message)
+        }
+        
         viewModel?.orderDetailsResult.bind { result in
             guard let message = result?.message else { return }
             if result?.status == 0 {
@@ -161,6 +180,7 @@ class HomeVC: UIViewController {
                 //print("Order ID:....... \(self.ordersIDs)")
             }
             else {
+                self.ordersIDs = []
                 let mapVC = MapVC(nibName: "MapVC", bundle: nil)
                 //let orderID = String(self.selectedOrderID!)
                 //self.viewModel?.getOrdersDetails(orderIDs: [orderID])
@@ -183,8 +203,8 @@ class HomeVC: UIViewController {
             print(message)
         }
         
-        viewModel?.captainData.bind { captainData in
-            guard let orders = captainData?["assignOrder"] as? [Int] else {
+        viewModel?.assignOrder.bind { assignOrder in
+            guard let orders = assignOrder, orders.count != 0 else {
                 self.ordersIDs = []
                 return
             }
@@ -251,6 +271,13 @@ class HomeVC: UIViewController {
 }
 
 extension HomeVC: UpcomingRequestsDelegate, OrderDetailsDelegate {
+    func navigateToMap() {
+        let mapVC = MapVC(nibName: "MapVC", bundle: nil)
+        mapVC.orderDetails = self.ordersDetails![0]
+        mapVC.currentLocation = self.currentLocation
+        self.navigationController?.pushViewController(mapVC, animated: true)
+    }
+    
     func showPriceAlert() {
         let alertViewController = SetPriceAlertView(nibName: "SetPriceAlertView", bundle: nil)
         alertViewController.modalPresentationStyle = .overCurrentContext
@@ -299,13 +326,16 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource{
         switch order?.status {
         case "pending":
             cell.requestStatus = .pendingAcceptance
+        case "accepted":
+            cell.requestStatus = .accepted
         case .none:
             break
         case .some(_):
             break
         }
         cell.orderID.text = "#\(order?.id ?? 0) "
-        cell.price.text = "\(order?.cost ?? "0") EGP"
+        //cell.price.text = "\(order?.cost ?? "0") EGP"
+        cell.price.text = "\(order?.estimateCostFrom ?? "0")-\(order?.estimateCostTo ?? "0") EGP"
         cell.paymentMethod.text = order?.paymentMethod?.name
         cell.pickupLocation.text = order?.pickupLocationName
         cell.dropoffLocation.text = order?.dropoffLocationName
@@ -315,41 +345,3 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource{
     
     
 }
-
-//extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource{
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        //upcomingRequests.count
-//        ordersIDs.count
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UpcomingRequestsCell", for: indexPath) as! UpcomingRequestsCell
-//        cell.indexPath = indexPath
-//        //cell.requestStatus = upcomingRequests[indexPath.row]
-//        let order = ordersDetails?[indexPath.row]
-//        switch order?.status {
-//        case "pending":
-//            cell.requestStatus = .pendingAcceptance
-//        case .none:
-//            break
-//        case .some(_):
-//            break
-//        }
-//        cell.orderID.text = "#\(order?.id ?? 0) "
-//        cell.price.text = "\(order?.cost ?? "0") EGP"
-//        cell.paymentMethod.text = order?.paymentMethod?.name
-//        cell.pickupLocation.text = order?.pickupLocationName
-//        cell.dropoffLocation.text = order?.dropoffLocationName
-//        cell.delegate = self
-//        return cell
-//    }
-//}
-//
-//extension HomeVC: UICollectionViewDelegateFlowLayout{
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//            let width = collectionView.bounds.width
-//            let height: CGFloat = 230
-//
-//            return CGSize(width: width, height: height)
-//        }
-//}

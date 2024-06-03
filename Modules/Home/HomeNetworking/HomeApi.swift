@@ -10,6 +10,7 @@ import Foundation
 protocol HomeApiProtocol {
     
     func getCaptainDetails(completion: @escaping (Result<RegisterModel? , CustomError>) -> Void)
+    func isCaptainOnOrder(completion: @escaping (Result<CaptainOnOrderModel? , CustomError>) -> Void)
     func getOrdersDetails(orderIDs: [String], completion: @escaping (Result<OrdersDetailsModel? , CustomError>) -> Void)
     func acceptOrder(orderID: String, captainLat: String, captainLng: String, completion: @escaping (Result<Model? , CustomError>) -> Void)
     func rejectOrder(orderID: String, completion: @escaping (Result<Model? , CustomError>) -> Void)
@@ -27,6 +28,13 @@ class HomeApi: BaseAPI<HomeNetworking>,HomeApiProtocol{
     
     func getCaptainDetails(completion: @escaping (Result<RegisterModel?, CustomError>) -> Void) {
         self.performRequest(target: .captainDetails, responseClass: RegisterModel.self) { result in
+            print("result", result)
+            completion(result)
+        }
+    }
+    
+    func isCaptainOnOrder(completion: @escaping (Result<CaptainOnOrderModel?, CustomError>) -> Void) {
+        self.performRequest(target: .isCaptainOnOrder, responseClass: CaptainOnOrderModel.self) { result in
             print("result", result)
             completion(result)
         }

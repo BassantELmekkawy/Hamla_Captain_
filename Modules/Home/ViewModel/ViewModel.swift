@@ -10,15 +10,17 @@ import Foundation
 protocol HomeViewModelProtocol {
     
     func getCaptainDetails()
+    func isCaptainOnOrder()
     func getOrdersDetails(orderIDs: [String])
     func acceptOrder(orderID: String, captainLat: String, captainLng: String)
     func rejectOrder(orderID: String)
     
     var captainDetailsResult: Observable<RegisterModel?> { get set }
+    var captainOnOrderResult: Observable<CaptainOnOrderModel?> { get set }
     var orderDetailsResult:Observable<OrdersDetailsModel?> { get set }
     var acceptResult:Observable<Model?> { get set }
     var rejectResult:Observable<Model?> { get set }
-    var captainData: Observable<[String: Any]?>{get set}
+    var assignOrder: Observable<[Int]?>{get set}
     func updateAvailability(lat: String, lng: String)
     var updateAvailabilityResult:Observable<UpdateAvailabilityModel?> { get set }
     var errorMessage:Observable<String?> { get set }
@@ -28,10 +30,11 @@ protocol HomeViewModelProtocol {
 class HomeViewModel: HomeViewModelProtocol {
     
     var captainDetailsResult: Observable<RegisterModel?>  = Observable(nil)
+    var captainOnOrderResult: Observable<CaptainOnOrderModel?>  = Observable(nil)
     var orderDetailsResult: Observable<OrdersDetailsModel?>  = Observable(nil)
     var acceptResult: Observable<Model?>  = Observable(nil)
     var rejectResult: Observable<Model?>  = Observable(nil)
-    var captainData: Observable<[String: Any]?> = Observable(nil)
+    var assignOrder: Observable<[Int]?> = Observable(nil)
     var updateAvailabilityResult: Observable<UpdateAvailabilityModel?>  = Observable(nil)
     var errorMessage: Observable<String?> = Observable(nil)
     
@@ -48,6 +51,22 @@ class HomeViewModel: HomeViewModelProtocol {
             case .success(let result):
                 print(result)
                 self.captainDetailsResult.value = result
+            case .failure(let error):
+                self.errorMessage.value = error.message
+                
+                print("error", error.message)
+
+            }
+        }
+    }
+    
+    func isCaptainOnOrder() {
+        self.api.isCaptainOnOrder { result in
+            
+            switch result {
+            case .success(let result):
+                print(result)
+                self.captainOnOrderResult.value = result
             case .failure(let error):
                 self.errorMessage.value = error.message
                 
@@ -123,12 +142,12 @@ class HomeViewModel: HomeViewModelProtocol {
     
     func observeOrders(captainId: String) {
         removeOrdersObserver()
-        FirebaseManager.shared.observeNewOrdersAddedToCaptain(captainId: captainId) { captainData in
-            guard let captainData = captainData else {
+        FirebaseManager.shared.observeNewOrdersAddedToCaptain(captainId: captainId) { assignOrder in
+            guard let assignOrder = assignOrder else {
                 return
             }
-            self.captainData.value = captainData
-            print("New Orders: \(captainData)")
+            self.assignOrder.value = assignOrder
+            print("New Orders: \(assignOrder)")
         }
     }
     

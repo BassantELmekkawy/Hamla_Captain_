@@ -165,6 +165,7 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
     
     func showRequest() {
         showSheet(controller: currentRequestVC, sizes: [.fixed(240) , .fixed(30)], horizontalPadding: 30)
+        currentRequestVC.customerName.text = orderDetails.customer?.fullName
     }
     
     func showSheet(controller : UIViewController, sizes:[SheetSize], horizontalPadding: CGFloat = 0) {
@@ -187,9 +188,6 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
         sheet?.cornerRadius = 20
         sheet?.allowGestureThroughOverlay = true
         sheet?.animateIn(to: view, in: self)
-        sheet?.didDismiss = { _ in
-            print("xxxxxxxxxxxxxxx")
-        }
         
     }
     
@@ -205,6 +203,7 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
         sheet?.animateOut()
         if isOrderCompleted {
             showSheet(controller: orderCompletedSheet, sizes: [.fixed(370)], horizontalPadding: 30)
+            orderCompletedSheet.customerName.text = orderDetails.customer?.fullName
             orderCompletedSheet.cost.text = String(cost)
         } else{
             showSheet(controller: orderStatusSheet, sizes: [.fixed(400)])

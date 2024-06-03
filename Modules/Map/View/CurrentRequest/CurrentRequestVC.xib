@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CurrentRequestVC" customModule="Hamla_iOS_Captain" customModuleProvider="target">
             <connections>
+                <outlet property="customerName" destination="27T-Zn-SnV" id="4lt-2V-OoR"/>
                 <outlet property="statusBar" destination="mbR-DY-Tye" id="upg-C3-6Cp"/>
                 <outlet property="statusTitle" destination="pvM-Um-bjB" id="Vpt-m9-C4H"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>

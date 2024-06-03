@@ -10,6 +10,7 @@ import Alamofire
 
 enum HomeNetworking {
     case captainDetails
+    case isCaptainOnOrder
     case getOrdersDetails(orderIDs: [String])
     case acceptOrder(orderID: String, captainLat: String, captainLng: String)
     case rejectOrder(orderID: String)
@@ -29,6 +30,8 @@ extension HomeNetworking: TargetType {
         switch self {
         case .captainDetails:
             return "captain-details"
+        case .isCaptainOnOrder:
+            return "captain-on-order"
         case .getOrdersDetails:
             return "get-orders-details"
         case .acceptOrder:
@@ -44,6 +47,8 @@ extension HomeNetworking: TargetType {
         switch self {
         case .captainDetails:
             return .get
+        case .isCaptainOnOrder:
+            return .get
         case .getOrdersDetails:
             return .post
         case .acceptOrder:
@@ -58,6 +63,8 @@ extension HomeNetworking: TargetType {
     var task: Task {
         switch self{
         case .captainDetails:
+            return .requestPlain
+        case .isCaptainOnOrder:
             return .requestPlain
         case .getOrdersDetails(orderIDs: let orderIDs):
             return.requestParameters(parameters: ["order_ids": orderIDs], encoding: JSONEncoding.default)

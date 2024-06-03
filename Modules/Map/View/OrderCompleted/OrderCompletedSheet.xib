@@ -15,6 +15,7 @@
                 <outlet property="cosmosView" destination="l9c-ua-cYp" id="Q1N-iv-mGj"/>
                 <outlet property="cost" destination="K99-Rm-VuZ" id="1dn-TB-mi1"/>
                 <outlet property="costView" destination="19Q-Oq-PIg" id="LE6-87-RMp"/>
+                <outlet property="customerName" destination="EGl-aM-3de" id="PAd-Kp-Irs"/>
                 <outlet property="instructionsLabel" destination="Dw9-sG-TvE" id="XiX-QG-Q1E"/>
                 <outlet property="ratingView" destination="nuZ-a0-ppa" id="Mg2-jj-Wxt"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>

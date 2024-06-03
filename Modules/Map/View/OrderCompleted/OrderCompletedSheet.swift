@@ -16,6 +16,7 @@ protocol OrderCompletedSheetDelegate: AnyObject {
 class OrderCompletedSheet: UIViewController {
 
     @IBOutlet weak var instructionsLabel: UILabel!
+    @IBOutlet weak var customerName: UILabel!
     @IBOutlet weak var amount: UITextField!
     @IBOutlet weak var ratingView: UIView!
     @IBOutlet weak var cosmosView: CosmosView!

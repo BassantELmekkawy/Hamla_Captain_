@@ -30,6 +30,7 @@ class CurrentRequestVC: UIViewController {
 
     @IBOutlet weak var statusTitle: UILabel!
     @IBOutlet weak var statusBar: UIView!
+    @IBOutlet weak var customerName: UILabel!
     
     weak var delegate: CurrentRequestDelegate?
     

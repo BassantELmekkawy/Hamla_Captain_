@@ -7,8 +7,6 @@
 
 import Foundation
 
-import Foundation
-
 // MARK: - Response
 struct OrdersDetailsModel: Codable {
     let status: Int

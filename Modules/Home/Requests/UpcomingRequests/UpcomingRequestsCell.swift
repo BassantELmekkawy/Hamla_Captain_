@@ -12,11 +12,13 @@ protocol UpcomingRequestsDelegate: AnyObject {
     func reject(at indexPath: IndexPath)
     func showPriceAlert()
     func acceptRequest(indexPath: IndexPath)
+    func navigateToMap()
 }
 
 enum UpcomingRequest{
     case pendingPrice
     case pendingAcceptance
+    case accepted
 }
 
 class UpcomingRequestsCell: UITableViewCell {
@@ -26,7 +28,9 @@ class UpcomingRequestsCell: UITableViewCell {
     @IBOutlet weak var paymentMethod: UILabel!
     @IBOutlet weak var pickupLocation: UILabel!
     @IBOutlet weak var dropoffLocation: UILabel!
+    @IBOutlet weak var rejectBtn: UIButton!
     @IBOutlet weak var setPriceBtn: UIButton!
+    @IBOutlet weak var navigateToMapBtn: UIButton!
     
     weak var delegate: UpcomingRequestsDelegate?
     var indexPath: IndexPath!
@@ -35,11 +39,21 @@ class UpcomingRequestsCell: UITableViewCell {
             switch requestStatus {
             case .pendingPrice:
                 setPriceBtn.backgroundColor = UIColor(named: "quaternary")
+                navigateToMapBtn.isHidden = true
+                rejectBtn.isHidden = false
+                setPriceBtn.isHidden = false
             case .pendingAcceptance:
                 setPriceBtn.backgroundColor = UIColor(named: "accent")
                 setPriceBtn.setTitle("Accept", for: .normal)
-                price.text = "105 EGP"
-                price.textColor = UIColor(named: "accent")
+                price.textColor = UIColor(named: "primary")
+                //price.textColor = UIColor(named: "accent")
+                navigateToMapBtn.isHidden = true
+                rejectBtn.isHidden = false
+                setPriceBtn.isHidden = false
+            case .accepted:
+                navigateToMapBtn.isHidden = false
+                rejectBtn.isHidden = true
+                setPriceBtn.isHidden = true
             }
         }
     }
@@ -72,6 +86,13 @@ class UpcomingRequestsCell: UITableViewCell {
             delegate?.showPriceAlert()
         case .pendingAcceptance:
             delegate?.acceptRequest(indexPath: indexPath)
+        case .accepted:
+            break
         }
     }
+    
+    @IBAction func navigateToMap(_ sender: Any) {
+        delegate?.navigateToMap()
+    }
+    
 }
