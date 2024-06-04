@@ -129,8 +129,10 @@ class HomeVC: UIViewController {
             guard let message = result?.message else { return }
             if result?.status == 0 {
                 self.viewModel?.observeOrders(captainId: String(UserInfo.shared.get_ID()))
+                UserInfo.shared.setCaptainOnOrder(status: false)
             }
             else {
+                UserInfo.shared.setCaptainOnOrder(status: true)
                 if let currentOrder = result?.data, let orderID = currentOrder.id {
                     self.ordersIDs = [orderID]
                     self.ordersDetails = [currentOrder]
@@ -180,6 +182,7 @@ class HomeVC: UIViewController {
                 //print("Order ID:....... \(self.ordersIDs)")
             }
             else {
+                UserInfo.shared.setCaptainOnOrder(status: true)
                 self.ordersIDs = []
                 let mapVC = MapVC(nibName: "MapVC", bundle: nil)
                 //let orderID = String(self.selectedOrderID!)
@@ -326,7 +329,7 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource{
         switch order?.status {
         case "pending":
             cell.requestStatus = .pendingAcceptance
-        case "accepted":
+        case "accepted","start_order":
             cell.requestStatus = .accepted
         case .none:
             break

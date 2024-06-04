@@ -41,8 +41,12 @@ class SideMenuVC: UIViewController {
     
     
     @IBAction func logout(_ sender: Any) {
-        UserInfo.shared.logOut()
-        UserInfo.shared.setRootViewController(SignInVC())
+        if UserInfo.shared.isCaptainOnOrder() {
+            Toast.show(message: "Cannot log out while on a current order", controller: self)
+        }else{
+            UserInfo.shared.logOut()
+            UserInfo.shared.setRootViewController(SignInVC())
+        }
     }
 }
 

@@ -53,3 +53,59 @@ class AlertManager {
         popup = nil
     }
 }
+
+class Toast {
+    static func show(message: String, controller: UIViewController) {
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let window = windowScene.windows.first(where: { $0.isKeyWindow }) else { return }
+
+        let toastContainer = UIView(frame: CGRect())
+        toastContainer.backgroundColor = .white
+        toastContainer.borderWidth = 1
+        toastContainer.borderColor = UIColor(named: "background")
+        toastContainer.alpha = 0.0
+        toastContainer.layer.cornerRadius = 4
+        toastContainer.clipsToBounds = true
+
+        let toastLabel = UILabel(frame: CGRect())
+        toastLabel.textColor = UIColor(named: "quaternary")
+        toastLabel.textAlignment = .natural
+        toastLabel.font = UIFont.systemFont(ofSize: 14.0, weight: .semibold)
+        toastLabel.text = message
+        toastLabel.clipsToBounds = true
+        toastLabel.numberOfLines = 0
+
+        toastContainer.addSubview(toastLabel)
+        window.addSubview(toastContainer)
+
+        toastLabel.translatesAutoresizingMaskIntoConstraints = false
+        toastContainer.translatesAutoresizingMaskIntoConstraints = false
+
+        // Constraints for toastLabel inside toastContainer
+        let labelConstraints = [
+            toastLabel.leadingAnchor.constraint(equalTo: toastContainer.leadingAnchor, constant: 15),
+            toastLabel.trailingAnchor.constraint(equalTo: toastContainer.trailingAnchor, constant: -15),
+            toastLabel.bottomAnchor.constraint(equalTo: toastContainer.bottomAnchor, constant: -15),
+            toastLabel.topAnchor.constraint(equalTo: toastContainer.topAnchor, constant: 15)
+        ]
+        toastContainer.addConstraints(labelConstraints)
+
+        // Constraints for toastContainer inside window
+        let containerConstraints = [
+            toastContainer.leadingAnchor.constraint(equalTo: window.leadingAnchor, constant: 65),
+            toastContainer.trailingAnchor.constraint(equalTo: window.trailingAnchor, constant: -65),
+            toastContainer.bottomAnchor.constraint(equalTo: window.bottomAnchor, constant: -75)
+        ]
+        window.addConstraints(containerConstraints)
+
+        UIView.animate(withDuration: 1.0, delay: 0.0, options: .curveEaseIn, animations: {
+            toastContainer.alpha = 1.0
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.5, delay: 1.5, options: .curveEaseOut, animations: {
+                toastContainer.alpha = 0.0
+            }, completion: { _ in
+                toastContainer.removeFromSuperview()
+            })
+        })
+    }
+}
