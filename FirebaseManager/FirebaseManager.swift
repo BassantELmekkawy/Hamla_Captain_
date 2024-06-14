@@ -40,6 +40,20 @@ class FirebaseManager {
         })
         observerHandles[captainId] = handle
     }
+    
+    func updateLocation(captainId: String, lat: String, lng: String) {
+        let ref = Database.database().reference()
+        
+        let location: [String: String] = ["lat": lat, "lng": lng]
+        
+        ref.child("OnlineCaptains").child(captainId).updateChildValues(location) { (error, ref) in
+            if let error = error {
+                print("Error updating location: \(error)")
+            } else {
+                print("Location updated successfully")
+            }
+        }
+    }
 
     
 //    func observeNewOrdersAddedToCaptain(captainId: String,completion: @escaping ([Any]?) -> Void) {

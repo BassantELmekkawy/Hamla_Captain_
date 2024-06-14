@@ -130,6 +130,7 @@ class HomeVC: UIViewController {
             if result?.status == 0 {
                 self.viewModel?.observeOrders(captainId: String(UserInfo.shared.get_ID()))
                 UserInfo.shared.setCaptainOnOrder(status: false)
+                self.ordersIDs = []
             }
             else {
                 UserInfo.shared.setCaptainOnOrder(status: true)
@@ -137,9 +138,9 @@ class HomeVC: UIViewController {
                     self.ordersIDs = [orderID]
                     self.ordersDetails = [currentOrder]
                 }
-                DispatchQueue.main.async {
-                    self.ordersTableView.reloadData()
-                }
+            }
+            DispatchQueue.main.async {
+                self.ordersTableView.reloadData()
             }
             print(message)
         }
@@ -290,6 +291,7 @@ extension HomeVC: UpcomingRequestsDelegate, OrderDetailsDelegate {
     func acceptRequest(indexPath: IndexPath) {
         selectedOrderDetails = ordersDetails?[indexPath.row]
         selectedOrderID = ordersDetails?[indexPath.row].id
+        print("Order id = \(ordersIDs[indexPath.row]) is accepted")
         viewModel?.acceptOrder(orderID: String(self.selectedOrderID!), captainLat: String(currentLocation.coordinate.latitude), captainLng: String(currentLocation.coordinate.longitude))
     }
     
@@ -329,12 +331,10 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource{
         switch order?.status {
         case "pending":
             cell.requestStatus = .pendingAcceptance
-        case "accepted","start_order":
+//        case "accepted","start_order","approve":
+//            cell.requestStatus = .accepted
+        default:
             cell.requestStatus = .accepted
-        case .none:
-            break
-        case .some(_):
-            break
         }
         cell.orderID.text = "#\(order?.id ?? 0) "
         //cell.price.text = "\(order?.cost ?? "0") EGP"

@@ -14,15 +14,27 @@ enum TripStatus{
     case OrderCompleted
 }
 
-enum orderStatus {
-    case arrivedToPickup
+enum OrderStatus: String {
+    case goingToPickup = "on_the_way"
+    case arrivedToPickup = "arrived"
+    case startLoad = "start_load"
+    case endLoad = "end_load"
+    case goingToPoint
+    case arrivedPoint
     case goingToDropoff
-    case arrivedToDropoff
-    case shipmentCompleted
+    case arrivedToDropoff = "dropoff"
+    case startUnload = "start_unload"
+    case endUnload = "end_unload"
+    case orderCompleted = "pay"
+
+    // Initializer to create an OrderStatus from a string
+    init?(from string: String) {
+        self.init(rawValue: string)
+    }
 }
 
 protocol CurrentRequestDelegate: AnyObject {
-    func updateStatus(status: orderStatus)
+    func updateStatus(status: OrderStatus)
     func dismissOrder()
 }
 
@@ -34,13 +46,11 @@ class CurrentRequestVC: UIViewController {
     
     weak var delegate: CurrentRequestDelegate?
     
-    var currentStatus: TripStatus = .GoingToPickup
-    var status: orderStatus = .arrivedToPickup
+    var status: OrderStatus = .goingToPickup
+    var point = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        currentStatus = .GoingToPickup
     }
 
     @IBAction func SeeDetail(_ sender: Any) {
@@ -48,40 +58,35 @@ class CurrentRequestVC: UIViewController {
     }
     
     @IBAction func UpdateStatus(_ sender: Any) {
-        print("sssssssssss")
         delegate?.updateStatus(status: status)
-        //delegate?.dismissOrder()
-//        switch currentStatus{
-//        case .GoingToPickup:
-//            currentStatus = .ArrivedToPickup
-//            statusTitle.text = "Arrived to pickup"
-//            statusBar.backgroundColor = UIColor(named: "seagull")
-//        case .ArrivedToPickup:
-//            currentStatus = .GoingToDropOff
-//            statusTitle.text = "Going to drop off"
-//            statusBar.backgroundColor = UIColor(named: "warm")
-//        case .GoingToDropOff:
-//            currentStatus = .OrderCompleted
-//            statusTitle.text = "Order completed"
-//            statusBar.backgroundColor = UIColor(named: "forest")
-//        case .OrderCompleted:
-//            currentStatus = .OrderCompleted
-//        }
-        
     }
     
-    func updateStatusUI(status: orderStatus) {
+    func updateStatusUI(status: OrderStatus) {
             switch status {
+            case .goingToPickup:
+                return
             case .arrivedToPickup:
                 statusTitle.text = "Arrived to pickup"
                 statusBar.backgroundColor = UIColor(named: "seagull")
+            case .startLoad:
+                statusTitle.text = "Start load"
+            case .endLoad:
+                statusTitle.text = "End load"
+            case .goingToPoint:
+                statusTitle.text = "Going to point \(point)"
+            case .arrivedPoint:
+                statusTitle.text = "Arrived point \(point)"
             case .goingToDropoff:
                 statusTitle.text = "Going to drop off"
                 statusBar.backgroundColor = UIColor(named: "warm")
             case .arrivedToDropoff:
                 statusTitle.text = "Arrived to drop off"
                 statusBar.backgroundColor = UIColor(named: "forest")
-            case .shipmentCompleted:
+            case .startUnload:
+                statusTitle.text = "Start unload"
+            case .endUnload:
+                statusTitle.text = "End unload"
+            case .orderCompleted:
                 statusTitle.text = "Order completed"
                 statusBar.backgroundColor = UIColor(named: "forest")
             }

@@ -8,7 +8,7 @@
 import UIKit
 
 protocol orderStatusDelegate: AnyObject {
-    func selectOrderStatus(status: orderStatus)
+    func selectOrderStatus(status: OrderStatus)
 }
 
 class OrderStatusCell: UITableViewCell {
@@ -17,7 +17,7 @@ class OrderStatusCell: UITableViewCell {
     @IBOutlet weak var orderStatusLabel: UILabel!
     @IBOutlet weak var selectButton: UIButton!
     
-    var orderStatus: orderStatus!
+    var orderStatus: OrderStatus!
     weak var delegate: orderStatusDelegate?
 
     
