@@ -8,6 +8,7 @@
 import Foundation
 import Firebase
 import FirebaseCore
+import MessageKit
 
 class FirebaseManager {
     
@@ -82,4 +83,108 @@ class FirebaseManager {
             references.removeValue(forKey: captainId)
         }
     }
+    
+    func sendMessage(orderId: String, receiverId: Int, message: String, type: String) {
+        let ref = Database.database().reference()
+        let messageData: [String: Any] = [
+            "senderId": UserInfo.shared.get_ID(),
+            "sender": "captain",
+            "receiverId": receiverId,
+            "message": message,
+            "type": type,
+            "createdAt": DateFormatter.dateFormatter.string(from: Date())
+        ]
+
+        ref.child("Chatting").child(orderId).childByAutoId().setValue(messageData)
+    }
+    
+//    func sendMessage(orderId: String, receiverId: Int, message: String, type: String) {
+//        let ref = Database.database().reference()
+//        let messageData: [String: Any] = [
+//            "senderId": 230,
+//            "sender": "customer",
+//            "receiverId": 1,
+//            "message": message,
+//            "type": type,
+//            "createdAt": DateFormatter.dateFormatter.string(from: Date())
+//        ]
+//
+//        ref.child("Chatting").child(orderId).childByAutoId().setValue(messageData)
+//    }
+    
+    func fetchAllMessages(orderID: String, completion: @escaping ([Message]?) -> Void) {
+        let ref = Database.database().reference()
+        ref.child("Chatting").child(orderID).getData { error, snapshot in
+            var messages: [Message] = []
+            if let error = error {
+                print("Error fetching initial messages: \(error)")
+                completion(messages)
+                return
+            }
+            
+            guard let children = snapshot?.children.allObjects as? [DataSnapshot] else {
+                completion(messages)
+                return
+            }
+            
+            for child in children {
+                if let data = child.value as? [String: Any],
+                   let senderId = data["senderId"] as? Int,
+                   let senderName = data["sender"] as? String,
+                   let messageText = data["message"] as? String,
+                   let messageType = data["type"] as? String,
+                   let createdAt = data["createdAt"] as? String {
+                    let date = DateFormatter.dateFormatter.date(from: createdAt)
+                    let sender = Sender(senderId: String(senderId), displayName: senderName)
+                    let message = Message(sender: sender, messageId: child.key, sentDate: date ?? Date(), kind: .text(messageText))
+                    messages.append(message)
+                }
+            }
+            completion(messages)
+        }
+    }
+    
+    func observeNewMessage(orderID: String, completion: @escaping (Message?, String?) -> Void) {
+        let ref = Database.database().reference()
+        ref.child("Chatting").child(orderID).observe(.childAdded) { snapshot in
+            print("Snapshot received: \(snapshot)")
+            
+            guard let data = snapshot.value as? [String: Any] else {
+                print("Failed to cast snapshot value to [String: Any]")
+                return
+            }
+            
+            guard let senderId = data["senderId"] as? Int,
+                  let senderName = data["sender"] as? String,
+                  let messageText = data["message"] as? String,
+                  let messageType = data["type"] as? String,
+                  let createdAt = data["createdAt"] as? String else {
+                print("Failed to parse message data")
+                return
+            }
+            
+            print("Message data parsed successfully")
+            
+            if senderName == "customer" {
+                let date = DateFormatter.dateFormatter.date(from: createdAt)
+                let sender = Sender(senderId: String(senderId), displayName: senderName)
+                let message = Message(sender: sender, messageId: snapshot.key, sentDate: date ?? Date(), kind: .text(messageText))
+                print("Message from customer: \(messageText)")
+                completion(message, messageType)
+            } else {
+                print("Message is not from customer")
+            }
+        }
+    }
+
+    
+}
+
+extension DateFormatter {
+    static let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "hh:mm a dd/MM/yyyy"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        return formatter
+    }()
 }
