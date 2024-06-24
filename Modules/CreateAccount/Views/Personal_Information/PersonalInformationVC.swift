@@ -14,6 +14,9 @@ struct registerData{
     var phoneNumber: String?
     var dateOfBirth: String?
     var governmentID: String?
+    var idExpiryDate: String?
+    var licenseExpiryDate: String?
+    var fleetLicenseExpiryDate: String?
     var imageDictionary: [Int: String]?
     var plateNumber: String?
     var fleetType: String?
@@ -28,9 +31,10 @@ class PersonalInformationVC: UIViewController {
     @IBOutlet weak var governmentID_TF: JVFloatLabeledTextField!
     @IBOutlet weak var phoneTF: UITextField!
     @IBOutlet weak var phoneView: UIView!
-    @IBOutlet weak var calender: UIImageView!
-    @IBOutlet weak var dateOfBirthView: UIView!
-    @IBOutlet weak var dateOfBirthLabel: UILabel!
+    
+    @IBOutlet weak var dateOfBirthTF: JVFloatLabeledTextField!
+    @IBOutlet weak var idExpiryDateTF: JVFloatLabeledTextField!
+    @IBOutlet weak var licenseExpiryDateTF: JVFloatLabeledTextField!
     
     @IBOutlet var imageCollection: [UIImageView]!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -68,20 +72,34 @@ class PersonalInformationVC: UIViewController {
         fullNameTF.addPadding()
         phoneTF.addPadding()
         governmentID_TF.addPadding()
+        dateOfBirthTF.addPadding()
+        idExpiryDateTF.addPadding()
+        licenseExpiryDateTF.addPadding()
         
         phoneTF.delegate = self
         fullNameTF.delegate = self
         governmentID_TF.delegate = self
+        dateOfBirthTF.delegate = self
+        idExpiryDateTF.delegate = self
+        licenseExpiryDateTF.delegate = self
         
         let placeholderColor = UIColor(named: "primary-dark")?.withAlphaComponent(0.5)
         let fullNamePlaceholder = fullNameTF.placeholder ?? ""
         let governmentPlaceholder = governmentID_TF.placeholder ?? ""
+        let dateOfBirthPlaceholder = dateOfBirthTF.placeholder ?? ""
+        let idExpiryDatePlaceholder = idExpiryDateTF.placeholder ?? ""
+        let licenseExpiryDatePlaceholder = licenseExpiryDateTF.placeholder ?? ""
         fullNameTF.attributedPlaceholder = NSAttributedString(string: fullNamePlaceholder, attributes: [NSAttributedString.Key.foregroundColor : placeholderColor ?? .placeholderText])
         governmentID_TF.attributedPlaceholder = NSAttributedString(string: governmentPlaceholder, attributes: [NSAttributedString.Key.foregroundColor : placeholderColor ?? .placeholderText])
+        dateOfBirthTF.attributedPlaceholder = NSAttributedString(string: dateOfBirthPlaceholder, attributes: [NSAttributedString.Key.foregroundColor : placeholderColor ?? .placeholderText])
+        idExpiryDateTF.attributedPlaceholder = NSAttributedString(string: idExpiryDatePlaceholder, attributes: [NSAttributedString.Key.foregroundColor : placeholderColor ?? .placeholderText])
+        licenseExpiryDateTF.attributedPlaceholder = NSAttributedString(string: licenseExpiryDatePlaceholder, attributes: [NSAttributedString.Key.foregroundColor : placeholderColor ?? .placeholderText])
         
-        // Add tap gesture recognizer to the date view
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dateViewTapped))
-        dateOfBirthView.addGestureRecognizer(tapGesture)
+//        // Add tap gesture recognizer to the date view
+//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dateViewTapped))
+//        dateOfBirthTF.addGestureRecognizer(tapGesture)
+//        idExpiryDateTF.addGestureRecognizer(tapGesture)
+//        licenseExpiryDateTF.addGestureRecognizer(tapGesture)
         
         self.automaticallyAdjustsScrollViewInsets = false
 //        if #available(iOS 11.0, *) {
@@ -93,10 +111,11 @@ class PersonalInformationVC: UIViewController {
         let viewTapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(viewTapGesture)
         
-        fullNameTF.floatingLabelYPadding = 8
         fullNameTF.floatingLabelActiveTextColor = placeholderColor
-        governmentID_TF.floatingLabelYPadding = 8
         governmentID_TF.floatingLabelActiveTextColor = placeholderColor
+        dateOfBirthTF.floatingLabelActiveTextColor = placeholderColor
+        idExpiryDateTF.floatingLabelActiveTextColor = placeholderColor
+        licenseExpiryDateTF.floatingLabelActiveTextColor = placeholderColor
         
     }
     
@@ -105,22 +124,30 @@ class PersonalInformationVC: UIViewController {
         view.endEditing(true)
     }
     
-    func showCalender() {
+    func showCalender(textfield: UITextField) {
         let alertViewController = CalenderAlert(nibName: "CalenderAlert", bundle: nil)
         alertViewController.modalPresentationStyle = .overCurrentContext
         alertViewController.modalTransitionStyle = .crossDissolve
         alertViewController.didSelectDate = { selectedDate in
-            print("Date of birth: \(selectedDate)")
-            self.selectedDate = selectedDate
-            self.dateOfBirthLabel.text = selectedDate
+//            print("Date of birth: \(selectedDate)")
+//            self.selectedDate = selectedDate
+//            self.dateOfBirthLabel.text = selectedDate
+            textfield.text = selectedDate
         }
         present(alertViewController, animated: true, completion: nil)
     }
     
-    @objc func dateViewTapped() {
-        hideErrorMessage(label: errorMessage[2], view: dateOfBirthView)
-        showCalender()
-    }
+//    @objc func dateViewTapped(_ sender: UITapGestureRecognizer) {
+//        guard let textField = sender.view as? UITextField else { return }
+//        if textField == dateOfBirthTF{
+//            hideErrorMessage(label: errorMessage[2], view: textField)
+//        } else if textField == idExpiryDateTF {
+//            hideErrorMessage(label: errorMessage[4], view: textField)
+//        } else if textField == licenseExpiryDateTF {
+//            hideErrorMessage(label: errorMessage[5], view: textField)
+//        }
+//        showCalender(textfield: textField)
+//    }
     
     func bindData(){
         viewModel?.uploadImageResult.bind { [self] result in
@@ -146,27 +173,33 @@ class PersonalInformationVC: UIViewController {
     }
     
     func isValidData() -> Bool {
-        if let fullName = fullNameTF.text, fullName.isEmpty{
+        if let fullName = fullNameTF.text, fullName.isEmpty {
             showErrorMessage(message: "Full name is required", label: errorMessage[0], view: fullNameTF)
         }
-        else if let phone = phoneTF.text, phone.isEmpty{
+        else if let phone = phoneTF.text, phone.isEmpty {
             showErrorMessage(message: "Phone number is required", label: errorMessage[1], view: phoneView)
         }
-        else if !viewModel!.isValidPhone(phone: "0\(phoneTF.text ?? "")"){
+        else if !viewModel!.isValidPhone(phone: "0\(phoneTF.text ?? "")") {
             showErrorMessage(message: "Invalid phone number", label: errorMessage[1], view: phoneView)
         }
-        else if selectedDate.isEmpty{
-            showErrorMessage(message: "Date of birth is required", label: errorMessage[2], view: dateOfBirthView)
+        else if let dateOfBirth = dateOfBirthTF.text, dateOfBirth.isEmpty {
+            showErrorMessage(message: "Date of birth is required", label: errorMessage[2], view: dateOfBirthTF)
         }
-        else if let governmentID = governmentID_TF.text, governmentID.isEmpty{
+        else if let governmentID = governmentID_TF.text, governmentID.isEmpty {
             showErrorMessage(message: "Government ID is required", label: errorMessage[3], view: governmentID_TF)
+        }
+        else if let idExpiryDate = idExpiryDateTF.text, idExpiryDate.isEmpty {
+            showErrorMessage(message: "ID expiry date is required", label: errorMessage[4], view: idExpiryDateTF)
+        }
+        else if let licenseExpiryDate = licenseExpiryDateTF.text, licenseExpiryDate.isEmpty {
+            showErrorMessage(message: "License expiry date is required", label: errorMessage[5], view: licenseExpiryDateTF)
         }
         else {
             let photoArray = ["Personal", "Government ID", "Driving license"]
             for (index, image) in imageCollection.enumerated() {
                 if image.image == nil {
                     //self.showAlert(message: "\(photoArray[index]) photo is required")
-                    showErrorMessage(message: "\(photoArray[index]) photo is required", label: errorMessage[index+4], view: image)
+                    showErrorMessage(message: "\(photoArray[index]) photo is required", label: errorMessage[index+6], view: image)
                     return false
                 }
             }
@@ -182,6 +215,8 @@ class PersonalInformationVC: UIViewController {
                 phoneNumber: phoneTF.text,
                 dateOfBirth: selectedDate,
                 governmentID: governmentID_TF.text,
+                idExpiryDate: idExpiryDateTF.text,
+                licenseExpiryDate: licenseExpiryDateTF.text,
                 imageDictionary: imageDictionary
             )
             if !phoneNumber.isEmpty && phoneTF.text != phoneNumber{
@@ -195,7 +230,7 @@ class PersonalInformationVC: UIViewController {
 
     @IBAction func openPhoto(_ sender: UIButton) {
         tag = sender.tag
-        hideErrorMessage(label: errorMessage[tag+4], view: imageCollection[tag])
+        hideErrorMessage(label: errorMessage[tag+6], view: imageCollection[tag])
         pickerVC.delegate = self
         pickerVC.showActionSheet(from: self)
     }
@@ -224,17 +259,34 @@ extension PersonalInformationVC: UITextFieldDelegate{
     func textFieldDidBeginEditing(_ textField: UITextField) {
         switch textField {
         case fullNameTF:
-            hideErrorMessage(label: errorMessage[0], view: fullNameTF)
+            hideErrorMessage(label: errorMessage[0], view: textField)
             textField.borderColor = UIColor(named: "primary")
         case phoneTF:
             hideErrorMessage(label: errorMessage[1], view: phoneView)
             phoneView.borderColor = UIColor(named: "primary")
         case governmentID_TF:
-            hideErrorMessage(label: errorMessage[3], view: governmentID_TF)
+            hideErrorMessage(label: errorMessage[3], view: textField)
             textField.borderColor = UIColor(named: "primary")
         default:
             break
         }
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        switch textField {
+        case dateOfBirthTF:
+            hideErrorMessage(label: errorMessage[2], view: textField)
+            showCalender(textfield: textField)
+        case idExpiryDateTF:
+            hideErrorMessage(label: errorMessage[4], view: textField)
+            showCalender(textfield: textField)
+        case licenseExpiryDateTF:
+            hideErrorMessage(label: errorMessage[5], view: textField)
+            showCalender(textfield: textField)
+        default:
+            return true
+        }
+        return false
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
