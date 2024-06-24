@@ -9,8 +9,11 @@ import Foundation
 
 protocol CreateAccountViewModelProtocol {
     
-    func register(fullName: String, birthday: String, mobile: String, nationalID: String, nationalExpiryDate: String, nationalIDImage: String, licenseExpiryDate: String, licenseImage: String, avatar: String, plateNumber: String, color: String, size: String, truckTypeID: String, truckImage: String, licenseTruckImage: String, licenseTruckExpireDate: String, stcAccount: String, deviceID: String, deviceType: String, deviceToken: String)
+    func getTruckTypes()
+    func register(fullName: String, birthday: String, mobile: String, nationalID: String, nationalExpiryDate: String, nationalIDImage: String, licenseExpiryDate: String, licenseImage: String, avatar: String, plateNumber: String, color: String, size: String, truckTypeID: String, truckImage: String, licenseTruckImage: String, licenseTruckExpireDate: String, stcAccount: String?, deviceID: String, deviceType: String, deviceToken: String)
     func uploadImageToserver(file: Data, tag: Int, progressHandler: @escaping (Double) -> Void)
+    
+    var truckTypesResult: Observable<TruckTypesModel?> { get set }
     var registerResult: Observable<RegisterModel?> { get set }
     var uploadImageResult: Observable<(Int, UploadFileModel?)> { get set }
     var errorMessage: Observable<String?> { get set }
@@ -22,6 +25,7 @@ class CreateAccountViewModel: CreateAccountViewModelProtocol {
     
     var tag: Observable<Int?>  = Observable(0)
     var uploadImageResult: Observable<(Int, UploadFileModel?)> = Observable((0, nil))
+    var truckTypesResult: Observable<TruckTypesModel?> = Observable(nil)
     var registerResult: Observable<RegisterModel?>  = Observable(nil)
     var errorMessage: Observable<String?> = Observable(nil)
     var isLoading: Observable<Bool?>  = Observable(false)
@@ -54,7 +58,27 @@ class CreateAccountViewModel: CreateAccountViewModelProtocol {
             }
     }
     
-    func register(fullName: String, birthday: String, mobile: String, nationalID: String, nationalExpiryDate: String, nationalIDImage: String, licenseExpiryDate: String, licenseImage: String, avatar: String, plateNumber: String, color: String, size: String, truckTypeID: String, truckImage: String, licenseTruckImage: String, licenseTruckExpireDate: String, stcAccount: String, deviceID: String, deviceType: String, deviceToken: String) {
+    func getTruckTypes() {
+        self.api.getTruckTypes { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let result):
+                print(result)
+                self.truckTypesResult.value = result
+                
+                if let status = result?.status, status == 0 {
+                    self.errorMessage.value = result?.message
+                }
+            case .failure(let error):
+                self.errorMessage.value = error.message
+                print("error", error.message)
+
+            }
+        }
+    }
+    
+    func register(fullName: String, birthday: String, mobile: String, nationalID: String, nationalExpiryDate: String, nationalIDImage: String, licenseExpiryDate: String, licenseImage: String, avatar: String, plateNumber: String, color: String, size: String, truckTypeID: String, truckImage: String, licenseTruckImage: String, licenseTruckExpireDate: String, stcAccount: String?, deviceID: String, deviceType: String, deviceToken: String) {
         self.isLoading.value = true
         self.api.register(fullName: fullName, birthday: birthday, mobile: mobile, nationalID: nationalID, nationalExpiryDate: nationalExpiryDate, nationalIDImage: nationalIDImage, licenseExpiryDate: licenseExpiryDate, licenseImage: licenseImage, avatar: avatar, plateNumber: plateNumber, color: color, size: size, truckTypeID: truckTypeID, truckImage: truckImage, licenseTruckImage: licenseTruckImage, licenseTruckExpireDate: licenseTruckExpireDate, stcAccount: stcAccount, deviceID: deviceID, deviceType: deviceType, deviceToken: deviceToken) { [weak self] result in
             guard let self = self else { return }

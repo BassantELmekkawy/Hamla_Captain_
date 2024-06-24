@@ -28,11 +28,12 @@ protocol RegisterApiProtocol {
                   truckImage: String,
                   licenseTruckImage: String,
                   licenseTruckExpireDate: String,
-                  stcAccount: String,
+                  stcAccount: String?,
                   deviceID: String,
                   deviceType: String,
                   deviceToken: String,
                   completion: @escaping (Result<RegisterModel? , CustomError>) -> Void)
+    func getTruckTypes(completion: @escaping (Result<TruckTypesModel? , CustomError>) -> Void)
 }
 
 class RegisterApi: BaseAPI<RegisterNetworking>,RegisterApiProtocol{
@@ -56,7 +57,7 @@ class RegisterApi: BaseAPI<RegisterNetworking>,RegisterApiProtocol{
                   truckImage: String,
                   licenseTruckImage: String,
                   licenseTruckExpireDate: String,
-                  stcAccount: String,
+                  stcAccount: String?,
                   deviceID: String,
                   deviceType: String,
                   deviceToken: String,
@@ -90,4 +91,10 @@ class RegisterApi: BaseAPI<RegisterNetworking>,RegisterApiProtocol{
         }
     }
     
+    func getTruckTypes(completion: @escaping (Result<TruckTypesModel?, CustomError>) -> Void) {
+        self.performRequest(target: .truckTypes, responseClass: TruckTypesModel.self) { result in
+            print("result", result)
+            completion(result)
+        }
+    }
 }
