@@ -38,7 +38,7 @@ class FleetInformationVC: UIViewController {
     }
     
     func setUpView() {
-        self.title = "Create account"
+        self.title = "Create_account".localized
         setupNavigationBar()
         
         plateNumberTF.addPadding()
@@ -167,25 +167,25 @@ class FleetInformationVC: UIViewController {
     }
     func isValidData() -> Bool {
         if let plateNumber = plateNumberTF.text, plateNumber.isEmpty{
-            showErrorMessage(message: "Plate number is required", label: errorMessage[0], view: plateNumberTF)
+            showErrorMessage(message: "Plate_number_is_required".localized, label: errorMessage[0], view: plateNumberTF)
         }
         else if captainRegisterData.fleetType == nil {
-            showErrorMessage(message: "Fleet type is required", label: errorMessage[1], view: dropDownFleetTF[0])
+            showErrorMessage(message: "Fleet_type_is_required".localized, label: errorMessage[1], view: dropDownFleetTF[0])
         }
         else if captainRegisterData.fleetColor == nil {
-            showErrorMessage(message: "Fleet color is required", label: errorMessage[2], view: dropDownFleetTF[1])
+            showErrorMessage(message: "Fleet_color_is_required".localized, label: errorMessage[2], view: dropDownFleetTF[1])
         }
         else if captainRegisterData.fleetSize == nil {
-            showErrorMessage(message: "Fleet size is required", label: errorMessage[3], view: dropDownFleetTF[2])
+            showErrorMessage(message: "Fleet_size_is_required".localized, label: errorMessage[3], view: dropDownFleetTF[2])
         }
         else if let fleetLicenseExpiryDate = fleetLicenseExpiryDateTF.text, fleetLicenseExpiryDate.isEmpty {
-            showErrorMessage(message: "Fleet license expiry date is required", label: errorMessage[4], view: fleetLicenseExpiryDateTF)
+            showErrorMessage(message: "Fleet_license_expiry_date_is_required".localized, label: errorMessage[4], view: fleetLicenseExpiryDateTF)
         }
         else {
-            let photoArray = ["Fleet photo", "Fleet license"]
+            let photoArray = ["Fleet_photo", "Fleet_license"]
             for (index, image) in imageCollection.enumerated() {
                 if image.image == nil {
-                    showErrorMessage(message: "\(photoArray[index]) is required", label: errorMessage[index+5], view: image)
+                    showErrorMessage(message: "\(photoArray[index])_is_required".localized, label: errorMessage[index+5], view: image)
                     return false
                 }
             }

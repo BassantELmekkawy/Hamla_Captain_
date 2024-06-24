@@ -43,6 +43,9 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" name="gray1"/>
                                         <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Via"/>
+                                        </userDefinedRuntimeAttributes>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Credit Card" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nwI-wx-f4b">
                                         <rect key="frame" x="141" y="0.0" width="69.666666666666686" height="19.333333333333332"/>
@@ -64,6 +67,9 @@
                                     <fontDescription key="titleFontDescription" type="system" pointSize="11"/>
                                     <color key="baseForegroundColor" name="sunrise"/>
                                 </buttonConfiguration>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Now"/>
+                                </userDefinedRuntimeAttributes>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ag0-et-ERA">
                                 <rect key="frame" x="16" y="88.333333333333314" width="375" height="89.666666666666686"/>
@@ -114,6 +120,9 @@
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="10"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="See_Detail"/>
+                                                        </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow-right" translatesAutoresizingMaskIntoConstraints="NO" id="cZf-Ya-Xmg">
                                                         <rect key="frame" x="58" y="0.0" width="16" height="16"/>
@@ -163,6 +172,7 @@
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                 <real key="value" value="8"/>
                                             </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Reject"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="Reject:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="xzJ-MG-HNL"/>
@@ -180,6 +190,7 @@
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                 <real key="value" value="8"/>
                                             </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Set_price"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="SetPrice:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="kIs-oR-LAE"/>

@@ -120,6 +120,7 @@
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                             <real key="value" value="8"/>
                         </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Verify"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="verifyCode:" destination="-1" eventType="touchUpInside" id="4Fr-Hj-vHJ"/>
@@ -133,6 +134,9 @@
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <color key="textColor" name="primary-dark"/>
                             <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Didnot_received_a_code"/>
+                            </userDefinedRuntimeAttributes>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fhe-mD-UFf">
                             <rect key="frame" x="166.66666666666669" y="0.0" width="58" height="32"/>
@@ -141,6 +145,9 @@
                             <state key="normal" title="Resend">
                                 <color key="titleColor" name="accent"/>
                             </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Resend"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="resendCode:" destination="-1" eventType="touchUpInside" id="djz-Wf-oCj"/>
                             </connections>

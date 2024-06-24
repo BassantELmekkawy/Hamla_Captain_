@@ -22,10 +22,10 @@ class OnboardingVC: UIViewController {
             pageControl.currentPage = currentPage
             
             if currentPage == slides.count-1{
-                nextButton.setTitle("Get started!", for: .normal)
+                nextButton.setTitle("Get_started".localized, for: .normal)
                 skipBtn.isHidden = true
             }else{
-                nextButton.setTitle("Next", for: .normal)
+                nextButton.setTitle("Next".localized, for: .normal)
                 skipBtn.isHidden = false
             }
         }
@@ -53,9 +53,9 @@ class OnboardingVC: UIViewController {
         
         OnboardingCollectionView.register(UINib(nibName: "OnboardingCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "OnboardingCollectionViewCell")
         
-        slides = [OnboardingSlide(image: UIImage(named: "Onboarding1")!, num: "1", description: "24 hours,\n7 days available \ntrucks!"),
-                  OnboardingSlide(image: UIImage(named: "Onboarding2")!, num: "2", description: "Low cost,\nFast, and safe \ntransport!"),
-                  OnboardingSlide(image: UIImage(named: "Onboarding3")!, num: "3", description: "Trusted app\nand qualified \ndrivers!")]
+        slides = [OnboardingSlide(image: UIImage(named: "Onboarding1")!, num: "1", description: "24_hours_7_days_available_trucks".localized),
+                  OnboardingSlide(image: UIImage(named: "Onboarding2")!, num: "2", description: "Low_cost_Fast_and_safe_transport".localized),
+                  OnboardingSlide(image: UIImage(named: "Onboarding3")!, num: "3", description: "Trusted_app_and_qualified_drivers".localized)]
         
         
     }

@@ -26,6 +26,9 @@
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Welcome_back"/>
+                    </userDefinedRuntimeAttributes>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MNr-XP-wSx">
                     <rect key="frame" x="30" y="152.66666666666666" width="333" height="56"/>
@@ -99,6 +102,7 @@
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                             <real key="value" value="8"/>
                         </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Login"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="Login:" destination="-1" eventType="touchUpInside" id="WOS-Rk-bsu"/>
@@ -125,6 +129,7 @@
                         <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                             <real key="value" value="1"/>
                         </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Create_captain_account"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="CreateCaptainAccount:" destination="-1" eventType="touchUpInside" id="HwI-2t-MLs"/>
@@ -145,6 +150,9 @@
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <color key="textColor" red="0.29803921568627451" green="0.33725490196078434" blue="0.45098039215686275" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="OR"/>
+                            </userDefinedRuntimeAttributes>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JqI-Qt-VPW">
                             <rect key="frame" x="204.66666666666663" y="9.3333333333333144" width="128.33333333333337" height="1"/>
@@ -166,6 +174,9 @@
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" name="quaternary"/>
                             <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="By_continue_you_are_agree_to_our"/>
+                            </userDefinedRuntimeAttributes>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="pBK-Gi-Y8d">
                             <rect key="frame" x="0.0" y="17" width="257.33333333333331" height="17"/>
@@ -179,12 +190,18 @@
                                         <directionalEdgeInsets key="contentInsets" top="0.0" leading="0.10000000000000001" bottom="0.0" trailing="0.0"/>
                                         <color key="baseForegroundColor" name="accent"/>
                                     </buttonConfiguration>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Terms_&amp;_Conditions"/>
+                                    </userDefinedRuntimeAttributes>
                                 </button>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" and " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dF0-yE-ZXK">
                                     <rect key="frame" x="131.66666666666666" y="0.0" width="31.666666666666657" height="17"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <color key="textColor" name="quaternary"/>
                                     <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="and"/>
+                                    </userDefinedRuntimeAttributes>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m6Z-Vj-Cym">
                                     <rect key="frame" x="163.33333333333334" y="0.0" width="94.000000000000028" height="17"/>
@@ -195,6 +212,9 @@
                                         <directionalEdgeInsets key="contentInsets" top="0.0" leading="0.10000000000000001" bottom="0.0" trailing="0.0"/>
                                         <color key="baseForegroundColor" name="accent"/>
                                     </buttonConfiguration>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Privacy_Policy"/>
+                                    </userDefinedRuntimeAttributes>
                                 </button>
                             </subviews>
                         </stackView>

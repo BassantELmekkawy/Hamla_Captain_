@@ -25,7 +25,7 @@ class OrderHistoryVC: UIViewController {
         super.viewDidLoad()
         
         self.navigationController?.navigationBar.isHidden = false
-        self.title = "Order History"
+        self.title = "Order_history".localized
         
         orderHistoryTable.delegate = self
         orderHistoryTable.dataSource = self
@@ -94,15 +94,15 @@ extension OrderHistoryVC: UITableViewDelegate, UITableViewDataSource{
         let cell = orderHistoryTable.dequeueReusableCell(withIdentifier: "OrderHistoryCell", for: indexPath) as! OrderHistoryCell
         switch selectedState{
         case .current:
-            cell.orderStateBtn.setTitle("On way", for: .normal)
+            cell.orderStateBtn.setTitle("On_way".localized, for: .normal)
             cell.orderStateBtn.setTitleColor(UIColor(named: "sunrise"), for: .normal)
             cell.orderStateBtn.backgroundColor = UIColor(named: "sunrise")?.withAlphaComponent(0.1)
         case .completed:
-            cell.orderStateBtn.setTitle("Completed", for: .normal)
+            cell.orderStateBtn.setTitle("Completed".localized, for: .normal)
             cell.orderStateBtn.setTitleColor(UIColor(named: "forest"), for: .normal)
             cell.orderStateBtn.backgroundColor = UIColor(named: "forest")?.withAlphaComponent(0.1)
         case .canceled:
-            cell.orderStateBtn.setTitle("Canceled", for: .normal)
+            cell.orderStateBtn.setTitle("Canceled".localized, for: .normal)
             cell.orderStateBtn.setTitleColor(UIColor(named: "sunset"), for: .normal)
             cell.orderStateBtn.backgroundColor = UIColor(named: "sunset")?.withAlphaComponent(0.1)
         }

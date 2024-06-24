@@ -62,7 +62,7 @@ class PersonalInformationVC: UIViewController {
     }
     
     func setUpView() {
-        self.title = "Create account"
+        self.title = "Create_account".localized
         setupNavigationBar()
         
         if !phoneNumber.isEmpty {
@@ -174,32 +174,32 @@ class PersonalInformationVC: UIViewController {
     
     func isValidData() -> Bool {
         if let fullName = fullNameTF.text, fullName.isEmpty {
-            showErrorMessage(message: "Full name is required", label: errorMessage[0], view: fullNameTF)
+            showErrorMessage(message: "Full_name_is_required".localized, label: errorMessage[0], view: fullNameTF)
         }
         else if let phone = phoneTF.text, phone.isEmpty {
-            showErrorMessage(message: "Phone number is required", label: errorMessage[1], view: phoneView)
+            showErrorMessage(message: "Phone_number_is_required".localized, label: errorMessage[1], view: phoneView)
         }
         else if !viewModel!.isValidPhone(phone: "0\(phoneTF.text ?? "")") {
-            showErrorMessage(message: "Invalid phone number", label: errorMessage[1], view: phoneView)
+            showErrorMessage(message: "Invalid_phone_number".localized, label: errorMessage[1], view: phoneView)
         }
         else if let dateOfBirth = dateOfBirthTF.text, dateOfBirth.isEmpty {
-            showErrorMessage(message: "Date of birth is required", label: errorMessage[2], view: dateOfBirthTF)
+            showErrorMessage(message: "Date_of_birth_is_required".localized, label: errorMessage[2], view: dateOfBirthTF)
         }
         else if let governmentID = governmentID_TF.text, governmentID.isEmpty {
-            showErrorMessage(message: "Government ID is required", label: errorMessage[3], view: governmentID_TF)
+            showErrorMessage(message: "Government_ID_is_required".localized, label: errorMessage[3], view: governmentID_TF)
         }
         else if let idExpiryDate = idExpiryDateTF.text, idExpiryDate.isEmpty {
-            showErrorMessage(message: "ID expiry date is required", label: errorMessage[4], view: idExpiryDateTF)
+            showErrorMessage(message: "ID_expiry_date_is_required".localized, label: errorMessage[4], view: idExpiryDateTF)
         }
         else if let licenseExpiryDate = licenseExpiryDateTF.text, licenseExpiryDate.isEmpty {
-            showErrorMessage(message: "License expiry date is required", label: errorMessage[5], view: licenseExpiryDateTF)
+            showErrorMessage(message: "License_expiry_date_is_required".localized, label: errorMessage[5], view: licenseExpiryDateTF)
         }
         else {
-            let photoArray = ["Personal", "Government ID", "Driving license"]
+            let photoArray = ["Personal", "Government_ID", "Driving_license"]
             for (index, image) in imageCollection.enumerated() {
                 if image.image == nil {
                     //self.showAlert(message: "\(photoArray[index]) photo is required")
-                    showErrorMessage(message: "\(photoArray[index]) photo is required", label: errorMessage[index+6], view: image)
+                    showErrorMessage(message: "\(photoArray[index])_photo_is_required".localized, label: errorMessage[index+6], view: image)
                     return false
                 }
             }

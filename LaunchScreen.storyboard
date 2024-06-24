@@ -32,7 +32,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NBW-Kf-rQE">
                                         <rect key="frame" x="1.3333333333333428" y="60" width="324.33333333333326" height="35"/>
                                         <attributedString key="attributedText">
-                                            <fragment content="Discover best way to transport your assets over the world.">
+                                            <fragment content="Discover_best_way_to_transport_your_assets_over_the_world">
                                                 <attributes>
                                                     <color key="NSColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <font key="NSFont" size="15" name="SFCompactDisplay-Regular"/>

@@ -34,6 +34,9 @@
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                             <color key="textColor" name="quaternary"/>
                             <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="STC_Pay_information"/>
+                            </userDefinedRuntimeAttributes>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3/3" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NXJ-DP-Egg">
                             <rect key="frame" x="337" y="10.333333333333327" width="26" height="19.333333333333329"/>
@@ -76,6 +79,7 @@
                                 <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                     <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="STC_account_number"/>
                             </userDefinedRuntimeAttributes>
                         </textField>
                         <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error message" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pmq-ey-vZm">
@@ -97,6 +101,9 @@
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                     <color key="textColor" name="accent"/>
                                     <nil key="highlightedColor"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Authenticated"/>
+                                    </userDefinedRuntimeAttributes>
                                 </label>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Checkmark" translatesAutoresizingMaskIntoConstraints="NO" id="JAT-9t-IOk">
                                     <rect key="frame" x="148.33333333333337" y="0.0" width="24" height="24"/>
@@ -137,6 +144,7 @@
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                             <real key="value" value="8"/>
                         </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Start_authentication"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="StartAuthentication:" destination="-1" eventType="touchUpInside" id="nmB-3e-WLj"/>
@@ -157,6 +165,7 @@
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                             <real key="value" value="8"/>
                         </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Submit_my_request"/>
                     </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="SubmitMyRequest:" destination="-1" eventType="touchUpInside" id="2eN-XT-aw5"/>
@@ -169,6 +178,9 @@
                         <fontDescription key="titleFontDescription" type="boldSystem" pointSize="16"/>
                         <color key="baseForegroundColor" name="quaternary"/>
                     </buttonConfiguration>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Skip_and_submit"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="SkipAndSubmit:" destination="-1" eventType="touchUpInside" id="uaE-o4-QBH"/>
                     </connections>
@@ -180,6 +192,9 @@
                         <fontDescription key="titleFontDescription" type="boldSystem" pointSize="16"/>
                         <color key="baseForegroundColor" name="quaternary"/>
                     </buttonConfiguration>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Change_number"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="changeNumber:" destination="-1" eventType="touchUpInside" id="G9F-Lh-xst"/>
                     </connections>

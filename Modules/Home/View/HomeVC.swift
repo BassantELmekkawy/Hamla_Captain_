@@ -49,13 +49,13 @@ class HomeVC: UIViewController {
         let status = UserInfo.shared.getCaptainStatus()
         switch status {
         case true:
-            captainStatus.text = "Online"
+            captainStatus.text = "Online".localized
             availabilitySwitch.isOn = true
-            availabilityInfo.text = "You can receive requests normally."
+            availabilityInfo.text = "You_can_receive_requests_normally".localized
         case false:
-            captainStatus.text = "Offline"
+            captainStatus.text = "Offline".localized
             availabilitySwitch.isOn = false
-            availabilityInfo.text = "You can’t receive any requests now."
+            availabilityInfo.text = "You_cannot_receive_any_requests_now".localized
         }
         
         getCurrentLocation()
@@ -104,10 +104,10 @@ class HomeVC: UIViewController {
     func updateStatus(status: Bool) {
         switch status {
         case true:
-            captainStatus.text = "Online"
+            captainStatus.text = "Online".localized
             UserInfo.shared.setCaptainStatus(status: true)
         case false:
-            captainStatus.text = "Offline"
+            captainStatus.text = "Offline".localized
             UserInfo.shared.setCaptainStatus(status: false)
         }
     }

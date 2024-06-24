@@ -44,19 +44,19 @@ class OrderDetailsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
-        self.title = "Order Details"
+        self.title = "Order_details".localized
         //setupNavigationBar()
         
         switch orderStatus {
         case .pendingPrice:
             statusButton?.backgroundColor = UIColor(named: "quaternary")
-            statusButton?.setTitle("Set price", for: .normal)
+            statusButton?.setTitle("Set_price".localized, for: .normal)
         case .pendingAcceptance:
             statusButton?.backgroundColor = UIColor(named: "accent")
-            statusButton?.setTitle("Accept", for: .normal)
+            statusButton?.setTitle("Accept".localized, for: .normal)
         case .orderCompleted:
             statusButton?.backgroundColor = UIColor(named: "forest")
-            statusButton?.setTitle("Order confirmed!", for: .normal)
+            statusButton?.setTitle("Order_confirmed".localized, for: .normal)
             statusButton?.cornerRadius = 10
             statusButton?.isEnabled = false
         }

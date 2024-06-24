@@ -58,6 +58,9 @@
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                             <color key="textColor" name="quaternary"/>
                                             <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Personal_information"/>
+                                            </userDefinedRuntimeAttributes>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1/3" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kRG-fL-wyO">
                                             <rect key="frame" x="410.66666666666669" y="10.333333333333327" width="23.333333333333314" height="19.333333333333329"/>
@@ -102,6 +105,7 @@
                                                         <userDefinedRuntimeAttribute type="number" keyPath="floatingLabelYPadding">
                                                             <real key="value" value="8"/>
                                                         </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Full_name"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </textField>
                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error message" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Hr-bz-QWn">
@@ -216,6 +220,7 @@
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="floatingLabelYPadding">
                                                                     <real key="value" value="8"/>
                                                                 </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Date_of_birth"/>
                                                             </userDefinedRuntimeAttributes>
                                                         </textField>
                                                     </subviews>
@@ -269,6 +274,7 @@
                                                         <userDefinedRuntimeAttribute type="number" keyPath="floatingLabelYPadding">
                                                             <real key="value" value="8"/>
                                                         </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Government_ID"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </textField>
                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error message" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AcW-dh-Wbk">
@@ -438,6 +444,9 @@
                                                                     <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="14"/>
                                                                     <color key="textColor" red="0.10980392156862745" green="0.14117647058823529" blue="0.22352941176470589" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Personal_photo"/>
+                                                                    </userDefinedRuntimeAttributes>
                                                                 </label>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Uso-Lz-Z1B">
                                                                     <rect key="frame" x="0.0" y="0.0" width="192" height="125"/>
@@ -497,6 +506,9 @@
                                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                     <color key="textColor" red="0.10980392156862745" green="0.14117647058823529" blue="0.22352941176470589" alpha="0.50390180373033944" colorSpace="custom" customColorSpace="sRGB"/>
                                                                     <nil key="highlightedColor"/>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Government_ID_Photo"/>
+                                                                    </userDefinedRuntimeAttributes>
                                                                 </label>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Upload to Cloud" translatesAutoresizingMaskIntoConstraints="NO" id="sek-9L-bWs">
                                                                     <rect key="frame" x="84" y="38" width="24" height="24"/>
@@ -579,6 +591,9 @@
                                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                             <color key="textColor" red="0.10980392156862745" green="0.14117647058823529" blue="0.22352941176470589" alpha="0.49627685546875" colorSpace="custom" customColorSpace="sRGB"/>
                                                                             <nil key="highlightedColor"/>
+                                                                            <userDefinedRuntimeAttributes>
+                                                                                <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Driving_license"/>
+                                                                            </userDefinedRuntimeAttributes>
                                                                         </label>
                                                                     </subviews>
                                                                 </stackView>
@@ -651,6 +666,7 @@
                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                             <real key="value" value="8"/>
                                         </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Continue"/>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="Continue:" destination="-1" eventType="touchUpInside" id="18s-Au-ZCr"/>

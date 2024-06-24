@@ -44,7 +44,7 @@ class UpcomingRequestsCell: UITableViewCell {
                 setPriceBtn.isHidden = false
             case .pendingAcceptance:
                 setPriceBtn.backgroundColor = UIColor(named: "accent")
-                setPriceBtn.setTitle("Accept", for: .normal)
+                setPriceBtn.setTitle("Accept".localized, for: .normal)
                 price.textColor = UIColor(named: "primary")
                 //price.textColor = UIColor(named: "accent")
                 navigateToMapBtn.isHidden = true

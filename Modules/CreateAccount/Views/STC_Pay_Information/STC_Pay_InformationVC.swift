@@ -31,7 +31,7 @@ class STC_Pay_InformationVC: UIViewController {
     }
 
     func setUpView() {
-        self.title = "Create account"
+        self.title = "Create_account".localized
         setupNavigationBar()
         submitMyRequestBtn.isUserInteractionEnabled = false
         //activityIndicator.isHidden = true
@@ -136,7 +136,7 @@ class STC_Pay_InformationVC: UIViewController {
         dismissKeyboard()
         guard let STC_Account = STC_AccountNumberTF.text, !STC_Account.isEmpty
         else {
-            showErrorMessage(message: "Enter STC account number", label: errorMessage, view: STC_AccountNumberTF)
+            showErrorMessage(message: "Enter_STC_account_number".localized, label: errorMessage, view: STC_AccountNumberTF)
             return
         }
         hideErrorMessage(label: errorMessage, view: STC_AccountNumberTF)
