@@ -15,7 +15,7 @@ class SideMenuVC: UIViewController {
     @IBOutlet weak var phone: UILabel!
     @IBOutlet weak var sideMenuTable: UITableView!
     
-    let sideMenu: [sideMenuModel] = [sideMenuModel(image: "wallet", label: "My wallet"), sideMenuModel(image: "delivery-truck", label: "Order history"), sideMenuModel(image: "settings", label: "Settings"), sideMenuModel(image: "credit-card", label: "Bank accounts"), sideMenuModel(image: "wallet-2", label: "STC account"), sideMenuModel(image: "Help Center", label: "Help center")]
+    let sideMenu: [sideMenuModel] = [sideMenuModel(image: "wallet", label: "My_wallet".localized), sideMenuModel(image: "delivery-truck", label: "Order_history".localized), sideMenuModel(image: "settings", label: "Settings".localized), sideMenuModel(image: "credit-card", label: "Bank_accounts".localized), sideMenuModel(image: "wallet-2", label: "STC_account".localized), sideMenuModel(image: "Help Center", label: "Help_center".localized)]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +42,7 @@ class SideMenuVC: UIViewController {
     
     @IBAction func logout(_ sender: Any) {
         if UserInfo.shared.isCaptainOnOrder() {
-            Toast.show(message: "Cannot log out while on a current order", controller: self)
+            Toast.show(message: "Cannot_log_out_while_on_order".localized, controller: self)
         }else{
             UserInfo.shared.logOut()
             UserInfo.shared.setRootViewController(SignInVC())

@@ -44,6 +44,9 @@
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Update_profile_photo"/>
+                            </userDefinedRuntimeAttributes>
                         </label>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ufM-Da-OtP">
                             <rect key="frame" x="50" y="207.33333333333331" width="245" height="33"/>
@@ -62,6 +65,9 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Trips"/>
+                                            </userDefinedRuntimeAttributes>
                                         </label>
                                     </subviews>
                                 </stackView>
@@ -89,6 +95,9 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="In_wallet"/>
+                                                    </userDefinedRuntimeAttributes>
                                                 </label>
                                             </subviews>
                                         </stackView>
@@ -115,6 +124,9 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Rating"/>
+                                            </userDefinedRuntimeAttributes>
                                         </label>
                                     </subviews>
                                 </stackView>
@@ -157,6 +169,9 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="8"/>
                                             <color key="textColor" name="primary-dark"/>
                                             <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Full_name"/>
+                                            </userDefinedRuntimeAttributes>
                                         </label>
                                         <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Mohamed Elbana" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GgU-E1-y7d">
                                             <rect key="frame" x="10" y="27.666666666666686" width="325" height="18.666666666666671"/>
@@ -193,6 +208,9 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="8"/>
                                             <color key="textColor" name="primary-dark"/>
                                             <nil key="highlightedColor"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Phone_number"/>
+                                            </userDefinedRuntimeAttributes>
                                         </label>
                                         <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="+201149336618" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aqm-zJ-olG">
                                             <rect key="frame" x="10" y="27.666666666666686" width="325" height="18.666666666666671"/>
@@ -238,6 +256,7 @@
                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                             <real key="value" value="8"/>
                                         </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Update_profile"/>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="updateProfile:" destination="-1" eventType="touchUpInside" id="Jbg-fs-h54"/>
@@ -261,6 +280,7 @@
                                         <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                             <real key="value" value="1"/>
                                         </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Request_account_update"/>
                                     </userDefinedRuntimeAttributes>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6BZ-uo-d0o">
@@ -281,6 +301,7 @@
                                         <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                             <real key="value" value="1"/>
                                         </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Request_truck_update"/>
                                     </userDefinedRuntimeAttributes>
                                 </button>
                             </subviews>

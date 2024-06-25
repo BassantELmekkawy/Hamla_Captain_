@@ -16,6 +16,7 @@ class HomeVC: UIViewController {
     @IBOutlet weak var captainStatus: UILabel!
     @IBOutlet weak var availabilitySwitch: UISwitch!
     @IBOutlet weak var availabilityInfo: UILabel!
+    @IBOutlet weak var tableHeader: UILabel!
     
     var sideMenuViewController: SideMenuVC!
     var sideMenuWidth: CGFloat = 260
@@ -26,6 +27,7 @@ class HomeVC: UIViewController {
     var selectedOrderID: Int?
     let locationManager = CLLocationManager()
     var currentLocation = CLLocation()
+    let lang = Locale.current.language.languageCode
     
     var viewModel: HomeViewModel?
     
@@ -49,13 +51,13 @@ class HomeVC: UIViewController {
         let status = UserInfo.shared.getCaptainStatus()
         switch status {
         case true:
-            captainStatus.text = "Online"
+            captainStatus.text = "Online".localized
             availabilitySwitch.isOn = true
-            availabilityInfo.text = "You can receive requests normally."
+            availabilityInfo.text = "You_can_receive_requests_normally".localized
         case false:
-            captainStatus.text = "Offline"
+            captainStatus.text = "Offline".localized
             availabilitySwitch.isOn = false
-            availabilityInfo.text = "You can’t receive any requests now."
+            availabilityInfo.text = "You_cannot_receive_any_requests_now".localized
         }
         
         getCurrentLocation()
@@ -91,7 +93,16 @@ class HomeVC: UIViewController {
         overlay.isHidden = true
         sideMenuViewController = SideMenuVC(nibName: "SideMenuVC", bundle: nil)
         addChild(sideMenuViewController)
-        sideMenuViewController.view.frame = CGRect(x: -sideMenuWidth, y: 0, width: sideMenuWidth, height: view.frame.height)
+        
+        switch lang {
+        case "ar":
+            sideMenuViewController.view.frame = CGRect(x: view.frame.width, y: 0, width: sideMenuWidth, height: view.frame.height)
+        case "en":
+            sideMenuViewController.view.frame = CGRect(x: -sideMenuWidth, y: 0, width: sideMenuWidth, height: view.frame.height)
+        default:
+            sideMenuViewController.view.frame = CGRect(x: -sideMenuWidth, y: 0, width: sideMenuWidth, height: view.frame.height)
+        }
+        
         view.addSubview(sideMenuViewController.view)
         sideMenuViewController.didMove(toParent: self)
         
@@ -104,10 +115,12 @@ class HomeVC: UIViewController {
     func updateStatus(status: Bool) {
         switch status {
         case true:
-            captainStatus.text = "Online"
+            captainStatus.text = "Online".localized
+            availabilityInfo.text = "You_can_receive_requests_normally".localized
             UserInfo.shared.setCaptainStatus(status: true)
         case false:
-            captainStatus.text = "Offline"
+            captainStatus.text = "Offline".localized
+            availabilityInfo.text = "You_cannot_receive_any_requests_now".localized
             UserInfo.shared.setCaptainStatus(status: false)
         }
     }
@@ -245,13 +258,30 @@ class HomeVC: UIViewController {
         //self.addOverlay(view: self.view)
         overlay.isHidden = false
         UIView.animate(withDuration: 0.3) {
-            self.sideMenuViewController.view.frame.origin.x = 0
+            switch self.lang {
+            case "ar":
+                let moveLeft = CGAffineTransform(translationX: -self.sideMenuWidth, y: 0.0)
+                self.sideMenuViewController.view.transform = moveLeft
+            case "en":
+                self.sideMenuViewController.view.frame.origin.x = 0
+            default:
+                self.sideMenuViewController.view.frame.origin.x = 0
+            }
         }
     }
     
     func hideSideMenu() {
         UIView.animate(withDuration: 0.3) {
-            self.sideMenuViewController.view.frame.origin.x = -self.sideMenuWidth
+            switch self.lang {
+            case "ar":
+                let moveRight = CGAffineTransform(translationX: self.sideMenuWidth, y: 0.0)
+                self.sideMenuViewController.view.transform = moveRight
+            case "en":
+                self.sideMenuViewController.view.frame.origin.x = -self.sideMenuWidth
+            default:
+                self.sideMenuViewController.view.frame.origin.x = -self.sideMenuWidth
+            }
+            
             //self.overlay.removeFromSuperview()
             self.overlay.isHidden = true
         }
@@ -328,13 +358,21 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource{
         //cell.backgroundColor = .clear
         //cell.requestStatus = upcomingRequests[indexPath.row]
         let order = ordersDetails?[indexPath.row]
-        switch order?.status {
-        case "pending":
-            cell.requestStatus = .pendingAcceptance
-//        case "accepted","start_order","approve":
-//            cell.requestStatus = .accepted
-        default:
+        if UserInfo.shared.isCaptainOnOrder() {
+            tableHeader.text = "Current_requests".localized
             cell.requestStatus = .accepted
+        }
+        else {
+            tableHeader.text = "Upcoming_requests".localized
+            switch order?.status {
+            case "pending":
+                cell.requestStatus = .pendingAcceptance
+                //        case "accepted","start_order","approve":
+                //            cell.requestStatus = .accepted
+            default:
+                //cell.requestStatus = .accepted
+                break
+            }
         }
         cell.orderID.text = "#\(order?.id ?? 0) "
         //cell.price.text = "\(order?.cost ?? "0") EGP"

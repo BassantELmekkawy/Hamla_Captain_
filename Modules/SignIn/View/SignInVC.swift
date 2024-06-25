@@ -74,13 +74,13 @@ class SignInVC: UIViewController {
     
     @IBAction func Login(_ sender: Any) {
         if phoneTF.text!.isEmpty{
-            self.showAlert(message: "Enter your phone number")
+            self.showAlert(message: "Phone_number_is_required".localized)
         }
         if viewModel!.isValidPhone(phone: "0\(phoneTF.text ?? "")"){
             viewModel?.sendCode(mobile: "20\(phoneTF.text ?? "")" )
         }
         else{
-            self.showAlert(message: "Invalid phone number")
+            self.showAlert(message: "Invalid_phone_number".localized)
         }
     }
     

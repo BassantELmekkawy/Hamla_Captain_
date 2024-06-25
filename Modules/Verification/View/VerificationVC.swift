@@ -39,10 +39,10 @@ class VerificationVC: UIViewController{
     }
     
     func setUpView(){
-        self.title = "Verification"
+        self.title = "Verification".localized
         setupNavigationBar()
         
-        otpVerificationMessage.text = "We sent an OTP code to +20\(phoneNumber) to verify it’s you!"
+        otpVerificationMessage.text = String(format: "We_sent_an_OTP_code_to".localized, "+20\(phoneNumber)")
         otpVerificationMessage.twoColorLabel(word: "+20\(phoneNumber)", color: UIColor(named: "accent") ?? .black)
         
         for (index, textField) in otpCollection.enumerated() {
@@ -134,7 +134,7 @@ class VerificationVC: UIViewController{
                 UIView.performWithoutAnimation {
                     self?.resendButton.isEnabled = true
                     self?.resendButton.setTitleColor(UIColor(named: "accent"), for: .normal)
-                    self?.resendButton.setTitle("Resend", for: .normal)
+                    self?.resendButton.setTitle("Resend".localized, for: .normal)
                     self?.resendButton.layoutIfNeeded()
                 }
                 // Invalidate the timer
@@ -148,7 +148,7 @@ class VerificationVC: UIViewController{
         let min = Int(remainingTime) / 60
         let sec = Int(remainingTime) % 60
         let timeFormat = String(format: "%2d:%02d", min, sec)
-        let text = "Resend (\(timeFormat)s)"
+        let text = String(format: "Resend_with_time".localized, "\(timeFormat)s")
         UIView.performWithoutAnimation {
             resendButton.setTitle(text, for: .normal)
             resendButton.setTitleColor(UIColor(named: "gray1"), for: .normal)
@@ -160,7 +160,7 @@ class VerificationVC: UIViewController{
         var verificationCode = ""
         for otpTextField in otpCollection{
             if otpTextField.text!.isEmpty{
-                self.showAlert(message: "Please fill in all fields")
+                self.showAlert(message: "OTP_is_required".localized)
                 return
             }
             verificationCode += otpTextField.text ?? ""

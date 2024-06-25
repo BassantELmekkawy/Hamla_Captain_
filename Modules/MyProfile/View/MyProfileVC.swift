@@ -22,7 +22,7 @@ class MyProfileVC: UIViewController {
         self.viewModel = MyProfileViewModel(api: MyProfileApi())
         bindData()
         self.navigationController?.navigationBar.isHidden = false
-        self.title = "My profile"
+        self.title = "My_profile".localized
         photoBackgroundView.twoColorDiagonalView(color1: UIColor(named: "primary") ?? .blue, color2: UIColor(named: "LightBlue") ?? .blue, cornerRadius: 8)
     }
     
@@ -81,7 +81,7 @@ class MyProfileVC: UIViewController {
             viewModel?.checkPhone(mobile: phone.text ?? "" )
         }
         else{
-            self.showAlert(message: "Invalid phone number")
+            self.showAlert(message: "Invalid_phone_number".localized)
         }
     }
     

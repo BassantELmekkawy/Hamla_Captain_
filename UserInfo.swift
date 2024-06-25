@@ -107,7 +107,7 @@ class UserInfo{
     func getheroCode() -> String { UserDefaults.standard.value(forKey: Keys.heroCode) as? String ?? ""}
     func getStatusDarkMode() -> Bool { UserDefaults.standard.value(forKey: Keys.isDarkMode) as? Bool ?? false}
     func isPhoneVerified() -> Bool { UserDefaults.standard.value(forKey: Keys.isPhoneVerified) as? Bool ?? false}
-    func getCaptainStatus() -> Bool { UserDefaults.standard.value(forKey: Keys.captainStatus) as? Bool ?? true}
+    func getCaptainStatus() -> Bool { UserDefaults.standard.value(forKey: Keys.captainStatus) as? Bool ?? false}
     func isCaptainOnOrder() -> Bool { UserDefaults.standard.value(forKey: Keys.captainOnOrder) as? Bool ?? false}
 
     // MARK: - logOut
