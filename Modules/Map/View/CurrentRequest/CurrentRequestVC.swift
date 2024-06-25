@@ -70,12 +70,16 @@ class CurrentRequestVC: UIViewController {
                 statusBar.backgroundColor = UIColor(named: "seagull")
             case .startLoad:
                 statusTitle.text = "Start load"
+                statusBar.backgroundColor = UIColor(named: "primary")
             case .endLoad:
                 statusTitle.text = "End load"
+                statusBar.backgroundColor = UIColor(named: "primary")
             case .goingToPoint:
                 statusTitle.text = "Going to point \(point)"
+                statusBar.backgroundColor = UIColor(named: "primary")
             case .arrivedPoint:
                 statusTitle.text = "Arrived point \(point)"
+                statusBar.backgroundColor = UIColor(named: "primary")
             case .goingToDropoff:
                 statusTitle.text = "Going to drop off"
                 statusBar.backgroundColor = UIColor(named: "warm")
@@ -84,8 +88,10 @@ class CurrentRequestVC: UIViewController {
                 statusBar.backgroundColor = UIColor(named: "forest")
             case .startUnload:
                 statusTitle.text = "Start unload"
+                statusBar.backgroundColor = UIColor(named: "primary")
             case .endUnload:
                 statusTitle.text = "End unload"
+                statusBar.backgroundColor = UIColor(named: "primary")
             case .orderCompleted:
                 statusTitle.text = "Order completed"
                 statusBar.backgroundColor = UIColor(named: "forest")

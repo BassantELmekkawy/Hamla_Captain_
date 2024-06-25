@@ -130,10 +130,10 @@
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mGt-fS-1Fp">
                     <rect key="frame" x="30" y="241" width="333" height="56"/>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="Start authentication">
-                        <color key="baseForegroundColor" name="primary"/>
-                    </buttonConfiguration>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="Start authentication">
+                        <color key="titleColor" name="primary"/>
+                    </state>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                             <real key="value" value="1"/>
@@ -151,16 +151,16 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mij-KZ-967">
-                    <rect key="frame" x="30" y="710.66666666666663" width="333" height="56"/>
+                    <rect key="frame" x="30" y="712" width="333" height="56"/>
                     <color key="backgroundColor" red="0.69019607843137254" green="0.69803921568627447" blue="0.73333333333333328" alpha="0.50342524446399006" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="56" id="dfJ-yQ-vwt"/>
                     </constraints>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="Submit my request">
-                        <fontDescription key="titleFontDescription" type="boldSystem" pointSize="16"/>
-                        <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </buttonConfiguration>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="Submit my request">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                             <real key="value" value="8"/>
@@ -172,12 +172,12 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pLw-ja-hPQ">
-                    <rect key="frame" x="119.66666666666667" y="786.66666666666663" width="153.66666666666663" height="33.333333333333371"/>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="Skip, and submit">
-                        <fontDescription key="titleFontDescription" type="boldSystem" pointSize="16"/>
-                        <color key="baseForegroundColor" name="quaternary"/>
-                    </buttonConfiguration>
+                    <rect key="frame" x="131.66666666666666" y="788" width="129.99999999999997" height="32"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="Skip, and submit">
+                        <color key="titleColor" name="quaternary"/>
+                    </state>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Skip_and_submit"/>
                     </userDefinedRuntimeAttributes>
@@ -186,12 +186,12 @@
                     </connections>
                 </button>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qjZ-JP-7lH">
-                    <rect key="frame" x="215.33333333333337" y="229" width="147.66666666666663" height="33.333333333333314"/>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="Change number">
-                        <fontDescription key="titleFontDescription" type="boldSystem" pointSize="16"/>
-                        <color key="baseForegroundColor" name="quaternary"/>
-                    </buttonConfiguration>
+                    <rect key="frame" x="239" y="229" width="124" height="32"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="Change number">
+                        <color key="titleColor" name="quaternary"/>
+                    </state>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Change_number"/>
                     </userDefinedRuntimeAttributes>
