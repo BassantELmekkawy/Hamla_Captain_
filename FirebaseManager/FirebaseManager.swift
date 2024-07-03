@@ -9,6 +9,7 @@ import Foundation
 import Firebase
 import FirebaseCore
 import MessageKit
+import UIKit
 
 class FirebaseManager {
     
@@ -127,6 +128,8 @@ class FirebaseManager {
                 return
             }
             
+            var kind: MessageKind?
+            
             for child in children {
                 if let data = child.value as? [String: Any],
                    let senderId = data["senderId"] as? Int,
@@ -134,9 +137,26 @@ class FirebaseManager {
                    let messageText = data["message"] as? String,
                    let messageType = data["type"] as? String,
                    let createdAt = data["createdAt"] as? String {
+                    
+                    switch messageType {
+                    case "text":
+                        kind = .text(messageText)
+                    case "photo":
+                        guard let imageUrl = URL(string: messageText),
+                              let placeholder = UIImage(systemName: "photo") else { return }
+                        let media = Media(url: imageUrl,
+                                          placeholderImage: placeholder,
+                                          size: CGSize(width: 300, height: 300))
+                        kind = .photo(media)
+                    default:
+                        break
+                    }
+                    
+                    guard let kind = kind else { return }
+                    
                     let date = DateFormatter.dateFormatter.date(from: createdAt)
                     let sender = Sender(senderId: String(senderId), displayName: senderName)
-                    let message = Message(sender: sender, messageId: child.key, sentDate: date ?? Date(), kind: .text(messageText))
+                    let message = Message(sender: sender, messageId: child.key, sentDate: date ?? Date(), kind: kind)
                     messages.append(message)
                 }
             }
@@ -144,7 +164,7 @@ class FirebaseManager {
         }
     }
     
-    func observeNewMessage(orderID: String, completion: @escaping (Message?, String?) -> Void) {
+    func observeNewMessage(orderID: String, completion: @escaping (Message?) -> Void) {
         let ref = Database.database().reference()
         ref.child("Chatting").child(orderID).observe(.childAdded) { snapshot in
             print("Snapshot received: \(snapshot)")
@@ -162,15 +182,32 @@ class FirebaseManager {
                 print("Failed to parse message data")
                 return
             }
-            
             print("Message data parsed successfully")
+            
+            var kind: MessageKind?
+            
+            switch messageType {
+            case "text":
+                kind = .text(messageText)
+            case "photo":
+                guard let imageUrl = URL(string: messageText),
+                      let placeholder = UIImage(systemName: "photo") else { return }
+                let media = Media(url: imageUrl,
+                                  placeholderImage: placeholder,
+                                  size: CGSize(width: 300, height: 300))
+                kind = .photo(media)
+            default:
+                break
+            }
+            
+            guard let kind = kind else { return }
             
             if senderName == "customer" {
                 let date = DateFormatter.dateFormatter.date(from: createdAt)
                 let sender = Sender(senderId: String(senderId), displayName: senderName)
-                let message = Message(sender: sender, messageId: snapshot.key, sentDate: date ?? Date(), kind: .text(messageText))
+                let message = Message(sender: sender, messageId: snapshot.key, sentDate: date ?? Date(), kind: kind)
                 print("Message from customer: \(messageText)")
-                completion(message, messageType)
+                completion(message)
             } else {
                 print("Message is not from customer")
             }

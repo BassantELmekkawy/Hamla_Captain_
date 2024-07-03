@@ -380,6 +380,14 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
         //sheet?.animateOut()
     }
     
+    func chat() {
+        let vc = ChatVC()
+        vc.orderID = orderDetails.id ?? 0
+        vc.receiverID = orderDetails.customer?.id ?? 0
+        vc.customerName = orderDetails.customer?.fullName ?? ""
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     func updateStatus(status: OrderStatus) {
         sheet?.animateOut()
         if isOrderCompleted {

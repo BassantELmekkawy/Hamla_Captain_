@@ -35,6 +35,7 @@ enum OrderStatus: String {
 
 protocol CurrentRequestDelegate: AnyObject {
     func updateStatus(status: OrderStatus)
+    func chat()
     func dismissOrder()
 }
 
@@ -43,6 +44,7 @@ class CurrentRequestVC: UIViewController {
     @IBOutlet weak var statusTitle: UILabel!
     @IBOutlet weak var statusBar: UIView!
     @IBOutlet weak var customerName: UILabel!
+    @IBOutlet weak var chatButton: UIButton!
     
     weak var delegate: CurrentRequestDelegate?
     
@@ -51,8 +53,13 @@ class CurrentRequestVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        chatButton.setImage(UIImage(named: "Chat_enabled"), for: .normal)
     }
 
+    @IBAction func chat(_ sender: Any) {
+        delegate?.chat()
+    }
+    
     @IBAction func SeeDetail(_ sender: Any) {
         
     }

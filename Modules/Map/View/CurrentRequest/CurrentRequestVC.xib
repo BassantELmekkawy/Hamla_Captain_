@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CurrentRequestVC" customModule="Hamla_iOS_Captain" customModuleProvider="target">
             <connections>
+                <outlet property="chatButton" destination="Rzl-Zx-fNT" id="1nC-QZ-fej"/>
                 <outlet property="customerName" destination="27T-Zn-SnV" id="4lt-2V-OoR"/>
                 <outlet property="statusBar" destination="mbR-DY-Tye" id="upg-C3-6Cp"/>
                 <outlet property="statusTitle" destination="pvM-Um-bjB" id="Vpt-m9-C4H"/>
@@ -93,20 +94,27 @@
                                         </view>
                                     </subviews>
                                 </stackView>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Dial" translatesAutoresizingMaskIntoConstraints="NO" id="pnN-Rc-wYl">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4WB-gf-fh3" userLabel="Dial">
                                     <rect key="frame" x="266" y="0.0" width="40" height="40"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="40" id="5D2-Rv-fdN"/>
-                                        <constraint firstAttribute="width" constant="40" id="zVH-oU-2ze"/>
+                                        <constraint firstAttribute="width" constant="40" id="2oO-Yw-VUf"/>
+                                        <constraint firstAttribute="height" constant="40" id="squ-CX-LYU"/>
                                     </constraints>
-                                </imageView>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Chat" translatesAutoresizingMaskIntoConstraints="NO" id="7ju-Ou-AUN">
+                                    <state key="normal" title="Button"/>
+                                    <buttonConfiguration key="configuration" style="plain" image="Dial"/>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rzl-Zx-fNT" userLabel="Chat">
                                     <rect key="frame" x="321" y="0.0" width="40" height="40"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="40" id="5RA-Dx-wP9"/>
-                                        <constraint firstAttribute="height" constant="40" id="U7a-bP-afh"/>
+                                        <constraint firstAttribute="width" constant="40" id="CI8-vV-4XZ"/>
+                                        <constraint firstAttribute="height" constant="40" id="zD4-WS-YKf"/>
                                     </constraints>
-                                </imageView>
+                                    <state key="normal" title="Button"/>
+                                    <buttonConfiguration key="configuration" style="plain" image="Chat"/>
+                                    <connections>
+                                        <action selector="chat:" destination="-1" eventType="touchUpInside" id="ILN-ZJ-twv"/>
+                                    </connections>
+                                </button>
                             </subviews>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="zzw-nT-2Of">
