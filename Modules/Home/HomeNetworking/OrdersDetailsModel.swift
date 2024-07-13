@@ -38,6 +38,7 @@ struct Order: Codable {
     var date: String?
     var estimateCostFrom: String?
     var estimateCostTo: String?
+    var prices: Prices?
     var points: [Points]?
 
     // Coding keys to match the JSON keys with Swift property names
@@ -61,6 +62,7 @@ struct Order: Codable {
         case type, date
         case estimateCostFrom = "estimate_cost_from"
         case estimateCostTo = "estimate_cost_to"
+        case prices
         case points
     }
 }
@@ -95,7 +97,13 @@ struct TruckType: Codable {
     let name: String?
     let description: String?
     let icon: String?
-    let weights: [Int]?
+}
+
+//MARK: - Prices
+struct Prices: Codable {
+    let min: String?
+    let avg: String?
+    let max: String?
 }
 
 // MARK: - Points

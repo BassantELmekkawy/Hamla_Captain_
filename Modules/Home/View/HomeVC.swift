@@ -25,6 +25,7 @@ class HomeVC: UIViewController {
     var ordersIDs: [Int] = []
     var selectedOrderDetails: Order?
     var selectedOrderID: Int?
+    var indexPath: IndexPath?
     let locationManager = CLLocationManager()
     var currentLocation = CLLocation()
     let lang = Locale.current.language.languageCode
@@ -220,6 +221,22 @@ class HomeVC: UIViewController {
             print(message)
         }
         
+        viewModel?.orderPriceResult.bind { [weak self] result in
+            guard let message = result?.message else { return }
+            if result?.status == 0 {
+                self?.showAlert(message: message)
+            } else {
+                //self?.ordersTableView.reloadData()
+                if let indexPath = self?.indexPath {
+                    let cell = self?.ordersTableView.cellForRow(at: indexPath) as! UpcomingRequestsCell
+                    cell.requestStatus = .updatePrice
+                    //self?.ordersTableView.reloadRows(at: [indexPath], with: .none)
+                    self?.ordersTableView.reloadData()
+                }
+            }
+            print(message)
+        }
+        
         viewModel?.assignOrder.bind { assignOrder in
             guard let orders = assignOrder, orders.count != 0 else {
                 self.ordersIDs = []
@@ -304,7 +321,8 @@ class HomeVC: UIViewController {
     
 }
 
-extension HomeVC: UpcomingRequestsDelegate, OrderDetailsDelegate {
+extension HomeVC: UpcomingRequestsDelegate, OrderDetailsDelegate, SetPriceDelegate {
+    
     func navigateToMap() {
         let mapVC = MapVC(nibName: "MapVC", bundle: nil)
         mapVC.orderDetails = self.ordersDetails![0]
@@ -312,12 +330,25 @@ extension HomeVC: UpcomingRequestsDelegate, OrderDetailsDelegate {
         self.navigationController?.pushViewController(mapVC, animated: true)
     }
     
-    func showPriceAlert() {
+    func showPriceAlert(indexPath: IndexPath) {
+        self.indexPath = indexPath
         let alertViewController = SetPriceAlertView(nibName: "SetPriceAlertView", bundle: nil)
+        alertViewController.delegate = self
+        selectedOrderID = ordersDetails?[indexPath.row].id
         alertViewController.modalPresentationStyle = .overCurrentContext
         alertViewController.modalTransitionStyle = .crossDissolve
+        alertViewController.minPrice = ordersDetails?[indexPath.row].estimateCostFrom ?? ""
+        alertViewController.maxPrice = ordersDetails?[indexPath.row].estimateCostTo ?? ""
+        alertViewController.avgPrice = ordersDetails?[indexPath.row].prices?.avg ?? ""
         present(alertViewController, animated: true, completion: nil)
     }
+    
+    func sendPrice(price: String) {
+        if let indexPath = indexPath, let selectedOrderID = selectedOrderID {
+            viewModel?.setOrderPrice(orderID: String(selectedOrderID), price: price, indexPath: indexPath)
+        }
+    }
+    
     func acceptRequest(indexPath: IndexPath) {
         selectedOrderDetails = ordersDetails?[indexPath.row]
         selectedOrderID = ordersDetails?[indexPath.row].id
@@ -364,14 +395,17 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource{
         }
         else {
             tableHeader.text = "Upcoming_requests".localized
-            switch order?.status {
-            case "pending":
-                cell.requestStatus = .pendingAcceptance
-                //        case "accepted","start_order","approve":
-                //            cell.requestStatus = .accepted
-            default:
-                //cell.requestStatus = .accepted
-                break
+            if cell.requestStatus == nil {
+                switch order?.status {
+                case "pending":
+                    cell.requestStatus = .pendingPrice
+                    //cell.requestStatus = .pendingAcceptance
+                    //        case "accepted","start_order","approve":
+                    //            cell.requestStatus = .accepted
+                default:
+                    //cell.requestStatus = .accepted
+                    break
+                }
             }
         }
         cell.orderID.text = "#\(order?.id ?? 0) "
