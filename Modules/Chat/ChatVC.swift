@@ -15,6 +15,7 @@ struct Message: MessageType {
     let messageId: String
     let sentDate: Date
     let kind: MessageKind
+    let seen: Bool
 }
 
 struct Sender: SenderType {
@@ -63,11 +64,12 @@ class ChatVC: MessagesViewController {
     var orderID = 0
     var receiverID = 0
     var customerName = ""
-    var messages: [MessageType] = []
+    var messages: [Message] = []
+    var date: Date?
     
     let captain = Sender(senderId: String(UserInfo.shared.get_ID()),
                          displayName: "captain")
-    //let customer = Sender(senderId: "2", displayName: "customer")
+    //let customer = Sender(senderId: String(receiverID), displayName: "customer")
     
     let leftBarButtonView: UIView = {
         return UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 44))
@@ -83,7 +85,7 @@ class ChatVC: MessagesViewController {
     let subTitleLabel: UILabel = {
         let title = UILabel(frame: CGRect(x: 0, y: 25, width: 100, height: 16))
         title.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
-        title.textColor = UIColor(named: "forest")
+        title.textColor = UIColor(named: "primary")
         return title
     }()
 
@@ -103,8 +105,10 @@ class ChatVC: MessagesViewController {
         messageInputBar.delegate = self
         
         setupInputBar()
-        fetchMessages(orderID: String(orderID))
+        //fetchMessages(orderID: String(orderID))
         observeNewMessage(orderID: String(orderID))
+        observeSeen(orderID: String(orderID))
+        observeCustomerTyping(orderID: String(orderID))
         pickerVC.delegate = self
         bindData()
     }
@@ -112,7 +116,7 @@ class ChatVC: MessagesViewController {
     private func configureCustomTitle() {
         self.navigationItem.leftBarButtonItems = [UIBarButtonItem(image: UIImage(named: "back_button")?.withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(backButtonDidPressed))]
         titleLabel.text = customerName
-        subTitleLabel.text = "Active"
+        subTitleLabel.text = ""
         leftBarButtonView.addSubview(titleLabel)
         leftBarButtonView.addSubview(subTitleLabel)
         
@@ -140,11 +144,11 @@ class ChatVC: MessagesViewController {
                                   size: CGSize(width: 300, height: 300))
                 kind = .photo(media)
                 guard let kind = kind else { return }
-                let newMessage = Message(sender: currentSender, messageId: UUID().uuidString, sentDate: Date(), kind: kind)
+                let newMessage = Message(sender: currentSender, messageId: UUID().uuidString, sentDate: Date(), kind: kind, seen: false)
                 messages.append(newMessage)
                 messagesCollectionView.reloadData()
                 messagesCollectionView.scrollToLastItem()
-                FirebaseManager.shared.sendMessage(orderId: String(orderID), receiverId: receiverID, message: dashboardStorageUrl + data, type: "photo")
+                FirebaseManager.shared.sendMessage(orderID: String(orderID), receiverId: receiverID, message: dashboardStorageUrl + data, type: "photo")
             }
             
             print(message)
@@ -214,6 +218,26 @@ class ChatVC: MessagesViewController {
         }
     }
     
+    func observeSeen(orderID: String) {
+        FirebaseManager.shared.observeMessageSeenStatus(orderID: orderID) { message in
+            guard let message = message else {
+                return
+            }
+            if let index = self.messages.firstIndex(where: { $0.messageId == message.messageId }) {
+                self.messages[index] = message
+            }
+            self.messagesCollectionView.reloadData()
+        }
+    }
+    
+    func observeCustomerTyping(orderID: String) {
+        FirebaseManager.shared.observeCustomerTyping(orderID: orderID) { isTyping in
+            guard let isTyping = isTyping else {
+                return
+            }
+            self.subTitleLabel.text = isTyping ? "Typing..." : ""
+        }
+    }
 }
 
 extension ChatVC: MessagesDataSource {
@@ -233,14 +257,14 @@ extension ChatVC: MessagesDataSource {
 
 extension ChatVC: MessagesLayoutDelegate, MessagesDisplayDelegate {
     func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
-        if message.sender.senderId == captain.senderId {
+        if isFromCurrentSender(message: message) {
             return UIColor(named: "#F2F8FF") ?? .blue
         }
         return UIColor(named: "background") ?? .lightGray
     }
     
     func textColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
-        if message.sender.senderId == captain.senderId {
+        if isFromCurrentSender(message: message) {
             return UIColor(named: "primary") ?? .blue
         }
         return UIColor(named: "quaternary") ?? .lightGray
@@ -258,6 +282,102 @@ extension ChatVC: MessagesLayoutDelegate, MessagesDisplayDelegate {
         }
     }
     
+    func cellTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+        if indexPath.section > 0, isSameDay(date1: message.sentDate, date2: messages[indexPath.section - 1].sentDate) {
+            return nil
+        }
+        //let x = message.sentDate
+        //let format = DateFormatter.dateFormatter.dateFormat = "E h:mm a"
+        let dateString = message.sentDate.formattedString()
+        return NSAttributedString(string: dateString, attributes: [.font: UIFont.systemFont(ofSize: 12, weight: .medium), .foregroundColor: UIColor(named: "quaternary") ?? .gray])
+    }
+    
+    func cellTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+        if indexPath.section > 0, isSameDay(date1: message.sentDate, date2: messages[indexPath.section - 1].sentDate) {
+            return 0
+        }
+        return 40
+    }
+    
+    private func isSameDay(date1: Date, date2: Date) -> Bool {
+        return Calendar.current.isDate(date2, inSameDayAs: date1)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        0
+    }
+    
+    func messageStyle(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
+        var roundCorners: CACornerMask
+        roundCorners = isFromCurrentSender(message: message) ? [.layerMinXMinYCorner, .layerMinXMaxYCorner, .layerMaxXMaxYCorner] : [.layerMinXMaxYCorner, .layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+        return .custom { container in
+            container.roundCorners(roundCorners, radius: 18)
+        }
+    }
+    
+//    func configureAccessoryView(_ accessoryView: UIView, for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) {
+//        if isFromCurrentSender(message: message) {
+//            let imageView = UIImageView(frame: CGRect(x: -20, y: 0, width: 20, height: 20))
+//            imageView.image = UIImage(systemName: "checkmark.rectangle")
+//            accessoryView.addSubview(imageView)
+//        }
+//
+//    }
+    
+    func messageBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+        if isFromCurrentSender(message: message){
+            //let text = "Seen"
+            let attachment = NSTextAttachment()
+            let seen = messages[indexPath.section].seen
+            let icon = seen ? UIImage(named: "seen-checkmark") : UIImage(named: "seen-checkmark")?.withTintColor(.gray)
+            attachment.image = icon
+            let attachmentString = NSAttributedString(attachment: attachment)
+            //let completeText = NSMutableAttributedString(string: text)
+            //completeText.append(NSAttributedString(string: " "))
+            //completeText.append(attachmentString)
+            return attachmentString
+        }
+        return nil
+    }
+    
+    func messageBottomLabelAlignment(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> LabelAlignment? {
+        return LabelAlignment(textAlignment: .right, textInsets: UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 8))
+    }
+    
+    func messageBottomLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+        isFromCurrentSender(message: message) ? 20 : 0
+    }
+//    private func messageBottomLabelInsets(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIEdgeInsets {
+//        return UIEdgeInsets(top: 4, left: 0, bottom: 4, right: 8)
+//    }
+    
+    func avatarSize(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGSize? {
+        .zero
+    }
+    
+    func isFromCurrentSender(message: MessageType) -> Bool {
+        return message.sender.displayName == currentSender.displayName
+    }
+}
+
+extension ChatVC: InputBarAccessoryViewDelegate {
+    func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
+        let newMessage = Message(sender: currentSender, messageId: UUID().uuidString, sentDate: Date(), kind: .text(text), seen: false)
+        //messages.append(newMessage)
+        messagesCollectionView.reloadData()
+        inputBar.inputTextView.text = ""
+        messagesCollectionView.scrollToLastItem()
+        FirebaseManager.shared.sendMessage(orderID: String(orderID), receiverId: receiverID, message: text, type: "text")
+        FirebaseManager.shared.updateCustomerUnreadMessages(orderID: String(orderID))
+    }
+    
+    func inputBar(_ inputBar: InputBarAccessoryView, textViewTextDidChangeTo text: String) {
+        if text.isEmpty {
+            FirebaseManager.shared.updateCaptainTyping(orderID: String(orderID), isTyping: false)
+        } else {
+            FirebaseManager.shared.updateCaptainTyping(orderID: String(orderID), isTyping: true)
+        }
+    }
 }
 
 extension ChatVC: MessageCellDelegate {
@@ -276,24 +396,6 @@ extension ChatVC: MessageCellDelegate {
         default:
             break
         }
-    }
-}
-
-extension ChatVC: InputBarAccessoryViewDelegate {
-    func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
-//        let newMessage = Message(sender: currentSender, messageId: UUID().uuidString, sentDate: Date(), kind: .text(text))
-//        messages.append(newMessage)
-//        messagesCollectionView.reloadData()
-//        inputBar.inputTextView.text = ""
-//        messagesCollectionView.scrollToLastItem()
-//        FirebaseManager.shared.sendMessage(orderId: String(orderID), receiverId: receiverID, message: text, type: "text")
-//        //FirebaseManager.shared.sendMessage(orderId: "20", receiverId: UserInfo.shared.get_ID(), message: text, type: "text")
-        print("send")
-        print(messageInputBar.rightStackView.frame.height)
-        print(messageInputBar.inputTextView.font.lineHeight)
-        print(messageInputBar.inputTextView.font)
-        print(messageInputBar.sendButton.frame.height)
-        print(messageInputBar.inputTextView.frame.height)
     }
 }
 
