@@ -49,11 +49,49 @@ class CurrentRequestVC: UIViewController {
     weak var delegate: CurrentRequestDelegate?
     
     var status: OrderStatus = .goingToPickup
+    var orderID = 0
     var point = 0
+    var notificationView: UIView?
+    let unreadMessages = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         chatButton.setImage(UIImage(named: "Chat_enabled"), for: .normal)
+        observeCaptainUnreadMessages()
+        configureNotificationView()
+    }
+    
+    func configureNotificationView() {
+        notificationView = UIView(frame: CGRect(x: chatButton.bounds.width - 12, y: -8, width: 20, height: 20))
+        notificationView?.backgroundColor = .red
+        notificationView?.cornerRadius = 10
+        unreadMessages.textAlignment = .center
+        unreadMessages.textColor = .white
+        unreadMessages.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+        unreadMessages.translatesAutoresizingMaskIntoConstraints = false
+
+        // Add the count label to the notification view
+        notificationView?.addSubview(unreadMessages)
+
+        // Add constraints to the count label
+        NSLayoutConstraint.activate([
+            unreadMessages.centerXAnchor.constraint(equalTo: notificationView!.centerXAnchor),
+            unreadMessages.centerYAnchor.constraint(equalTo: notificationView!.centerYAnchor)
+        ])
+        chatButton.addSubview(notificationView!)
+        notificationView?.isUserInteractionEnabled = false
+        notificationView?.layer.zPosition = 1
+        notificationView?.isHidden = true
+    }
+    
+    func observeCaptainUnreadMessages() {
+        FirebaseManager.shared.observeCaptainUnreadMessages(orderID: String(orderID)) { count in
+            guard let count = count else {
+                return
+            }
+            self.notificationView?.isHidden = count > 0 ? false : true
+            self.unreadMessages.text = String(count)
+        }
     }
 
     @IBAction func chat(_ sender: Any) {
