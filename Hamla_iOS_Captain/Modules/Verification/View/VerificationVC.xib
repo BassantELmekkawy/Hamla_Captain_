@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="VerificationVC" customModule="Hamla_iOS_Captain" customModuleProvider="target">
+            <connections>
+                <outlet property="activityIndicator" destination="jGh-do-1fO" id="dyX-fm-3xn"/>
+                <outlet property="otpVerificationMessage" destination="Hpn-7R-dEv" id="exC-uc-Ttk"/>
+                <outlet property="resendButton" destination="Fhe-mD-UFf" id="Sto-BD-hNg"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outletCollection property="otpCollection" destination="wAr-F8-7qm" collectionClass="NSMutableArray" id="VpL-Fy-wNo"/>
+                <outletCollection property="otpCollection" destination="c4H-rA-cxx" collectionClass="NSMutableArray" id="qOF-zB-d4s"/>
+                <outletCollection property="otpCollection" destination="YKX-QU-vwP" collectionClass="NSMutableArray" id="Ymw-qA-pYA"/>
+                <outletCollection property="otpCollection" destination="Tr1-ao-evz" collectionClass="NSMutableArray" id="vIt-pk-NBg"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We sent an OTP code to +201149336618 to verify it’s you!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hpn-7R-dEv">
+                    <rect key="frame" x="65" y="109.99999999999999" width="263" height="38.333333333333329"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" name="quaternary"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="Reg-N0-YfN">
+                    <rect key="frame" x="45" y="178.33333333333334" width="303" height="56"/>
+                    <subviews>
+                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="-" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wAr-F8-7qm" customClass="OTPTextField" customModule="Hamla_iOS_Captain" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="66" height="56"/>
+                            <color key="backgroundColor" name="background"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="56" id="hgr-Yd-6Ye"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="8"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="Exk-39-Shd"/>
+                            </connections>
+                        </textField>
+                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="-" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c4H-rA-cxx" customClass="OTPTextField" customModule="Hamla_iOS_Captain" customModuleProvider="target">
+                            <rect key="frame" x="79" y="0.0" width="66" height="56"/>
+                            <color key="backgroundColor" name="background"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="56" id="Mht-6W-fuf"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="8"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="LlI-5u-oEt"/>
+                            </connections>
+                        </textField>
+                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="-" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YKX-QU-vwP" customClass="OTPTextField" customModule="Hamla_iOS_Captain" customModuleProvider="target">
+                            <rect key="frame" x="158" y="0.0" width="66" height="56"/>
+                            <color key="backgroundColor" name="background"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="56" id="cxK-eG-vkz"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="8"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="wym-3O-vud"/>
+                            </connections>
+                        </textField>
+                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="-" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tr1-ao-evz" customClass="OTPTextField" customModule="Hamla_iOS_Captain" customModuleProvider="target">
+                            <rect key="frame" x="237" y="0.0" width="66" height="56"/>
+                            <color key="backgroundColor" name="background"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="56" id="ume-eg-fxM"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="numberPad" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="8"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="gyb-tB-NpO"/>
+                            </connections>
+                        </textField>
+                    </subviews>
+                </stackView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XFu-Um-sUk">
+                    <rect key="frame" x="28" y="267.33333333333331" width="337" height="56"/>
+                    <color key="backgroundColor" name="primary"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="56" id="zLD-Lg-siT"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="Verify">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Verify"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="verifyCode:" destination="-1" eventType="touchUpInside" id="4Fr-Hj-vHJ"/>
+                    </connections>
+                </button>
+                <stackView opaque="NO" contentMode="scaleAspectFit" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Thh-e0-bkL">
+                    <rect key="frame" x="84.333333333333329" y="356.33333333333331" width="224.66666666666669" height="32"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Didn’t received a code" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MXQ-bM-W0r">
+                            <rect key="frame" x="0.0" y="0.0" width="162.66666666666666" height="32"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                            <color key="textColor" name="primary-dark"/>
+                            <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Didnot_received_a_code"/>
+                            </userDefinedRuntimeAttributes>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fhe-mD-UFf">
+                            <rect key="frame" x="166.66666666666669" y="0.0" width="58" height="32"/>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" title="Resend">
+                                <color key="titleColor" name="accent"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="LocalizableKey" value="Resend"/>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="resendCode:" destination="-1" eventType="touchUpInside" id="djz-Wf-oCj"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="jGh-do-1fO">
+                    <rect key="frame" x="178" y="407.66666666666669" width="37" height="37"/>
+                </activityIndicatorView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Hpn-7R-dEv" secondAttribute="trailing" constant="65" id="CRH-Rj-FoA"/>
+                <constraint firstItem="Thh-e0-bkL" firstAttribute="top" secondItem="XFu-Um-sUk" secondAttribute="bottom" constant="33" id="K0r-hm-EgZ"/>
+                <constraint firstItem="jGh-do-1fO" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Psq-KQ-5Ki"/>
+                <constraint firstItem="Reg-N0-YfN" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="45" id="SRJ-wx-d1t"/>
+                <constraint firstItem="XFu-Um-sUk" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="28" id="TKG-wa-qNQ"/>
+                <constraint firstItem="Hpn-7R-dEv" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="65" id="VSN-Me-rI7"/>
+                <constraint firstItem="Hpn-7R-dEv" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="110" id="YfW-5A-Ac6"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Reg-N0-YfN" secondAttribute="trailing" constant="45" id="Yst-WK-Dmu"/>
+                <constraint firstItem="XFu-Um-sUk" firstAttribute="top" secondItem="Reg-N0-YfN" secondAttribute="bottom" constant="33" id="ZEu-ca-VcM"/>
+                <constraint firstItem="jGh-do-1fO" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="bBk-5g-YIW"/>
+                <constraint firstItem="Thh-e0-bkL" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="blO-wQ-l2H"/>
+                <constraint firstItem="Reg-N0-YfN" firstAttribute="top" secondItem="Hpn-7R-dEv" secondAttribute="bottom" constant="30" id="gBk-Mu-ABG"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="XFu-Um-sUk" secondAttribute="trailing" constant="28" id="ghs-lL-qlF"/>
+            </constraints>
+            <point key="canvasLocation" x="32.824427480916029" y="-11.267605633802818"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="accent">
+            <color red="0.27450980392156865" green="0.70980392156862748" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="background">
+            <color red="0.94509803921568625" green="0.95686274509803926" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="primary">
+            <color red="0.035294117647058823" green="0.3843137254901961" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="primary-dark">
+            <color red="0.10980392156862745" green="0.14117647058823529" blue="0.22352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="quaternary">
+            <color red="0.29803921568627451" green="0.33725490196078434" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

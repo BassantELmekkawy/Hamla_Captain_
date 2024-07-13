@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "076DE3F0-184E-46C8-9F76-F8EE2A92C1B9"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "00BA317F-9BD5-456A-8A19-F837EE1B4773"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Hamla_iOS_Captain/Modules/CreateAccount/Views/STC_Pay_Information/STC_Pay_InformationVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "bindData()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EDA34931-0D0C-4967-8FDE-E6A78C1EC097"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Hamla_iOS_Captain/Modules/CreateAccount/Views/STC_Pay_Information/STC_Pay_InformationVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
+            landmarkName = "bindData()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "EDA34931-0D0C-4967-8FDE-E6A78C1EC097 - 8b11c1cf0bbf6bdc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Hamla_iOS_Captain.RegisterModel&gt;) -&gt; () in Hamla_iOS_Captain.STC_Pay_InformationVC.bindData() -&gt; ()"
+                  moduleName = "Hamla_iOS_Captain"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bassant/Desktop/Hamla_iOS_Captain/Hamla_iOS_Captain/Modules/CreateAccount/Views/STC_Pay_Information/STC_Pay_InformationVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "66"
+                  endingLineNumber = "66"
+                  offsetFromSymbolStart = "1043">
+               </Location>
+               <Location
+                  uuid = "EDA34931-0D0C-4967-8FDE-E6A78C1EC097 - 8b11c1cf0bbf6bdc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Hamla_iOS_Captain.RegisterModel&gt;) -&gt; () in Hamla_iOS_Captain.STC_Pay_InformationVC.bindData() -&gt; ()"
+                  moduleName = "Hamla_iOS_Captain"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bassant/Desktop/Hamla_iOS_Captain/Hamla_iOS_Captain/Modules/CreateAccount/Views/STC_Pay_Information/STC_Pay_InformationVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "66"
+                  endingLineNumber = "66"
+                  offsetFromSymbolStart = "1154">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8C944956-39AD-48CA-A8EE-8FD5FC80C04B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Hamla_iOS_Captain/Modules/CreateAccount/Views/STC_Pay_Information/STC_Pay_InformationVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "bindData()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5737AF15-20A4-4D03-9CB3-37C515A993C6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Hamla_iOS_Captain/Modules/CreateAccount/Views/STC_Pay_Information/STC_Pay_InformationVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "bindData()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BAE0E4B3-4647-4FA7-B6D0-75595AD29925"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Hamla_iOS_Captain/Modules/CreateAccount/Views/Personal_Information/PersonalInformationVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
+            landmarkName = "isValidData()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "BAE0E4B3-4647-4FA7-B6D0-75595AD29925 - 6ac3f0a41cf941c4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Hamla_iOS_Captain.PersonalInformationVC.isValidData() -&gt; Swift.Bool"
+                  moduleName = "Hamla_iOS_Captain"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bassant/Desktop/Hamla_iOS_Captain/Hamla_iOS_Captain/Modules/CreateAccount/Views/Personal_Information/PersonalInformationVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "179"
+                  endingLineNumber = "179"
+                  offsetFromSymbolStart = "1302">
+               </Location>
+               <Location
+                  uuid = "BAE0E4B3-4647-4FA7-B6D0-75595AD29925 - 6ac3f0a41cf941c4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Hamla_iOS_Captain.PersonalInformationVC.isValidData() -&gt; Swift.Bool"
+                  moduleName = "Hamla_iOS_Captain"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bassant/Desktop/Hamla_iOS_Captain/Hamla_iOS_Captain/Modules/CreateAccount/Views/Personal_Information/PersonalInformationVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "179"
+                  endingLineNumber = "179"
+                  offsetFromSymbolStart = "1518">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
