@@ -17,6 +17,7 @@ class VerificationVC: UIViewController{
     var viewModel: VerificationViewModel?
     var signInViewModel: SignInViewModel?
     
+    var countryCode = ""
     var phoneNumber = ""
     var timer: Timer?
     let totalTime: TimeInterval = 90
@@ -42,8 +43,8 @@ class VerificationVC: UIViewController{
         self.title = "Verification".localized
         setupNavigationBar()
         
-        otpVerificationMessage.text = String(format: "We_sent_an_OTP_code_to".localized, "+20\(phoneNumber)")
-        otpVerificationMessage.twoColorLabel(word: "+20\(phoneNumber)", color: UIColor(named: "accent") ?? .black)
+        otpVerificationMessage.text = String(format: "We_sent_an_OTP_code_to".localized, "+\(phoneNumber)")
+        otpVerificationMessage.twoColorLabel(word: "+\(phoneNumber)", color: UIColor(named: "accent") ?? .black)
         
         for (index, textField) in otpCollection.enumerated() {
             textField.tag = index
@@ -65,11 +66,12 @@ class VerificationVC: UIViewController{
             else if result?.is_new == true {
                 UserInfo.shared.isPhoneVerified(status: true)
                 if UserInfo.shared.getLogin() {
-                    self.viewModel?.updateProfile(mobile: "20\(self.phoneNumber)")
+                    self.viewModel?.updateProfile(mobile: self.phoneNumber)
                     self.navigationController?.popViewController(animated: true)
                 }
                 else {
                     let vc = PersonalInformationVC(nibName: "PersonalInformationVC", bundle: nil)
+                    vc.countryCode = self.countryCode
                     vc.phoneNumber = self.phoneNumber
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
@@ -86,7 +88,7 @@ class VerificationVC: UIViewController{
         
         viewModel?.updateProfileResult.bind { result in
             guard let message = result?.message else { return }
-            self.showAlert(message: message)
+            //self.showAlert(message: message)
             print(message)
         }
         
@@ -111,7 +113,7 @@ class VerificationVC: UIViewController{
         
         signInViewModel?.sendCodeResult.bind{ result in
             guard let message = result?.message else { return }
-            self.showAlert(message: message)
+            //self.showAlert(message: message)
         }
         
         signInViewModel?.errorMessage.bind{ error in
@@ -165,12 +167,12 @@ class VerificationVC: UIViewController{
             }
             verificationCode += otpTextField.text ?? ""
         }
-        viewModel?.checkCode(mobile: "20\(phoneNumber)", verificationCode: verificationCode, deviceToken: "1234", deviceType: "ios")
+        viewModel?.checkCode(mobile: phoneNumber, verificationCode: verificationCode, deviceToken: "1234", deviceType: "ios")
     }
     
     @IBAction func resendCode(_ sender: Any) {
         startTimer()
-        signInViewModel?.sendCode(mobile: "20\(phoneNumber)")
+        signInViewModel?.sendCode(mobile: phoneNumber)
     }
     
 }

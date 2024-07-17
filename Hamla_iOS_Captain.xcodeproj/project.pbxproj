@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3EBA46F3694E0C08D2688E6A /* Pods_Hamla_iOS_Captain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81B1D98E5708F9462FD69E21 /* Pods_Hamla_iOS_Captain.framework */; };
+		9E00DE222C443766008030FA /* CountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E00DE202C443766008030FA /* CountryCell.swift */; };
+		9E00DE232C443766008030FA /* CountryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E00DE212C443766008030FA /* CountryCell.xib */; };
 		9E11954A2BD528EF00C9F7A8 /* FittedSheets in Frameworks */ = {isa = PBXBuildFile; productRef = 9E1195492BD528EF00C9F7A8 /* FittedSheets */; };
 		9E11958F2BD54A4300C9F7A8 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 9E11958E2BD54A4300C9F7A8 /* Kingfisher */; };
 		9E29B35E2C3607F200440E44 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E29B35D2C3607F200440E44 /* GoogleService-Info.plist */; };
@@ -140,6 +142,8 @@
 /* Begin PBXFileReference section */
 		65EDED1565E5609559A987A9 /* Pods-Hamla_iOS_Captain.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hamla_iOS_Captain.release.xcconfig"; path = "Target Support Files/Pods-Hamla_iOS_Captain/Pods-Hamla_iOS_Captain.release.xcconfig"; sourceTree = "<group>"; };
 		81B1D98E5708F9462FD69E21 /* Pods_Hamla_iOS_Captain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Hamla_iOS_Captain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9E00DE202C443766008030FA /* CountryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCell.swift; sourceTree = "<group>"; };
+		9E00DE212C443766008030FA /* CountryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountryCell.xib; sourceTree = "<group>"; };
 		9E29B35D2C3607F200440E44 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		9E412E362C09FD6A00B010E2 /* UpcomingRequestsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingRequestsCell.swift; sourceTree = "<group>"; };
 		9E412E372C09FD6A00B010E2 /* UpcomingRequestsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpcomingRequestsCell.xib; sourceTree = "<group>"; };
@@ -294,6 +298,26 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		9E00DE1E2C4436E2008030FA /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				9E00DE1F2C443714008030FA /* CountryCell */,
+				9E5267F52C018D7000E1F9E5 /* SignIn */,
+				9E5267D32C018D7000E1F9E5 /* Verification */,
+				9E5268062C018D7000E1F9E5 /* CreateAccount */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		9E00DE1F2C443714008030FA /* CountryCell */ = {
+			isa = PBXGroup;
+			children = (
+				9E00DE202C443766008030FA /* CountryCell.swift */,
+				9E00DE212C443766008030FA /* CountryCell.xib */,
+			);
+			path = CountryCell;
+			sourceTree = "<group>";
+		};
 		9E5267852C018D7000E1F9E5 /* Hamla_iOS_Captain */ = {
 			isa = PBXGroup;
 			children = (
@@ -364,9 +388,7 @@
 				9E5267CA2C018D7000E1F9E5 /* SetPrice */,
 				9E5267C42C018D7000E1F9E5 /* Calender */,
 				9E52681D2C018D7000E1F9E5 /* Onboarding */,
-				9E5267F52C018D7000E1F9E5 /* SignIn */,
-				9E5267D32C018D7000E1F9E5 /* Verification */,
-				9E5268062C018D7000E1F9E5 /* CreateAccount */,
+				9E00DE1E2C4436E2008030FA /* Authentication */,
 				9E5267A62C018D7000E1F9E5 /* Home */,
 				9E5267E32C018D7000E1F9E5 /* Map */,
 				9E5267FF2C018D7000E1F9E5 /* SideMenu */,
@@ -1013,6 +1035,7 @@
 				9E5268582C018D7200E1F9E5 /* SetPriceAlertView.xib in Resources */,
 				9E29B35E2C3607F200440E44 /* GoogleService-Info.plist in Resources */,
 				9E5268962C025BA900E1F9E5 /* OrderCompletedSheet.xib in Resources */,
+				9E00DE232C443766008030FA /* CountryCell.xib in Resources */,
 				9E5268572C018D7200E1F9E5 /* OrderDetailsVC.xib in Resources */,
 				9E5268492C018D7100E1F9E5 /* HomeVC.xib in Resources */,
 				9E52685C2C018D7200E1F9E5 /* TransactionCell.xib in Resources */,
@@ -1091,6 +1114,7 @@
 				9E5268352C018D7100E1F9E5 /* UiNavigationItem.swift in Sources */,
 				9E412E3B2C0CCF3800B010E2 /* CaptainOnOrderModel.swift in Sources */,
 				9E5268292C018D7100E1F9E5 /* FirebaseManager.swift in Sources */,
+				9E00DE222C443766008030FA /* CountryCell.swift in Sources */,
 				9E5268282C018D7100E1F9E5 /* OnboardingManager.swift in Sources */,
 				9E52682E2C018D7100E1F9E5 /* TargetType.swift in Sources */,
 				9EA3BE842C28DDA900C437E0 /* TruckTypesModel.swift in Sources */,

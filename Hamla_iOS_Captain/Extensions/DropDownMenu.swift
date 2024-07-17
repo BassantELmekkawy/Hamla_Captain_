@@ -17,24 +17,36 @@ class DropdownMenu: NSObject {
     
     var selectedElement: ((String) -> Void)?
     var selectedRow: Int?
+    var customCellType: UITableViewCell.Type?
+    var customCell:((UITableViewCell, IndexPath) -> Void)?
+    var cellHeight: CGFloat?
 
-    init(dataSource: [String], button: UIButton) {
+    init(dataSource: [String], button: UIButton, customCellType: UITableViewCell.Type? = nil) {
         self.dataSource = dataSource
         self.tableViewButton = button
+        self.customCellType = customCellType
         
         super.init()
-
+        
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        
+        if let customCellType = customCellType {
+            let identifier = String(describing: customCellType)
+            tableView.register(UINib(nibName: identifier, bundle: nil), forCellReuseIdentifier: identifier)
+        } else {
+            tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        }
     }
 
-    func setupDropdownMenu() {
-        guard let button = tableViewButton else { return }
-        addTableView(frames: button.frame)
+    func setupDropdownMenu(width: CGFloat? = nil, height: CGFloat? = nil) {
+        //guard let button = tableViewButton else { return }
+        addTableView(width: width, height: height)
+        showTableView(width: width, height: height)
+        cellHeight = height
     }
 
-    private func addTableView(frames: CGRect) {
+    private func addTableView(width: CGFloat? = nil, height: CGFloat? = nil) {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = windowScene.windows.first else {
             return
@@ -47,9 +59,9 @@ class DropdownMenu: NSObject {
         transparentView.frame = window.frame
         window.addSubview(transparentView)
 
-        tableView.rowHeight = 40
+        tableView.rowHeight = height ?? 40
         let tableViewHeight = (dataSource.count > 3) ? 120.0 : CGFloat(dataSource.count) * tableView.rowHeight
-        tableView.frame = CGRect(x: buttonFrameInWindow.minX, y: buttonFrameInWindow.maxY, width: buttonFrameInWindow.width, height: tableViewHeight)
+        tableView.frame = CGRect(x: buttonFrameInWindow.minX, y: buttonFrameInWindow.maxY, width: width ?? buttonFrameInWindow.width, height: tableViewHeight)
         window.addSubview(tableView)
         tableView.layer.cornerRadius = 5
         tableView.separatorStyle = .none
@@ -66,7 +78,7 @@ class DropdownMenu: NSObject {
         transparentView.isHidden = true
     }
 
-    func showTableView(frames: CGRect) {
+    func showTableView(width: CGFloat? = nil, height: CGFloat? = nil) {
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let window = windowScene.windows.first else {
             return
@@ -75,7 +87,7 @@ class DropdownMenu: NSObject {
         guard let button = tableViewButton else { return }
         let buttonFrameInWindow = button.convert(button.bounds, to: window)
 
-        tableView.frame = CGRect(x: buttonFrameInWindow.minX, y: buttonFrameInWindow.maxY, width: buttonFrameInWindow.width, height: tableView.frame.height)
+        tableView.frame = CGRect(x: buttonFrameInWindow.minX, y: buttonFrameInWindow.maxY, width: width ?? buttonFrameInWindow.width, height: tableView.frame.height)
         tableView.isHidden = false
         transparentView.isHidden = false
         window.bringSubviewToFront(transparentView)
@@ -94,13 +106,19 @@ extension DropdownMenu: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let customCellType = customCellType {
+            let identifier = String(describing: customCellType)
+            let cell  = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+            customCell?(cell, indexPath)
+            return cell
+        }
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         cell.textLabel?.text = dataSource[indexPath.row]
         return cell
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 40
+        return cellHeight ?? 40
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

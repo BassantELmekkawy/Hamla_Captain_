@@ -139,7 +139,7 @@ class FleetInformationVC: UIViewController {
         
         dropDownMenu = DropdownMenu(dataSource: fleetData, button: sender)
         dropDownMenu.setupDropdownMenu()
-        dropDownMenu.showTableView(frames: sender.frame)
+        dropDownMenu.showTableView()
         
         dropDownMenu.selectedElement = { [weak self] element in
             //self.selectedFleetData[sender.tag] = element
@@ -207,6 +207,16 @@ class FleetInformationVC: UIViewController {
 }
 
 extension FleetInformationVC: UITextFieldDelegate{
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == plateNumberTF {
+            //Limit the character count to 10.
+            if ((textField.text!) + string).count > 10 {
+                return false
+            }
+        }
+        return true
+    }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         switch textField {
