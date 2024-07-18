@@ -18,6 +18,7 @@
 		9E412E382C09FD6A00B010E2 /* UpcomingRequestsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E412E362C09FD6A00B010E2 /* UpcomingRequestsCell.swift */; };
 		9E412E392C09FD6A00B010E2 /* UpcomingRequestsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E412E372C09FD6A00B010E2 /* UpcomingRequestsCell.xib */; };
 		9E412E3B2C0CCF3800B010E2 /* CaptainOnOrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E412E3A2C0CCF3800B010E2 /* CaptainOnOrderModel.swift */; };
+		9E4655302C4955BF00704EBE /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E46552F2C4955BF00704EBE /* Date.swift */; };
 		9E5268262C018D7100E1F9E5 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5267862C018D7000E1F9E5 /* UserInfo.swift */; };
 		9E5268272C018D7100E1F9E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E5267872C018D7000E1F9E5 /* LaunchScreen.storyboard */; };
 		9E5268282C018D7100E1F9E5 /* OnboardingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5267882C018D7000E1F9E5 /* OnboardingManager.swift */; };
@@ -144,6 +145,7 @@
 		9E412E362C09FD6A00B010E2 /* UpcomingRequestsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingRequestsCell.swift; sourceTree = "<group>"; };
 		9E412E372C09FD6A00B010E2 /* UpcomingRequestsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpcomingRequestsCell.xib; sourceTree = "<group>"; };
 		9E412E3A2C0CCF3800B010E2 /* CaptainOnOrderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptainOnOrderModel.swift; sourceTree = "<group>"; };
+		9E46552F2C4955BF00704EBE /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		9E5267862C018D7000E1F9E5 /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		9E5267872C018D7000E1F9E5 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9E5267882C018D7000E1F9E5 /* OnboardingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingManager.swift; sourceTree = "<group>"; };
@@ -353,6 +355,7 @@
 				9E52679F2C018D7000E1F9E5 /* PhotoActionSheet.swift */,
 				9E5267A02C018D7000E1F9E5 /* ShowAlert.swift */,
 				9E5267A12C018D7000E1F9E5 /* DropDownMenu.swift */,
+				9E46552F2C4955BF00704EBE /* Date.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1150,6 +1153,7 @@
 				9E412E382C09FD6A00B010E2 /* UpcomingRequestsCell.swift in Sources */,
 				9E52688A2C018D7200E1F9E5 /* STC_Pay_InformationVC.swift in Sources */,
 				9E5268502C018D7100E1F9E5 /* MyProfileApi.swift in Sources */,
+				9E4655302C4955BF00704EBE /* Date.swift in Sources */,
 				9EA3BE9D2C2CA28000C437E0 /* PhotoViewerVC.swift in Sources */,
 				9E5268462C018D7100E1F9E5 /* HomeApi.swift in Sources */,
 				9EA3BE9B2C2C05BF00C437E0 /* ChatViewModel.swift in Sources */,

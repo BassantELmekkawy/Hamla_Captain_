@@ -85,37 +85,46 @@ class FirebaseManager {
         }
     }
     
-    func sendMessage(orderId: String, receiverId: Int, message: String, type: String) {
+    func sendMessage(orderID: String, receiverId: Int, message: String, type: String) {
         let ref = Database.database().reference()
+        let messageRef = ref.child("chatting").child(orderID).child("messages").childByAutoId()
+        let messageId = messageRef.key
+
         let messageData: [String: Any] = [
+            "messageId": messageId ?? "",
             "senderId": UserInfo.shared.get_ID(),
             "sender": "captain",
             "receiverId": receiverId,
             "message": message,
             "type": type,
-            "createdAt": DateFormatter.dateFormatter.string(from: Date())
+            "createdAt": Int(Date().timeIntervalSince1970 * 1000),
+            "seen": false
         ]
 
-        ref.child("Chatting").child(orderId).childByAutoId().setValue(messageData)
+        messageRef.setValue(messageData)
     }
     
-//    func sendMessage(orderId: String, receiverId: Int, message: String, type: String) {
+//    func sendMessage(orderID: String, receiverId: Int, message: String, type: String) {
 //        let ref = Database.database().reference()
+//        let messageRef = ref.child("chatting").child(orderID).child("messages").childByAutoId()
+//        let messageId = messageRef.key
 //        let messageData: [String: Any] = [
-//            "senderId": 230,
+//            "messageId": messageId ?? "",
+//            "senderId": receiverId,
 //            "sender": "customer",
-//            "receiverId": 1,
+//            "receiverId": UserInfo.shared.get_ID(),
 //            "message": message,
 //            "type": type,
-//            "createdAt": DateFormatter.dateFormatter.string(from: Date())
+//            "createdAt": Int(Date().timeIntervalSince1970 * 1000),
+//            "seen": false
 //        ]
 //
-//        ref.child("Chatting").child(orderId).childByAutoId().setValue(messageData)
+//        messageRef.setValue(messageData)
 //    }
     
     func fetchAllMessages(orderID: String, completion: @escaping ([Message]?) -> Void) {
         let ref = Database.database().reference()
-        ref.child("Chatting").child(orderID).getData { error, snapshot in
+        ref.child("chatting").child(orderID).child("messages").getData { error, snapshot in
             var messages: [Message] = []
             if let error = error {
                 print("Error fetching initial messages: \(error)")
@@ -136,7 +145,8 @@ class FirebaseManager {
                    let senderName = data["sender"] as? String,
                    let messageText = data["message"] as? String,
                    let messageType = data["type"] as? String,
-                   let createdAt = data["createdAt"] as? String {
+                   let createdAt = data["createdAt"] as? Int,
+                   let seen = data["seen"] as? Bool {
                     
                     switch messageType {
                     case "text":
@@ -154,9 +164,9 @@ class FirebaseManager {
                     
                     guard let kind = kind else { return }
                     
-                    let date = DateFormatter.dateFormatter.date(from: createdAt)
+                    let date = Date(timeIntervalSince1970: TimeInterval(createdAt) / 1000)
                     let sender = Sender(senderId: String(senderId), displayName: senderName)
-                    let message = Message(sender: sender, messageId: child.key, sentDate: date ?? Date(), kind: kind)
+                    let message = Message(sender: sender, messageId: child.key, sentDate: date , kind: kind, seen: seen)
                     messages.append(message)
                 }
             }
@@ -166,7 +176,7 @@ class FirebaseManager {
     
     func observeNewMessage(orderID: String, completion: @escaping (Message?) -> Void) {
         let ref = Database.database().reference()
-        ref.child("Chatting").child(orderID).observe(.childAdded) { snapshot in
+        ref.child("chatting").child(orderID).child("messages").observe(.childAdded) { snapshot in
             print("Snapshot received: \(snapshot)")
             
             guard let data = snapshot.value as? [String: Any] else {
@@ -178,7 +188,66 @@ class FirebaseManager {
                   let senderName = data["sender"] as? String,
                   let messageText = data["message"] as? String,
                   let messageType = data["type"] as? String,
-                  let createdAt = data["createdAt"] as? String else {
+                  let createdAt = data["createdAt"] as? Int,
+                  let seen = data["seen"] as? Bool else {
+                print("Failed to parse message data")
+                return
+            }
+            print("Message data parsed successfully")
+            
+            if senderName == "customer" {
+                ref.child("Chatting").child(orderID).child(snapshot.key).updateChildValues(["seen": true]) { error, ref in
+                    if let error = error {
+                        print("Error updating seen: \(error)")
+                    } else {
+                        print("seen updated successfully")
+                    }
+                }
+            }
+            
+            self.updateCaptainUnreadMessages(orderID: orderID)
+            
+            var kind: MessageKind?
+            
+            switch messageType {
+            case "text":
+                kind = .text(messageText)
+            case "photo":
+                guard let imageUrl = URL(string: messageText),
+                      let placeholder = UIImage(systemName: "photo") else { return }
+                let media = Media(url: imageUrl,
+                                  placeholderImage: placeholder,
+                                  size: CGSize(width: 300, height: 300))
+                kind = .photo(media)
+            default:
+                break
+            }
+            
+            guard let kind = kind else { return }
+            
+            let date = Date(timeIntervalSince1970: TimeInterval(createdAt) / 1000)
+            let sender = Sender(senderId: String(senderId), displayName: senderName)
+            let message = Message(sender: sender, messageId: snapshot.key, sentDate: date , kind: kind, seen: seen)
+            completion(message)
+        }
+    }
+    
+    func observeMessageSeenStatus(orderID: String, completion: @escaping (Message?) -> Void) {
+        let ref = Database.database().reference()
+        ref.child("chatting").child(orderID).child("messages").observe(.childChanged) { snapshot in
+            print("Snapshot received: \(snapshot)")
+            
+            guard let data = snapshot.value as? [String: Any] else {
+                print("Failed to cast snapshot value to [String: Any]")
+                return
+            }
+            
+            guard let senderId = data["senderId"] as? Int,
+                  let senderName = data["sender"] as? String,
+                  let messageText = data["message"] as? String,
+                  let messageType = data["type"] as? String,
+                  let createdAt = data["createdAt"] as? Int,
+                  let seen = data["seen"] as? Bool else {
                 print("Failed to parse message data")
                 return
             }
@@ -202,26 +271,75 @@ class FirebaseManager {
             
             guard let kind = kind else { return }
             
-            if senderName == "customer" {
-                let date = DateFormatter.dateFormatter.date(from: createdAt)
+            if senderName == "captain" {
+                let date = Date(timeIntervalSince1970: TimeInterval(createdAt) / 1000)
                 let sender = Sender(senderId: String(senderId), displayName: senderName)
-                let message = Message(sender: sender, messageId: snapshot.key, sentDate: date ?? Date(), kind: kind)
-                print("Message from customer: \(messageText)")
+                let message = Message(sender: sender, messageId: snapshot.key, sentDate: date , kind: kind, seen: seen)
                 completion(message)
+            }
+        }
+    }
+    
+    func observeCustomerTyping(orderID: String, completion: @escaping (Bool?) -> Void) {
+        let ref = Database.database().reference()
+        ref.child("chatting").child(orderID).child("chatStatus").child("customerTyping").observe(.value) { snapshot in
+            if let customerTyping = snapshot.value as? Bool {
+                completion(customerTyping)
+            }
+        }
+    }
+    
+    func observeCaptainUnreadMessages(orderID: String, completion: @escaping (Int?) -> Void) {
+        let ref = Database.database().reference()
+        ref.child("chatting").child(orderID).child("chatStatus").child("captainUnreadMsg").observe(.value) { snapshot in
+            if let captainUnreadMessages = snapshot.value as? Int {
+                completion(captainUnreadMessages)
+            }
+        }
+    }
+    
+    private func updateCaptainUnreadMessages(orderID: String) {
+        let ref = Database.database().reference()
+        ref.child("chatting").child(orderID).child("chatStatus").child("captainUnreadMsg").setValue(0) { error, _ in
+            if let error = error {
+                print("Error updating captainTyping: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func updateCaptainTyping(orderID: String, isTyping: Bool) {
+        let ref = Database.database().reference()
+        ref.child("chatting").child(orderID).child("chatStatus").child("captainTyping").setValue(isTyping) { error, _ in
+            if let error = error {
+                print("Error updating captainTyping: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    // increments customer unread messages by 1
+    func updateCustomerUnreadMessages(orderID: String) {
+        let ref = Database.database().reference()
+        let customerUnreadMsgRef = ref.child("chatting").child(orderID).child("chatStatus").child("customerUnreadMsg")
+        
+        customerUnreadMsgRef.runTransactionBlock({ (currentData: MutableData) -> TransactionResult in
+            if let unreadCount = currentData.value as? Int {
+                currentData.value = unreadCount + 1
             } else {
-                print("Message is not from customer")
+                currentData.value = 1
+            }
+            return TransactionResult.success(withValue: currentData)
+        }) { error, committed, snapshot in
+            if let error = error {
+                print("Error incrementing customerUnreadMsg: \(error.localizedDescription)")
+            } else if !committed {
+                print("Transaction not committed")
+            } else {
+                if let value = snapshot?.value as? Int {
+                    print("Successfully incremented customerUnreadMsg to \(value)")
+                }
             }
         }
     }
 
-    
-}
 
-extension DateFormatter {
-    static let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "hh:mm a dd/MM/yyyy"
-        formatter.locale = Locale(identifier: "en_US_POSIX")
-        return formatter
-    }()
 }

@@ -40,6 +40,7 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
         currentRequestVC.delegate = self
         orderStatusSheet.delegate = self
         orderCompletedSheet.delegate = self
+        currentRequestVC.orderID = orderDetails.id ?? 0
         setupMapView()
         showRequest()
         bindData()
