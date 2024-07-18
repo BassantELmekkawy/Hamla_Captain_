@@ -71,8 +71,8 @@ class FleetInformationVC: UIViewController {
         view.endEditing(true)
     }
     
-    func showCalender(textfield: UITextField) {
-        let alertViewController = CalenderAlert(nibName: "CalenderAlert", bundle: nil)
+    func showCalender(textfield: UITextField, minDate: Date? = nil, maxDate: Date? = nil) {
+        let alertViewController = CalenderAlert(minDate: minDate, maxDate: maxDate)
         alertViewController.modalPresentationStyle = .overCurrentContext
         alertViewController.modalTransitionStyle = .crossDissolve
         alertViewController.didSelectDate = { selectedDate in
@@ -240,11 +240,18 @@ extension FleetInformationVC: UITextFieldDelegate{
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if textField == fleetLicenseExpiryDateTF {
+            let minDate = getAdjustedDate(byAddingDays: 1)
+            showCalender(textfield: textField, minDate: minDate)
             hideErrorMessage(label: errorMessage[4], view: textField)
-            showCalender(textfield: textField)
             return false
         }
         return true
+    }
+    
+    func getAdjustedDate(byAddingDays days: Int) -> Date? {
+        var components = DateComponents()
+        components.day = days
+        return Calendar.current.date(byAdding: components, to: Date())
     }
 }
 

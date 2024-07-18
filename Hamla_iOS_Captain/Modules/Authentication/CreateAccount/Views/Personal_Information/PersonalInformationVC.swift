@@ -136,8 +136,8 @@ class PersonalInformationVC: UIViewController {
         view.endEditing(true)
     }
     
-    func showCalender(textfield: UITextField) {
-        let alertViewController = CalenderAlert(nibName: "CalenderAlert", bundle: nil)
+    func showCalender(textfield: UITextField, minDate: Date? = nil, maxDate: Date? = nil) {
+        let alertViewController = CalenderAlert(minDate: minDate, maxDate: maxDate)
         alertViewController.modalPresentationStyle = .overCurrentContext
         alertViewController.modalTransitionStyle = .crossDissolve
         alertViewController.didSelectDate = { selectedDate in
@@ -327,18 +327,27 @@ extension PersonalInformationVC: UITextFieldDelegate{
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         switch textField {
         case dateOfBirthTF:
+            let maxDate = getAdjustedDate(byAddingDays: -1)
+            showCalender(textfield: textField, maxDate: maxDate)
             hideErrorMessage(label: errorMessage[2], view: textField)
-            showCalender(textfield: textField)
         case idExpiryDateTF:
+            let minDate = getAdjustedDate(byAddingDays: 1)
+            showCalender(textfield: textField, minDate: minDate)
             hideErrorMessage(label: errorMessage[4], view: textField)
-            showCalender(textfield: textField)
         case licenseExpiryDateTF:
+            let minDate = getAdjustedDate(byAddingDays: 1)
+            showCalender(textfield: textField, minDate: minDate)
             hideErrorMessage(label: errorMessage[5], view: textField)
-            showCalender(textfield: textField)
         default:
             return true
         }
         return false
+    }
+    
+    func getAdjustedDate(byAddingDays days: Int) -> Date? {
+        var components = DateComponents()
+        components.day = days
+        return Calendar.current.date(byAdding: components, to: Date())
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
