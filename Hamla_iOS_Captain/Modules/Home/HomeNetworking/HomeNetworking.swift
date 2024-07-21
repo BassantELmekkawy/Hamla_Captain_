@@ -15,6 +15,7 @@ enum HomeNetworking {
     case acceptOrder(orderID: String, captainLat: String, captainLng: String)
     case rejectOrder(orderID: String)
     case updateAvailability(lat: String, lng: String)
+    case setOrderPrice(orderID: String, price: String)
 }
 
 extension HomeNetworking: TargetType {
@@ -40,6 +41,8 @@ extension HomeNetworking: TargetType {
             return "reject-order"
         case .updateAvailability:
             return "update-availability"
+        case .setOrderPrice:
+            return "set-order-price"
         }
     }
     
@@ -56,6 +59,8 @@ extension HomeNetworking: TargetType {
         case .rejectOrder:
             return .post
         case .updateAvailability:
+            return .post
+        case .setOrderPrice:
             return .post
         }
     }
@@ -74,6 +79,8 @@ extension HomeNetworking: TargetType {
             return.requestParameters(parameters: ["order_id": orderID], encoding: JSONEncoding.default)
         case .updateAvailability(lat: let lat, lng: let lng):
             return .requestParameters(parameters: ["lat" : lat, "lng" : lng], encoding: JSONEncoding.default)
+        case .setOrderPrice(orderID: let orderID, price: let price):
+            return .requestParameters(parameters: ["order_id" : orderID, "price" : price], encoding: JSONEncoding.default)
         }
     }
     

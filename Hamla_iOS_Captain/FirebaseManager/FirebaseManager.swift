@@ -43,6 +43,20 @@ class FirebaseManager {
         observerHandles[captainId] = handle
     }
     
+    func getCaptainStatus(captainId: String, completion: @escaping (Bool?) -> Void) {
+        let ref = Database.database().reference()
+        
+        ref.child("OnlineCaptains").child(captainId).observeSingleEvent(of: .value) { snapshot in
+            if snapshot.exists() {
+                print("Captain Online")
+                completion(true)
+            } else {
+                print("Captain Offline")
+                completion(false)
+            }
+        }
+    }
+    
     func updateLocation(captainId: String, lat: String, lng: String) {
         let ref = Database.database().reference()
         

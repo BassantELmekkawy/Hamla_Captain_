@@ -22,9 +22,11 @@ class HomeVC: UIViewController {
     var sideMenuWidth: CGFloat = 260
     var overlay = UIView()
     var ordersDetails: [Order]? = []
+    var ordersStatus: [Int: UpcomingRequest] = [:]
     var ordersIDs: [Int] = []
     var selectedOrderDetails: Order?
     var selectedOrderID: Int?
+    var isCaptainOnline = false
     let locationManager = CLLocationManager()
     var currentLocation = CLLocation()
     let lang = Locale.current.language.languageCode
@@ -48,18 +50,9 @@ class HomeVC: UIViewController {
         
         captainName.text = UserInfo.shared.get_username()
         
-        let status = UserInfo.shared.getCaptainStatus()
-        switch status {
-        case true:
-            captainStatus.text = "Online".localized
-            availabilitySwitch.isOn = true
-            availabilityInfo.text = "You_can_receive_requests_normally".localized
-        case false:
-            captainStatus.text = "Offline".localized
-            availabilitySwitch.isOn = false
-            availabilityInfo.text = "You_cannot_receive_any_requests_now".localized
-        }
+        viewModel?.getCaptainStatus(captainID: String(UserInfo.shared.get_ID()))
         
+        locationManager.delegate = self
         getCurrentLocation()
         
     }
@@ -76,16 +69,6 @@ class HomeVC: UIViewController {
     
     func getCurrentLocation() {
         locationManager.requestWhenInUseAuthorization()
-        let status = locationManager.authorizationStatus
-        
-        switch status {
-        case .authorizedAlways, .authorizedWhenInUse:
-            currentLocation = locationManager.location!
-            print("Lat: ************ \(currentLocation.coordinate.latitude)")
-            print("Lng: ************ \(currentLocation.coordinate.longitude)")
-        default:
-            break
-        }
     }
     
     func setupSideMenu() {
@@ -116,13 +99,14 @@ class HomeVC: UIViewController {
         switch status {
         case true:
             captainStatus.text = "Online".localized
+            availabilitySwitch.isOn = true
             availabilityInfo.text = "You_can_receive_requests_normally".localized
-            UserInfo.shared.setCaptainStatus(status: true)
         case false:
             captainStatus.text = "Offline".localized
+            availabilitySwitch.isOn = false
             availabilityInfo.text = "You_cannot_receive_any_requests_now".localized
-            UserInfo.shared.setCaptainStatus(status: false)
         }
+        isCaptainOnline = status
     }
     
     func bindData(){
@@ -164,10 +148,30 @@ class HomeVC: UIViewController {
                 self.showAlert(message: message)
             }
             else {
-                self.ordersDetails = result?.data
-                DispatchQueue.main.async {
-                    self.ordersTableView.reloadData()
+                if let orders = result?.data {
+                    //self.ordersStatus = []
+                    for (index, order) in orders.enumerated() {
+                        let pickupLocation = CLLocation(latitude: Double(order.pickupLat ?? "") ?? 0.0,
+                                                        longitude: Double(order.pickupLng ?? "") ?? 0.0)
+                        let dropoffLocation = CLLocation(latitude: Double(order.dropoffLat ?? "") ?? 0.0,
+                                                         longitude: Double(order.dropoffLng ?? "") ?? 0.0)
+                        self.viewModel?.areLocationsInSameGovernorate(orderID: order.id ?? 0, location1: pickupLocation, location2: dropoffLocation, completion: { value, orderID in
+                            //self.ordersStatus.insert(value ? .pendingPrice : .pendingAcceptance, at: 0)
+                            self.ordersStatus[orderID] = value ? .pendingPrice : .pendingAcceptance
+                            print("value: \(value)")
+                            
+                            if self.ordersStatus.count == orders.count {
+                                self.ordersDetails = orders.reversed()
+                                DispatchQueue.main.async {
+                                    self.ordersTableView.reloadData()
+                                }
+                            }
+                        })
+                        
+                    }
+                    
                 }
+                
             }
             print(message)
         }
@@ -220,6 +224,23 @@ class HomeVC: UIViewController {
             print(message)
         }
         
+        viewModel?.orderPriceResult.bind { [weak self] result in
+            guard let message = result?.0?.message else { return }
+            if result?.0?.status == 0 {
+                self?.showAlert(message: message)
+            } else {
+                //self?.ordersTableView.reloadData()
+                if let orderID = result?.1 {
+                    //let cell = self?.ordersTableView.cellForRow(at: indexPath) as! UpcomingRequestsCell
+                    //cell.requestStatus = .updatePrice
+                    //self?.ordersTableView.reloadRows(at: [indexPath], with: .none)
+                    self?.ordersStatus[orderID] = .updatePrice
+                    self?.ordersTableView.reloadData()
+                }
+            }
+            print(message)
+        }
+        
         viewModel?.assignOrder.bind { assignOrder in
             guard let orders = assignOrder, orders.count != 0 else {
                 self.ordersIDs = []
@@ -228,14 +249,21 @@ class HomeVC: UIViewController {
             self.ordersIDs = orders
             let orderIDsStrings = orders.map { String($0) }
             
-            // Debugging statements
             print("orders: \(orders)")
             print("orderIDsStrings: \(orderIDsStrings)")
             
             self.viewModel?.getOrdersDetails(orderIDs: orderIDsStrings)
             
+            print("orders:  \(self.ordersIDs)")
+        }
+        
+        viewModel?.captainStatus.bind{ isOnline in
+            guard let isOnline = isOnline else {
+                return
+            }
+            print("Captain: \(isOnline)")
             
-            print("orderrrrrrrss:  \(self.ordersIDs)")
+            self.updateStatus(status: isOnline)
         }
         
         viewModel?.errorMessage.bind{ error in
@@ -304,7 +332,8 @@ class HomeVC: UIViewController {
     
 }
 
-extension HomeVC: UpcomingRequestsDelegate, OrderDetailsDelegate {
+extension HomeVC: UpcomingRequestsDelegate, OrderDetailsDelegate, SetPriceDelegate {
+    
     func navigateToMap() {
         let mapVC = MapVC(nibName: "MapVC", bundle: nil)
         mapVC.orderDetails = self.ordersDetails![0]
@@ -312,12 +341,24 @@ extension HomeVC: UpcomingRequestsDelegate, OrderDetailsDelegate {
         self.navigationController?.pushViewController(mapVC, animated: true)
     }
     
-    func showPriceAlert() {
+    func showPriceAlert(indexPath: IndexPath) {
         let alertViewController = SetPriceAlertView(nibName: "SetPriceAlertView", bundle: nil)
+        alertViewController.delegate = self
+        selectedOrderID = ordersDetails?[indexPath.row].id
         alertViewController.modalPresentationStyle = .overCurrentContext
         alertViewController.modalTransitionStyle = .crossDissolve
+        alertViewController.minPrice = ordersDetails?[indexPath.row].estimateCostFrom ?? ""
+        alertViewController.maxPrice = ordersDetails?[indexPath.row].estimateCostTo ?? ""
+        alertViewController.avgPrice = ordersDetails?[indexPath.row].prices?.avg ?? ""
         present(alertViewController, animated: true, completion: nil)
     }
+    
+    func sendPrice(price: String) {
+        if let selectedOrderID = selectedOrderID {
+            viewModel?.setOrderPrice(orderID: String(selectedOrderID), price: price)
+        }
+    }
+    
     func acceptRequest(indexPath: IndexPath) {
         selectedOrderDetails = ordersDetails?[indexPath.row]
         selectedOrderID = ordersDetails?[indexPath.row].id
@@ -341,6 +382,7 @@ extension HomeVC: UpcomingRequestsDelegate, OrderDetailsDelegate {
 //        self.CollectionView.reloadData()
 //        print(self.CollectionView.numberOfItems(inSection: 0))
         viewModel?.rejectOrder(orderID: String(self.ordersDetails![indexPath.row].id!))
+        ordersStatus.removeValue(forKey: (ordersDetails?[indexPath.row].id)!)
         ordersIDs.remove(at: indexPath.row)
         ordersDetails?.remove(at: indexPath.row)
         ordersTableView.deleteRows(at: [indexPath], with: .automatic)
@@ -364,15 +406,20 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource{
         }
         else {
             tableHeader.text = "Upcoming_requests".localized
-            switch order?.status {
-            case "pending":
-                cell.requestStatus = .pendingAcceptance
-                //        case "accepted","start_order","approve":
-                //            cell.requestStatus = .accepted
-            default:
-                //cell.requestStatus = .accepted
-                break
-            }
+            //if cell.requestStatus == nil {
+                switch order?.status {
+                case "pending":
+                    if let orderID = order?.id {
+                        cell.requestStatus = ordersStatus[orderID]
+                        //cell.requestStatus = .pendingAcceptance
+                        //        case "accepted","start_order","approve":
+                        //            cell.requestStatus = .accepted
+                    }
+                default:
+                    //cell.requestStatus = .accepted
+                    break
+                }
+            //}
         }
         cell.orderID.text = "#\(order?.id ?? 0) "
         //cell.price.text = "\(order?.cost ?? "0") EGP"
@@ -383,6 +430,40 @@ extension HomeVC: UITableViewDelegate, UITableViewDataSource{
         cell.delegate = self
         return cell
     }
+}
+
+extension HomeVC: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .authorizedAlways, .authorizedWhenInUse:
+            if let location = locationManager.location {
+                currentLocation = location
+                locationManager.startUpdatingLocation()
+                print("Lat: ************ \(currentLocation.coordinate.latitude)")
+                print("Lng: ************ \(currentLocation.coordinate.longitude)")
+            }
+        case .denied, .restricted:
+            print("Location access denied/restricted.")
+        case .notDetermined:
+            print("Location access not determined.")
+        default:
+            print("Unknown authorization status.")
+        }
+    }
     
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else {
+            return
+        }
+        currentLocation = location
+        if isCaptainOnline {
+            let lat = location.coordinate.latitude
+            let lng = location.coordinate.longitude
+            FirebaseManager.shared.updateLocation(captainId: String(UserInfo.shared.get_ID()), lat: String(lat), lng: String(lng))
+        }
+    }
     
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("error.....\(error)")
+    }
 }

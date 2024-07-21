@@ -19,6 +19,8 @@
 		9E412E392C09FD6A00B010E2 /* UpcomingRequestsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E412E372C09FD6A00B010E2 /* UpcomingRequestsCell.xib */; };
 		9E412E3B2C0CCF3800B010E2 /* CaptainOnOrderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E412E3A2C0CCF3800B010E2 /* CaptainOnOrderModel.swift */; };
 		9E4655302C4955BF00704EBE /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E46552F2C4955BF00704EBE /* Date.swift */; };
+		9E4655332C497D5E00704EBE /* SetPriceAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E4655312C497D5D00704EBE /* SetPriceAlertView.xib */; };
+		9E4655342C497D5E00704EBE /* SetPriceAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4655322C497D5D00704EBE /* SetPriceAlertView.swift */; };
 		9E5268262C018D7100E1F9E5 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5267862C018D7000E1F9E5 /* UserInfo.swift */; };
 		9E5268272C018D7100E1F9E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E5267872C018D7000E1F9E5 /* LaunchScreen.storyboard */; };
 		9E5268282C018D7100E1F9E5 /* OnboardingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5267882C018D7000E1F9E5 /* OnboardingManager.swift */; };
@@ -66,8 +68,6 @@
 		9E5268552C018D7100E1F9E5 /* CalenderAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5267C62C018D7000E1F9E5 /* CalenderAlert.swift */; };
 		9E5268562C018D7100E1F9E5 /* OrderDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5267C82C018D7000E1F9E5 /* OrderDetailsVC.swift */; };
 		9E5268572C018D7200E1F9E5 /* OrderDetailsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E5267C92C018D7000E1F9E5 /* OrderDetailsVC.xib */; };
-		9E5268582C018D7200E1F9E5 /* SetPriceAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E5267CB2C018D7000E1F9E5 /* SetPriceAlertView.xib */; };
-		9E5268592C018D7200E1F9E5 /* SetPriceAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5267CC2C018D7000E1F9E5 /* SetPriceAlertView.swift */; };
 		9E52685A2C018D7200E1F9E5 /* MyWalletVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E5267CE2C018D7000E1F9E5 /* MyWalletVC.xib */; };
 		9E52685B2C018D7200E1F9E5 /* MyWalletVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E5267CF2C018D7000E1F9E5 /* MyWalletVC.swift */; };
 		9E52685C2C018D7200E1F9E5 /* TransactionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E5267D12C018D7000E1F9E5 /* TransactionCell.xib */; };
@@ -146,6 +146,8 @@
 		9E412E372C09FD6A00B010E2 /* UpcomingRequestsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpcomingRequestsCell.xib; sourceTree = "<group>"; };
 		9E412E3A2C0CCF3800B010E2 /* CaptainOnOrderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptainOnOrderModel.swift; sourceTree = "<group>"; };
 		9E46552F2C4955BF00704EBE /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
+		9E4655312C497D5D00704EBE /* SetPriceAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetPriceAlertView.xib; sourceTree = "<group>"; };
+		9E4655322C497D5D00704EBE /* SetPriceAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetPriceAlertView.swift; sourceTree = "<group>"; };
 		9E5267862C018D7000E1F9E5 /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		9E5267872C018D7000E1F9E5 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9E5267882C018D7000E1F9E5 /* OnboardingManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingManager.swift; sourceTree = "<group>"; };
@@ -193,8 +195,6 @@
 		9E5267C62C018D7000E1F9E5 /* CalenderAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalenderAlert.swift; sourceTree = "<group>"; };
 		9E5267C82C018D7000E1F9E5 /* OrderDetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrderDetailsVC.swift; sourceTree = "<group>"; };
 		9E5267C92C018D7000E1F9E5 /* OrderDetailsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderDetailsVC.xib; sourceTree = "<group>"; };
-		9E5267CB2C018D7000E1F9E5 /* SetPriceAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SetPriceAlertView.xib; sourceTree = "<group>"; };
-		9E5267CC2C018D7000E1F9E5 /* SetPriceAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetPriceAlertView.swift; sourceTree = "<group>"; };
 		9E5267CE2C018D7000E1F9E5 /* MyWalletVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyWalletVC.xib; sourceTree = "<group>"; };
 		9E5267CF2C018D7000E1F9E5 /* MyWalletVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyWalletVC.swift; sourceTree = "<group>"; };
 		9E5267D12C018D7000E1F9E5 /* TransactionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TransactionCell.xib; sourceTree = "<group>"; };
@@ -515,8 +515,8 @@
 		9E5267CA2C018D7000E1F9E5 /* SetPrice */ = {
 			isa = PBXGroup;
 			children = (
-				9E5267CB2C018D7000E1F9E5 /* SetPriceAlertView.xib */,
-				9E5267CC2C018D7000E1F9E5 /* SetPriceAlertView.swift */,
+				9E4655322C497D5D00704EBE /* SetPriceAlertView.swift */,
+				9E4655312C497D5D00704EBE /* SetPriceAlertView.xib */,
 			);
 			path = SetPrice;
 			sourceTree = "<group>";
@@ -1013,7 +1013,7 @@
 				9E52686F2C018D7200E1F9E5 /* MapVC.xib in Resources */,
 				9E52683F2C018D7100E1F9E5 /* README.md in Resources */,
 				9E52687A2C018D7200E1F9E5 /* SideMenuVC.xib in Resources */,
-				9E5268582C018D7200E1F9E5 /* SetPriceAlertView.xib in Resources */,
+				9E4655332C497D5E00704EBE /* SetPriceAlertView.xib in Resources */,
 				9E29B35E2C3607F200440E44 /* GoogleService-Info.plist in Resources */,
 				9E5268962C025BA900E1F9E5 /* OrderCompletedSheet.xib in Resources */,
 				9E5268572C018D7200E1F9E5 /* OrderDetailsVC.xib in Resources */,
@@ -1086,6 +1086,7 @@
 				9E5268672C018D7200E1F9E5 /* OrderHistoryVC.swift in Sources */,
 				9E52684E2C018D7100E1F9E5 /* BankAccountsVC.swift in Sources */,
 				9E5268612C018D7200E1F9E5 /* CheckCodeModel.swift in Sources */,
+				9E4655342C497D5E00704EBE /* SetPriceAlertView.swift in Sources */,
 				9E5268452C018D7100E1F9E5 /* UpdateAvailabilityModel.swift in Sources */,
 				9E52683D2C018D7100E1F9E5 /* ShowAlert.swift in Sources */,
 				9EB4BAD72C03D0D3009FF62F /* OrderHistoryNetworking.swift in Sources */,
@@ -1126,7 +1127,6 @@
 				9E5268732C018D7200E1F9E5 /* SignInViewModel.swift in Sources */,
 				9E5268822C018D7200E1F9E5 /* RegisterModel.swift in Sources */,
 				9E5268562C018D7100E1F9E5 /* OrderDetailsVC.swift in Sources */,
-				9E5268592C018D7200E1F9E5 /* SetPriceAlertView.swift in Sources */,
 				9E5268812C018D7200E1F9E5 /* RegisterApi.swift in Sources */,
 				9E5268692C018D7200E1F9E5 /* MapNetworking.swift in Sources */,
 				9E5268332C018D7100E1F9E5 /* UiView + dashedBorder.swift in Sources */,

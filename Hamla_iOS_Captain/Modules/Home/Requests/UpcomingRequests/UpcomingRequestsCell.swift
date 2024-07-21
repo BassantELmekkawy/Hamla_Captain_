@@ -10,13 +10,14 @@ import UIKit
 protocol UpcomingRequestsDelegate: AnyObject {
     func seeDetail(indexPath: IndexPath)
     func reject(at indexPath: IndexPath)
-    func showPriceAlert()
+    func showPriceAlert(indexPath: IndexPath)
     func acceptRequest(indexPath: IndexPath)
     func navigateToMap()
 }
 
 enum UpcomingRequest{
     case pendingPrice
+    case updatePrice
     case pendingAcceptance
     case accepted
 }
@@ -34,7 +35,7 @@ class UpcomingRequestsCell: UITableViewCell {
     
     weak var delegate: UpcomingRequestsDelegate?
     var indexPath: IndexPath!
-    var requestStatus: UpcomingRequest = .pendingPrice {
+    var requestStatus: UpcomingRequest? {
         didSet {
             switch requestStatus {
             case .pendingPrice:
@@ -42,6 +43,12 @@ class UpcomingRequestsCell: UITableViewCell {
                 navigateToMapBtn.isHidden = true
                 rejectBtn.isHidden = false
                 setPriceBtn.isHidden = false
+            case .updatePrice:
+                setPriceBtn.backgroundColor = UIColor(named: "quaternary")
+                navigateToMapBtn.isHidden = true
+                rejectBtn.isHidden = true
+                setPriceBtn.isHidden = false
+                setPriceBtn.setTitle("Update price", for: .normal)
             case .pendingAcceptance:
                 setPriceBtn.backgroundColor = UIColor(named: "accent")
                 setPriceBtn.setTitle("Accept".localized, for: .normal)
@@ -54,6 +61,8 @@ class UpcomingRequestsCell: UITableViewCell {
                 navigateToMapBtn.isHidden = false
                 rejectBtn.isHidden = true
                 setPriceBtn.isHidden = true
+            case .none:
+                break
             }
         }
     }
@@ -62,7 +71,7 @@ class UpcomingRequestsCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         self.contentView.layer.cornerRadius = 30
-                self.contentView.layer.masksToBounds = true
+        self.contentView.layer.masksToBounds = true
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -82,11 +91,13 @@ class UpcomingRequestsCell: UITableViewCell {
     
     @IBAction func SetPrice(_ sender: Any) {
         switch requestStatus {
-        case .pendingPrice:
-            delegate?.showPriceAlert()
+        case .pendingPrice, .updatePrice:
+            delegate?.showPriceAlert(indexPath: indexPath)
         case .pendingAcceptance:
             delegate?.acceptRequest(indexPath: indexPath)
         case .accepted:
+            break
+        case .none:
             break
         }
     }

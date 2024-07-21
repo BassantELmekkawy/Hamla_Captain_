@@ -8,10 +8,11 @@
 import Foundation
 import Alamofire
 import MOLH
+import UIKit
 
 struct CustomError: Error, Codable {
     let success: Bool?
-    let message: String
+    let message: String?
 }
 
 class BaseAPI<T: TargetType> {
@@ -24,6 +25,13 @@ class BaseAPI<T: TargetType> {
         AF.request(target.baseURL + target.path, method: method, parameters: parameters.0,encoding: parameters.1, headers: headers).responseJSON { (response) in
             switch response.result {
             case .success(_):
+                guard let statusCode = response.response?.statusCode else {
+                    return
+                }
+                if statusCode == 401 {
+                    completion(.failure(CustomError(success: false, message: "Unauthorized access - please log in again.")))
+                    self.redirectToSignIn()
+                }
                 print("Response is", response.value as Any)
                 guard let data = response.data else { return }
                 do {
@@ -31,7 +39,8 @@ class BaseAPI<T: TargetType> {
                     completion(.success(jsonData))
                 }catch let jsonError {
                     //completion(.failure())
-                    print(jsonError)
+                    print("Decoding error: \(jsonError)")
+                    print("Response data: \(String(data: data, encoding: .utf8) ?? "N/A")")
                     completion(.failure(CustomError(success: false, message: "\(jsonError)")))
                 }
             case .failure(let error):
@@ -106,4 +115,15 @@ class BaseAPI<T: TargetType> {
         return HttpHeaders
     }
     
+    
+    private func redirectToSignIn() {
+        DispatchQueue.main.async {
+            if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+                if let window = windowScene.windows.first {
+                    let navigationController = UINavigationController(rootViewController: SignInVC())
+                    window.rootViewController = navigationController
+                }
+            }
+        }
+    }
 }

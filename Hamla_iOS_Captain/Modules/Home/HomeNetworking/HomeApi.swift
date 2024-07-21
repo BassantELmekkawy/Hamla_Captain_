@@ -15,9 +15,11 @@ protocol HomeApiProtocol {
     func acceptOrder(orderID: String, captainLat: String, captainLng: String, completion: @escaping (Result<Model? , CustomError>) -> Void)
     func rejectOrder(orderID: String, completion: @escaping (Result<Model? , CustomError>) -> Void)
     func updateAvailability(lat: String, lng: String, completion: @escaping (Result<UpdateAvailabilityModel? , CustomError>) -> Void)
+    func setOrderPrice(orderID: String, price: String, completion: @escaping (Result<Model? , CustomError>) -> Void)
 }
 
 class HomeApi: BaseAPI<HomeNetworking>,HomeApiProtocol{
+    
     func updateAvailability(lat: String, lng: String, completion: @escaping (Result<UpdateAvailabilityModel?, CustomError>) -> Void) {
         self.performRequest(target: .updateAvailability(lat: lat, lng: lng), responseClass: UpdateAvailabilityModel.self) { result in
             print("result", result)
@@ -56,6 +58,13 @@ class HomeApi: BaseAPI<HomeNetworking>,HomeApiProtocol{
     
     func rejectOrder(orderID: String, completion: @escaping (Result<Model? , CustomError>) -> Void) {
         self.performRequest(target: .rejectOrder(orderID: orderID), responseClass: Model.self) { result in
+            print("result", result)
+            completion(result)
+        }
+    }
+    
+    func setOrderPrice(orderID: String, price: String, completion: @escaping (Result<Model?, CustomError>) -> Void) {
+        self.performRequest(target: .setOrderPrice(orderID: orderID, price: price), responseClass: Model.self) { result in
             print("result", result)
             completion(result)
         }

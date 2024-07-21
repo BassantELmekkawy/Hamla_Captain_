@@ -24,7 +24,6 @@ class UserModelKeys{
     var heroCode         = "captain_code"
     var isDarkMode       = "isDarkMode"
     var isPhoneVerified  = "isPhoneVerified"
-    var captainStatus    = "captainStatus"
     var captainOnOrder   = "captainOnOrder"
 }
  
@@ -82,10 +81,6 @@ class UserInfo{
         UserDefaults.standard.setValue(status , forKey: Keys.isPhoneVerified)
     }
     
-    func setCaptainStatus(status:Bool) {
-        UserDefaults.standard.setValue(status , forKey: Keys.captainStatus)
-    }
-    
     func setCaptainOnOrder(status: Bool) {
         UserDefaults.standard.setValue(status , forKey: Keys.captainOnOrder)
     }
@@ -107,7 +102,6 @@ class UserInfo{
     func getheroCode() -> String { UserDefaults.standard.value(forKey: Keys.heroCode) as? String ?? ""}
     func getStatusDarkMode() -> Bool { UserDefaults.standard.value(forKey: Keys.isDarkMode) as? Bool ?? false}
     func isPhoneVerified() -> Bool { UserDefaults.standard.value(forKey: Keys.isPhoneVerified) as? Bool ?? false}
-    func getCaptainStatus() -> Bool { UserDefaults.standard.value(forKey: Keys.captainStatus) as? Bool ?? false}
     func isCaptainOnOrder() -> Bool { UserDefaults.standard.value(forKey: Keys.captainOnOrder) as? Bool ?? false}
 
     // MARK: - logOut

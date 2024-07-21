@@ -14,7 +14,7 @@ enum Status{
 }
 
 protocol OrderDetailsDelegate: AnyObject {
-    func showPriceAlert()
+    func showPriceAlert(indexPath: IndexPath)
     func acceptRequest(indexPath: IndexPath)
 }
 
@@ -81,7 +81,7 @@ class OrderDetailsVC: UIViewController {
     @IBAction func setOrderAction(_ sender: Any) {
         switch orderStatus {
         case .pendingPrice:
-            delegate?.showPriceAlert()
+            delegate?.showPriceAlert(indexPath: indexPath)
         case .pendingAcceptance:
             delegate?.acceptRequest(indexPath: indexPath)
         case .orderCompleted:

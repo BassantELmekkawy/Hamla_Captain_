@@ -6,15 +6,44 @@
 //
 
 import Foundation
+import CoreLocation
+
+struct GeocodingResult: Codable {
+    let results: [Result]
+    let status: String
+
+    struct Result: Codable {
+        let addressComponents: [AddressComponent]
+
+        enum CodingKeys: String, CodingKey {
+            case addressComponents = "address_components"
+        }
+    }
+
+    struct AddressComponent: Codable {
+        let longName: String
+        let shortName: String
+        let types: [String]
+
+        enum CodingKeys: String, CodingKey {
+            case longName = "long_name"
+            case shortName = "short_name"
+            case types
+        }
+    }
+}
 
 protocol HomeViewModelProtocol {
     
+    func getCaptainStatus(captainID: String)
     func getCaptainDetails()
     func isCaptainOnOrder()
     func getOrdersDetails(orderIDs: [String])
     func acceptOrder(orderID: String, captainLat: String, captainLng: String)
     func rejectOrder(orderID: String)
+    func setOrderPrice(orderID: String, price: String)
     
+    var captainStatus:Observable<Bool?> { get set }
     var captainDetailsResult: Observable<RegisterModel?> { get set }
     var captainOnOrderResult: Observable<CaptainOnOrderModel?> { get set }
     var orderDetailsResult:Observable<OrdersDetailsModel?> { get set }
@@ -23,12 +52,13 @@ protocol HomeViewModelProtocol {
     var assignOrder: Observable<[Int]?>{get set}
     func updateAvailability(lat: String, lng: String)
     var updateAvailabilityResult:Observable<UpdateAvailabilityModel?> { get set }
+    var orderPriceResult:Observable<(Model?, Int?)?> { get set }
     var errorMessage:Observable<String?> { get set }
     
 }
 
 class HomeViewModel: HomeViewModelProtocol {
-    
+    var captainStatus: Observable<Bool?> = Observable(nil)
     var captainDetailsResult: Observable<RegisterModel?>  = Observable(nil)
     var captainOnOrderResult: Observable<CaptainOnOrderModel?>  = Observable(nil)
     var orderDetailsResult: Observable<OrdersDetailsModel?>  = Observable(nil)
@@ -36,6 +66,7 @@ class HomeViewModel: HomeViewModelProtocol {
     var rejectResult: Observable<Model?>  = Observable(nil)
     var assignOrder: Observable<[Int]?> = Observable(nil)
     var updateAvailabilityResult: Observable<UpdateAvailabilityModel?>  = Observable(nil)
+    var orderPriceResult: Observable<(Model?, Int?)?> = Observable((nil, nil))
     var errorMessage: Observable<String?> = Observable(nil)
     
     var api: HomeApiProtocol
@@ -55,7 +86,7 @@ class HomeViewModel: HomeViewModelProtocol {
                 self.errorMessage.value = error.message
                 
                 print("error", error.message)
-
+                
             }
         }
     }
@@ -71,7 +102,7 @@ class HomeViewModel: HomeViewModelProtocol {
                 self.errorMessage.value = error.message
                 
                 print("error", error.message)
-
+                
             }
         }
     }
@@ -79,7 +110,7 @@ class HomeViewModel: HomeViewModelProtocol {
     func getOrdersDetails(orderIDs: [String]) {
         print("Received orderIDs: \(orderIDs)")
         self.api.getOrdersDetails(orderIDs: orderIDs) { result in
-        switch result {
+            switch result {
             case .success(let result):
                 print(result)
                 self.orderDetailsResult.value = result
@@ -87,7 +118,7 @@ class HomeViewModel: HomeViewModelProtocol {
                 self.errorMessage.value = error.message
                 
                 print("error", error.message)
-
+                
             }
         }
     }
@@ -103,7 +134,7 @@ class HomeViewModel: HomeViewModelProtocol {
                 self.errorMessage.value = error.message
                 
                 print("error", error.message)
-
+                
             }
         }
     }
@@ -119,7 +150,7 @@ class HomeViewModel: HomeViewModelProtocol {
                 self.errorMessage.value = error.message
                 
                 print("error", error.message)
-
+                
             }
         }
     }
@@ -135,8 +166,32 @@ class HomeViewModel: HomeViewModelProtocol {
                 self.errorMessage.value = error.message
                 
                 print("error", error.message)
-
+                
             }
+        }
+    }
+    
+    func setOrderPrice(orderID: String, price: String) {
+        self.api.setOrderPrice(orderID: orderID, price: price) { result in
+            switch result {
+            case .success(let result):
+                print(result)
+                self.orderPriceResult.value?.0 = result
+                self.orderPriceResult.value?.1 = Int(orderID)
+            case .failure(let error):
+                self.errorMessage.value = error.message
+                print("error", error.message)
+            }
+        }
+    }
+    
+    func getCaptainStatus(captainID: String) {
+        FirebaseManager.shared.getCaptainStatus(captainId: captainID) { isOnline in
+            guard let isOnline = isOnline else {
+                return
+            }
+            self.captainStatus.value = isOnline
+            print("is Online: \(isOnline)")
         }
     }
     
@@ -154,4 +209,66 @@ class HomeViewModel: HomeViewModelProtocol {
     func removeOrdersObserver() {
         FirebaseManager.shared.removeObserverForCaptain(captainId: String(UserInfo.shared.get_ID()))
     }
+    
+    func reverseGeocode(coordinate: CLLocationCoordinate2D, completion: @escaping (String?) -> Void) {
+        let urlString = "https://maps.googleapis.com/maps/api/geocode/json?latlng=\(coordinate.latitude),\(coordinate.longitude)&key=AIzaSyB9Gu55XnI_UEP_hnW5GKVtWiAt-nxxxeU"
+        guard let url = URL(string: urlString) else {
+            completion(nil)
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else {
+                completion(nil)
+                return
+            }
+            
+            do {
+                let geocodingResult = try JSONDecoder().decode(GeocodingResult.self, from: data)
+                if let result = geocodingResult.results.first {
+                    for component in result.addressComponents {
+                        if component.types.contains("administrative_area_level_1") {
+                            print(component.longName)
+                            completion(component.longName)
+                            return
+                        }
+                    }
+                }
+                completion(nil)
+            } catch {
+                completion(nil)
+            }
+        }
+        
+        task.resume()
+    }
+    
+    func areLocationsInSameGovernorate(orderID: Int, location1: CLLocation, location2: CLLocation, completion: @escaping (Bool, Int) -> Void) {
+        let group = DispatchGroup()
+        var governorate1: String?
+        var governorate2: String?
+        
+        group.enter()
+        reverseGeocode(coordinate: location1.coordinate) { governorate in
+            governorate1 = governorate
+            group.leave()
+        }
+        
+        group.enter()
+        reverseGeocode(coordinate: location2.coordinate) { governorate in
+            governorate2 = governorate
+            group.leave()
+        }
+        
+        group.notify(queue: .main) {
+            //print(governorate1)
+            //print(governorate2)
+            if let governorate1 = governorate1, let governorate2 = governorate2 {
+                completion(governorate1 == governorate2, orderID)
+            } else {
+                completion(false, orderID)
+            }
+        }
+    }
+    
 }
