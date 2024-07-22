@@ -20,9 +20,6 @@
 
 // MARK: - SignIn Screen:
 "Welcome_back" = "مرحبًا بعودتك!";
-"Login" = "تسجيل الدخول";
-"OR" = "أو";
-"Create_captain_account" = "إنشاء حساب سائق";
 "By_continue_you_are_agree_to_our" = "بالمتابعة، أنت توافق على";
 "Terms_&_Conditions" = "الشروط والأحكام";
 "and" = "و";

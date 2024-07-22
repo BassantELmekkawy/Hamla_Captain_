@@ -23,102 +23,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "47FEA43C-C0AE-439A-A30E-4CD895E68C78"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Hamla_iOS_Captain/Modules/Map/View/MapView/MapVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "214"
-            endingLineNumber = "214"
-            landmarkName = "bindData()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "47FEA43C-C0AE-439A-A30E-4CD895E68C78 - 91ddd6fd04011a63"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Hamla_iOS_Captain.MapVC.bindData() -&gt; ()"
-                  moduleName = "Hamla_iOS_Captain"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bassant/Desktop/Hamla_iOS_Captain/Hamla_iOS_Captain/Modules/Map/View/MapView/MapVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "214"
-                  endingLineNumber = "214"
-                  offsetFromSymbolStart = "1684">
-               </Location>
-               <Location
-                  uuid = "47FEA43C-C0AE-439A-A30E-4CD895E68C78 - 3ae09df7b766bf4"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #7 (Swift.Optional&lt;Hamla_iOS_Captain.Model&gt;) -&gt; () in Hamla_iOS_Captain.MapVC.bindData() -&gt; ()"
-                  moduleName = "Hamla_iOS_Captain"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bassant/Desktop/Hamla_iOS_Captain/Hamla_iOS_Captain/Modules/Map/View/MapView/MapVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "214"
-                  endingLineNumber = "214"
-                  offsetFromSymbolStart = "188">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "5F1A7F22-40E4-4ED0-84B1-CBCF5F04B413"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Hamla_iOS_Captain/Modules/Map/View/MapView/MapVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
-            landmarkName = "bindData()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "5F1A7F22-40E4-4ED0-84B1-CBCF5F04B413 - 91ddd6fd04011c31"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Hamla_iOS_Captain.MapVC.bindData() -&gt; ()"
-                  moduleName = "Hamla_iOS_Captain"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bassant/Desktop/Hamla_iOS_Captain/Hamla_iOS_Captain/Modules/Map/View/MapView/MapVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "200"
-                  endingLineNumber = "200"
-                  offsetFromSymbolStart = "1410">
-               </Location>
-               <Location
-                  uuid = "5F1A7F22-40E4-4ED0-84B1-CBCF5F04B413 - 2afbfdcad6935b61"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #6 (Swift.Optional&lt;Hamla_iOS_Captain.Model&gt;) -&gt; () in Hamla_iOS_Captain.MapVC.bindData() -&gt; ()"
-                  moduleName = "Hamla_iOS_Captain"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bassant/Desktop/Hamla_iOS_Captain/Hamla_iOS_Captain/Modules/Map/View/MapView/MapVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "200"
-                  endingLineNumber = "200"
-                  offsetFromSymbolStart = "148">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "1EF323A5-F136-4A1B-9033-CD057D43B1E3"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -199,65 +103,49 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "341D97FC-BA15-493A-B49F-38390BE12BAC"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Hamla_iOS_Captain/Modules/Chat/ChatVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "283"
-            endingLineNumber = "283"
-            landmarkName = "inputBar(_:didPressSendButtonWith:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "08A93755-4586-4E4E-9F5B-31262F75592A"
+            uuid = "612377A1-B532-42A1-943D-D2B06836FDA8"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Hamla_iOS_Captain/Modules/Home/View/HomeVC.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "386"
-            endingLineNumber = "386"
-            landmarkName = "HomeVC"
-            landmarkType = "21">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "05FC6DC8-05D2-4004-B72C-97B0A22CD338"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Hamla_iOS_Captain/Modules/Home/Requests/UpcomingRequests/UpcomingRequestsCell.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "requestStatus"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "20940ECD-7353-4E10-B80C-EC8D9075798C"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Hamla_iOS_Captain/Modules/Home/View/HomeVC.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "226"
-            endingLineNumber = "226"
+            startingLineNumber = "154"
+            endingLineNumber = "154"
             landmarkName = "bindData()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "612377A1-B532-42A1-943D-D2B06836FDA8 - 61043c8089625126"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Hamla_iOS_Captain.HomeVC.bindData() -&gt; ()"
+                  moduleName = "Hamla_iOS_Captain"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bassant/Desktop/Hamla_iOS_Captain/Hamla_iOS_Captain/Modules/Home/View/HomeVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "154"
+                  endingLineNumber = "154"
+                  offsetFromSymbolStart = "361">
+               </Location>
+               <Location
+                  uuid = "612377A1-B532-42A1-943D-D2B06836FDA8 - 4b63dddf5fe59165"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (Swift.Optional&lt;Hamla_iOS_Captain.OrdersDetailsModel&gt;) -&gt; () in Hamla_iOS_Captain.HomeVC.bindData() -&gt; ()"
+                  moduleName = "Hamla_iOS_Captain"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/bassant/Desktop/Hamla_iOS_Captain/Hamla_iOS_Captain/Modules/Home/View/HomeVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "155"
+                  endingLineNumber = "155"
+                  offsetFromSymbolStart = "368">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -107,7 +107,7 @@ class SignInVC: UIViewController {
         }
     }
     
-    @IBAction func Login(_ sender: Any) {
+    @IBAction func Next(_ sender: Any) {
         if phoneTF.text!.isEmpty{
             self.showAlert(message: "Phone_number_is_required".localized)
         }
@@ -119,10 +119,10 @@ class SignInVC: UIViewController {
         }
     }
     
-    @IBAction func CreateCaptainAccount(_ sender: Any) {
-        let vc = PersonalInformationVC(nibName: "PersonalInformationVC", bundle: nil)
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
+//    @IBAction func CreateCaptainAccount(_ sender: Any) {
+//        let vc = PersonalInformationVC(nibName: "PersonalInformationVC", bundle: nil)
+//        self.navigationController?.pushViewController(vc, animated: true)
+//    }
 }
 
 extension SignInVC: UITextFieldDelegate{
