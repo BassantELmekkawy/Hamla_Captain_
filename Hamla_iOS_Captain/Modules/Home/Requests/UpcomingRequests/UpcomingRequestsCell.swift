@@ -35,7 +35,7 @@ class UpcomingRequestsCell: UITableViewCell {
     
     weak var delegate: UpcomingRequestsDelegate?
     var indexPath: IndexPath!
-    var requestStatus: UpcomingRequest? {
+    var requestStatus: UpcomingRequest? = .pendingPrice {
         didSet {
             switch requestStatus {
             case .pendingPrice:
@@ -43,6 +43,7 @@ class UpcomingRequestsCell: UITableViewCell {
                 navigateToMapBtn.isHidden = true
                 rejectBtn.isHidden = false
                 setPriceBtn.isHidden = false
+                setPriceBtn.setTitle("Set price", for: .normal)
             case .updatePrice:
                 setPriceBtn.backgroundColor = UIColor(named: "quaternary")
                 navigateToMapBtn.isHidden = true

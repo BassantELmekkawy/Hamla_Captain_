@@ -11,7 +11,7 @@ import MOLH
 import UIKit
 
 struct CustomError: Error, Codable {
-    let success: Bool?
+    let status: Bool?
     let message: String?
 }
 
@@ -29,8 +29,8 @@ class BaseAPI<T: TargetType> {
                     return
                 }
                 if statusCode == 401 {
-                    completion(.failure(CustomError(success: false, message: "Unauthorized access - please log in again.")))
                     self.redirectToSignIn()
+                    completion(.failure(CustomError(status: false, message: "Unauthorized access")))
                 }
                 print("Response is", response.value as Any)
                 guard let data = response.data else { return }
@@ -41,7 +41,7 @@ class BaseAPI<T: TargetType> {
                     //completion(.failure())
                     print("Decoding error: \(jsonError)")
                     print("Response data: \(String(data: data, encoding: .utf8) ?? "N/A")")
-                    completion(.failure(CustomError(success: false, message: "\(jsonError)")))
+                    completion(.failure(CustomError(status: false, message: "\(jsonError)")))
                 }
             case .failure(let error):
                 print(error)
@@ -51,20 +51,20 @@ class BaseAPI<T: TargetType> {
                 switch error.code {
                 case .timedOut:
                     // Do SomeThing
-                    completion(.failure(CustomError(success: false, message: "Timout")))
+                    completion(.failure(CustomError(status: false, message: "Timout")))
                 case .notConnectedToInternet:
                     // Do SomeThing
-                    completion(.failure(CustomError(success: false, message: "No internet")))
+                    completion(.failure(CustomError(status: false, message: "No internet")))
                 default:
                     break
                 }
                 
                 guard let data = response.data else {
-                    completion(.failure(CustomError(success: false, message: "\(error)")))
+                    completion(.failure(CustomError(status: false, message: "\(error)")))
                     return
                 }
                 guard let statusCode = response.response?.statusCode else {
-                    completion(.failure(CustomError(success: false, message: "\(error)")))
+                    completion(.failure(CustomError(status: false, message: "\(error)")))
                     return
                 }
                 print("Status code ->",response.response?.statusCode ?? 0)
@@ -78,11 +78,11 @@ class BaseAPI<T: TargetType> {
                     } catch let jsonError {
                         print(jsonError)
                         let error = NSError(domain: target.baseURL, code: statusCode, userInfo: [NSLocalizedDescriptionKey: jsonError])
-                        completion(.failure(CustomError(success: false, message: "\(error)")))
+                        completion(.failure(CustomError(status: false, message: "\(error)")))
                     }
                 default:
                     let error = NSError(domain: target.baseURL, code: statusCode, userInfo: [NSLocalizedDescriptionKey: "Failed"])
-                    completion(.failure(CustomError(success: false, message: "\(error)")))
+                    completion(.failure(CustomError(status: false, message: "\(error)")))
                 }
 
             }

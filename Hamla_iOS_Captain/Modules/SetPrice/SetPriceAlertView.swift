@@ -39,6 +39,9 @@ class SetPriceAlertView: UIViewController {
         suggestedPricesButttons[2].setTitle(maxPrice, for: .normal)
         
         priceTF.addPadding()
+        if !selectedPrice.isEmpty {
+            priceTF.text = selectedPrice
+        }
     }
     
     @objc func dismissAlert() {

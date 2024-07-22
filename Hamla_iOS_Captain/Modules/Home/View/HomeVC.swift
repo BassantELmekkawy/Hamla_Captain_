@@ -22,7 +22,9 @@ class HomeVC: UIViewController {
     var sideMenuWidth: CGFloat = 260
     var overlay = UIView()
     var ordersDetails: [Order]? = []
+    var currentOrderDetails: Order?
     var ordersStatus: [Int: UpcomingRequest] = [:]
+    var ordersWithPrice: [Int: String]?
     var ordersIDs: [Int] = []
     var selectedOrderDetails: Order?
     var selectedOrderID: Int?
@@ -54,7 +56,8 @@ class HomeVC: UIViewController {
         
         locationManager.delegate = self
         getCurrentLocation()
-        
+        viewModel?.observeCurrentOrder(captainId: String(UserInfo.shared.get_ID()))
+        //self.viewModel?.observeOrders(captainId: String(UserInfo.shared.get_ID()))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -122,6 +125,21 @@ class HomeVC: UIViewController {
             print(message)
         }
         
+        viewModel?.currentOrder.bind { currentOrder in
+            guard let currentOrder = currentOrder else {
+                return
+            }
+            if currentOrder == 0 {
+                UserInfo.shared.setCaptainOnOrder(status: false)
+                DispatchQueue.main.async {
+                    self.ordersTableView.reloadData()
+                }
+            } else {
+                UserInfo.shared.setCaptainOnOrder(status: true)
+                self.viewModel?.getOrdersDetails(orderIDs: [String(currentOrder)])
+            }
+        }
+        
         viewModel?.captainOnOrderResult.bind { result in
             guard let message = result?.message else { return }
             if result?.status == 0 {
@@ -133,7 +151,7 @@ class HomeVC: UIViewController {
                 UserInfo.shared.setCaptainOnOrder(status: true)
                 if let currentOrder = result?.data, let orderID = currentOrder.id {
                     self.ordersIDs = [orderID]
-                    self.ordersDetails = [currentOrder]
+                    self.currentOrderDetails = currentOrder
                 }
             }
             DispatchQueue.main.async {
@@ -149,31 +167,29 @@ class HomeVC: UIViewController {
             }
             else {
                 if let orders = result?.data {
-                    //self.ordersStatus = []
-                    for (index, order) in orders.enumerated() {
-                        let pickupLocation = CLLocation(latitude: Double(order.pickupLat ?? "") ?? 0.0,
-                                                        longitude: Double(order.pickupLng ?? "") ?? 0.0)
-                        let dropoffLocation = CLLocation(latitude: Double(order.dropoffLat ?? "") ?? 0.0,
-                                                         longitude: Double(order.dropoffLng ?? "") ?? 0.0)
-                        self.viewModel?.areLocationsInSameGovernorate(orderID: order.id ?? 0, location1: pickupLocation, location2: dropoffLocation, completion: { value, orderID in
-                            //self.ordersStatus.insert(value ? .pendingPrice : .pendingAcceptance, at: 0)
-                            self.ordersStatus[orderID] = value ? .pendingPrice : .pendingAcceptance
-                            print("value: \(value)")
-                            
-                            if self.ordersStatus.count == orders.count {
-                                self.ordersDetails = orders.reversed()
-                                DispatchQueue.main.async {
-                                    self.ordersTableView.reloadData()
-                                }
-                            }
-                        })
-                        
+                    if UserInfo.shared.isCaptainOnOrder() {
+                        self.currentOrderDetails = orders.first
+                    } else {
+                        self.ordersDetails = orders
                     }
-                    
+                    DispatchQueue.main.async {
+                        self.ordersTableView.reloadData()
+                    }
                 }
-                
             }
             print(message)
+        }
+        
+        viewModel?.ordersWithPrice.bind { ordersWithPrice in
+            for (orderID, price) in ordersWithPrice {
+                print("OrderID: \(orderID)")
+                print("Price: \(price)")
+                self.ordersWithPrice = ordersWithPrice
+                self.ordersStatus[orderID] = .updatePrice
+                DispatchQueue.main.async {
+                    self.ordersTableView.reloadData()
+                }
+            }
         }
 
         viewModel?.updateAvailabilityResult.bind { result in
@@ -253,6 +269,7 @@ class HomeVC: UIViewController {
             print("orderIDsStrings: \(orderIDsStrings)")
             
             self.viewModel?.getOrdersDetails(orderIDs: orderIDsStrings)
+            self.viewModel?.getCaptainPriceForOrders(orderIDs: orders)
             
             print("orders:  \(self.ordersIDs)")
         }
@@ -350,12 +367,17 @@ extension HomeVC: UpcomingRequestsDelegate, OrderDetailsDelegate, SetPriceDelega
         alertViewController.minPrice = ordersDetails?[indexPath.row].estimateCostFrom ?? ""
         alertViewController.maxPrice = ordersDetails?[indexPath.row].estimateCostTo ?? ""
         alertViewController.avgPrice = ordersDetails?[indexPath.row].prices?.avg ?? ""
+        if let orderID = selectedOrderID, let price = ordersWithPrice?[orderID] {
+            print(price)
+            alertViewController.selectedPrice = price
+        }
         present(alertViewController, animated: true, completion: nil)
     }
     
     func sendPrice(price: String) {
         if let selectedOrderID = selectedOrderID {
             viewModel?.setOrderPrice(orderID: String(selectedOrderID), price: price)
+            ordersWithPrice?[selectedOrderID] = price
         }
     }
     
@@ -391,38 +413,33 @@ extension HomeVC: UpcomingRequestsDelegate, OrderDetailsDelegate, SetPriceDelega
 
 extension HomeVC: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        ordersIDs.count
+        if UserInfo.shared.isCaptainOnOrder() {
+            return 1
+        } else {
+            return ordersDetails?.count ?? 0
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = ordersTableView.dequeueReusableCell(withIdentifier: "UpcomingRequestsCell", for: indexPath) as! UpcomingRequestsCell
         cell.indexPath = indexPath
-        //cell.backgroundColor = .clear
-        //cell.requestStatus = upcomingRequests[indexPath.row]
-        let order = ordersDetails?[indexPath.row]
+        
+        let isCurrent = UserInfo.shared.isCaptainOnOrder()
+        let order = isCurrent ? currentOrderDetails : ordersDetails?[indexPath.row]
+        
         if UserInfo.shared.isCaptainOnOrder() {
             tableHeader.text = "Current_requests".localized
             cell.requestStatus = .accepted
         }
         else {
             tableHeader.text = "Upcoming_requests".localized
-            //if cell.requestStatus == nil {
-                switch order?.status {
-                case "pending":
-                    if let orderID = order?.id {
-                        cell.requestStatus = ordersStatus[orderID]
-                        //cell.requestStatus = .pendingAcceptance
-                        //        case "accepted","start_order","approve":
-                        //            cell.requestStatus = .accepted
-                    }
-                default:
-                    //cell.requestStatus = .accepted
-                    break
-                }
-            //}
+            if let orderID = order?.id, let status = ordersStatus[orderID] {
+                cell.requestStatus = status
+            } else {
+                cell.requestStatus = .pendingPrice
+            }
         }
         cell.orderID.text = "#\(order?.id ?? 0) "
-        //cell.price.text = "\(order?.cost ?? "0") EGP"
         cell.price.text = "\(order?.estimateCostFrom ?? "0")-\(order?.estimateCostTo ?? "0") EGP"
         cell.paymentMethod.text = order?.paymentMethod?.name
         cell.pickupLocation.text = order?.pickupLocationName

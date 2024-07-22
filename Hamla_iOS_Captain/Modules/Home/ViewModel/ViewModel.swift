@@ -49,7 +49,9 @@ protocol HomeViewModelProtocol {
     var orderDetailsResult:Observable<OrdersDetailsModel?> { get set }
     var acceptResult:Observable<Model?> { get set }
     var rejectResult:Observable<Model?> { get set }
-    var assignOrder: Observable<[Int]?>{get set}
+    var assignOrder: Observable<[Int]?> {get set}
+    var currentOrder: Observable<Int?> {get set}
+    var ordersWithPrice: Observable<[Int: String]> {get set}
     func updateAvailability(lat: String, lng: String)
     var updateAvailabilityResult:Observable<UpdateAvailabilityModel?> { get set }
     var orderPriceResult:Observable<(Model?, Int?)?> { get set }
@@ -58,6 +60,7 @@ protocol HomeViewModelProtocol {
 }
 
 class HomeViewModel: HomeViewModelProtocol {
+    
     var captainStatus: Observable<Bool?> = Observable(nil)
     var captainDetailsResult: Observable<RegisterModel?>  = Observable(nil)
     var captainOnOrderResult: Observable<CaptainOnOrderModel?>  = Observable(nil)
@@ -65,6 +68,8 @@ class HomeViewModel: HomeViewModelProtocol {
     var acceptResult: Observable<Model?>  = Observable(nil)
     var rejectResult: Observable<Model?>  = Observable(nil)
     var assignOrder: Observable<[Int]?> = Observable(nil)
+    var currentOrder: Observable<Int?> = Observable(nil)
+    var ordersWithPrice: Observable<[Int: String]> = Observable([:])
     var updateAvailabilityResult: Observable<UpdateAvailabilityModel?>  = Observable(nil)
     var orderPriceResult: Observable<(Model?, Int?)?> = Observable((nil, nil))
     var errorMessage: Observable<String?> = Observable(nil)
@@ -195,6 +200,12 @@ class HomeViewModel: HomeViewModelProtocol {
         }
     }
     
+    func getCaptainPriceForOrders(orderIDs: [Int]) {
+        FirebaseManager.shared.getCaptainPriceForOrders(orderIDs: orderIDs) { ordersWithPrice in
+            self.ordersWithPrice.value = ordersWithPrice
+        }
+    }
+    
     func observeOrders(captainId: String) {
         removeOrdersObserver()
         FirebaseManager.shared.observeNewOrdersAddedToCaptain(captainId: captainId) { assignOrder in
@@ -203,6 +214,15 @@ class HomeViewModel: HomeViewModelProtocol {
             }
             self.assignOrder.value = assignOrder
             print("New Orders: \(assignOrder)")
+        }
+    }
+    
+    func observeCurrentOrder(captainId: String) {
+        FirebaseManager.shared.observeCurrentOrder(captainId: captainId) { currentOrder in
+            guard let currentOrder = currentOrder else {
+                return
+            }
+            self.currentOrder.value = currentOrder
         }
     }
     

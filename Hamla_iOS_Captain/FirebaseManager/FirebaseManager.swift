@@ -19,28 +19,63 @@ class FirebaseManager {
     
     
     func observeNewOrdersAddedToCaptain(captainId: String, completion: @escaping ([Int]?) -> Void) {
-        let ref = Database.database().reference()
-        
-        let handle = ref.child("OnlineCaptains").child(captainId).child("assignOrder").observe(.value, with: { snapshot in
+        let ref = Database.database().reference().child("OnlineCaptains").child(captainId)
+        let ref2 = Database.database().reference().child("OnlineCaptains").child(captainId)
+        ref.child("assignOrder").observe(.value, with: { snapshot in
             print("Raw snapshot value: \(snapshot.value ?? "nil")")
             
-            if let assignOrder = snapshot.value as? [Any] {
-                print("assign Orders: \(assignOrder)")
+            ref2.child("currentOrder").observeSingleEvent(of: .value, with: { snapshot2 in
                 
-                // Process captainData to filter out null values in arrays
-                let filteredArray = assignOrder.compactMap { $0 as? Int }
+                print("Snapshot2 value: \(snapshot2.value ?? "nil")")
                 
-                print("Filtered assign Orders: \(filteredArray)")
-                completion(filteredArray)
-            } else if let assignOrder = snapshot.value as? Int {
-                print("Single assign Order: \(assignOrder)")
-                completion([])
+                guard let currentOrder = snapshot2.value as? Int else {
+                    print("currentOrder is not found or invalid")
+                    completion(nil)
+                    return
+                }
+                
+                if currentOrder != 0 {
+                    print("currentOrder is not 0")
+                    print("** \(currentOrder)")
+                    completion(nil)
+                    return
+                }
+                
+                if let assignOrder = snapshot.value as? [Any] {
+                    print("assign Orders: \(assignOrder)")
+                    
+                    // Process captainData to filter out null values in arrays
+                    let filteredArray = assignOrder.compactMap { $0 as? Int }
+                    
+                    print("Filtered assign Orders: \(filteredArray)")
+                    completion(filteredArray)
+                } else if let assignOrder = snapshot.value as? Int {
+                    print("Single assign Order: \(assignOrder)")
+                    completion([])
+                } else {
+                    print("Invalid assign Orders")
+                    completion([])
+                }
+            })
+            
+        })
+        //observerHandles[captainId] = handle
+    }
+    
+    func observeCurrentOrder(captainId: String, completion: @escaping (Int?) -> Void) {
+        let ref = Database.database().reference()
+        
+        ref.child("OnlineCaptains").child(captainId).child("currentOrder").observe(.value, with: { snapshot in
+            print("Raw snapshot value: \(snapshot.value ?? "nil")")
+            
+            if let currentOrder = snapshot.value as? Int {
+                print("Current Order: \(currentOrder)")
+                completion(currentOrder)
             } else {
-                print("Invalid assign Orders")
-                completion([])
+                print("Invalid Current Order")
+                completion(nil)
             }
         })
-        observerHandles[captainId] = handle
     }
     
     func getCaptainStatus(captainId: String, completion: @escaping (Bool?) -> Void) {
@@ -54,6 +89,30 @@ class FirebaseManager {
                 print("Captain Offline")
                 completion(false)
             }
+        }
+    }
+    
+    func getCaptainPriceForOrders(orderIDs: [Int], completion: @escaping ([Int: String]) -> Void) {
+        let ref = Database.database().reference().child("tempOrders")
+        
+        ref.observeSingleEvent(of: .value) { snapshot in
+            var ordersWithPrice: [Int: String] = [:]
+            
+            guard let ordersData = snapshot.value as? [String: [String: String]] else {
+                completion(ordersWithPrice)
+                return
+            }
+            
+            let captainID = String(UserInfo.shared.get_ID())
+            
+            for orderID in orderIDs {
+                if let captains = ordersData[String(orderID)], captains.keys.contains(captainID) {
+                    let price = captains[captainID]
+                    ordersWithPrice[orderID] = price
+                }
+            }
+            
+            completion(ordersWithPrice)
         }
     }
     

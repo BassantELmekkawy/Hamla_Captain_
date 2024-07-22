@@ -30,7 +30,7 @@
                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ghy-15-hqU">
-                    <rect key="frame" x="18" y="324" width="357" height="229"/>
+                    <rect key="frame" x="18" y="309" width="357" height="229"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Send price request" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="96X-lx-rnZ">
                             <rect key="frame" x="17" y="20" width="177.66666666666666" height="24"/>
@@ -175,7 +175,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="233" height="48.666666666666664"/>
                                     <color key="backgroundColor" name="background"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <textInputTraits key="textInputTraits"/>
+                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                             <real key="value" value="8"/>
@@ -221,6 +221,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="SXX-tK-9r9" secondAttribute="trailing" constant="17" id="0vb-4u-gJv"/>
+                        <constraint firstAttribute="height" constant="229" id="2hT-d7-6Es"/>
                         <constraint firstItem="7aw-Bs-Ub6" firstAttribute="top" secondItem="9S2-QH-4np" secondAttribute="bottom" constant="15" id="45l-qX-CEz"/>
                         <constraint firstItem="7Im-re-fo5" firstAttribute="leading" secondItem="Ghy-15-hqU" secondAttribute="leading" constant="17" id="5fH-F8-b8J"/>
                         <constraint firstItem="9S2-QH-4np" firstAttribute="leading" secondItem="Ghy-15-hqU" secondAttribute="leading" constant="17" id="6hU-pc-5Ub"/>
@@ -246,10 +247,9 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Ghy-15-hqU" secondAttribute="bottom" constant="265" id="2AH-i6-cXa"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="Ghy-15-hqU" secondAttribute="bottom" constant="280" id="2AH-i6-cXa"/>
                 <constraint firstItem="Ghy-15-hqU" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="18" id="9Sd-53-Glk"/>
                 <constraint firstAttribute="bottom" secondItem="oqG-xV-Vhp" secondAttribute="bottom" id="Ujt-L5-01e"/>
-                <constraint firstItem="Ghy-15-hqU" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="265" id="Wfj-g4-vUR"/>
                 <constraint firstItem="oqG-xV-Vhp" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="pN2-5s-Htc"/>
                 <constraint firstItem="oqG-xV-Vhp" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="rVe-Ds-WcH"/>
                 <constraint firstItem="oqG-xV-Vhp" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="wm8-Cm-Gkv"/>

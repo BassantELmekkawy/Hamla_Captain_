@@ -40,7 +40,7 @@ final class ImageUploader {
             case .failure(let error):
                 
                 print(error.localizedDescription)
-                completion(.failure(CustomError(success: false, message: "\(error)")))
+                completion(.failure(CustomError(status: false, message: "\(error)")))
                 break
                 
             case .success(let model):
