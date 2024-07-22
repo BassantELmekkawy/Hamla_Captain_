@@ -71,8 +71,8 @@ class FleetInformationVC: UIViewController {
         view.endEditing(true)
     }
     
-    func showCalender(textfield: UITextField) {
-        let alertViewController = CalenderAlert(nibName: "CalenderAlert", bundle: nil)
+    func showCalender(textfield: UITextField, minDate: Date? = nil, maxDate: Date? = nil) {
+        let alertViewController = CalenderAlert(minDate: minDate, maxDate: maxDate)
         alertViewController.modalPresentationStyle = .overCurrentContext
         alertViewController.modalTransitionStyle = .crossDissolve
         alertViewController.didSelectDate = { selectedDate in
@@ -139,7 +139,7 @@ class FleetInformationVC: UIViewController {
         
         dropDownMenu = DropdownMenu(dataSource: fleetData, button: sender)
         dropDownMenu.setupDropdownMenu()
-        dropDownMenu.showTableView(frames: sender.frame)
+        dropDownMenu.showTableView()
         
         dropDownMenu.selectedElement = { [weak self] element in
             //self.selectedFleetData[sender.tag] = element
@@ -208,6 +208,16 @@ class FleetInformationVC: UIViewController {
 
 extension FleetInformationVC: UITextFieldDelegate{
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == plateNumberTF {
+            //Limit the character count to 10.
+            if ((textField.text!) + string).count > 10 {
+                return false
+            }
+        }
+        return true
+    }
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         switch textField {
         case plateNumberTF:
@@ -230,11 +240,18 @@ extension FleetInformationVC: UITextFieldDelegate{
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         if textField == fleetLicenseExpiryDateTF {
+            let minDate = getAdjustedDate(byAddingDays: 1)
+            showCalender(textfield: textField, minDate: minDate)
             hideErrorMessage(label: errorMessage[4], view: textField)
-            showCalender(textfield: textField)
             return false
         }
         return true
+    }
+    
+    func getAdjustedDate(byAddingDays days: Int) -> Date? {
+        var components = DateComponents()
+        components.day = days
+        return Calendar.current.date(byAdding: components, to: Date())
     }
 }
 

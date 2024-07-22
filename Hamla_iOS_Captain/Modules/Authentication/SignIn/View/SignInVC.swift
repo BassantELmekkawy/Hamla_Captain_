@@ -9,10 +9,14 @@ import UIKit
 
 class SignInVC: UIViewController {
     
+    @IBOutlet weak var flagImage: UIImageView!
+    @IBOutlet weak var countryCodeLabel: UILabel!
     @IBOutlet weak var phoneTF: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
-    var viewModel: SignInViewModel?    
+    var viewModel: SignInViewModel?
+    var countryDropDown: DropdownMenu?
+    var countryCode = "20"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +50,8 @@ class SignInVC: UIViewController {
             }
             else{
                 let vc = VerificationVC(nibName: "VerificationVC", bundle: nil)
-                vc.phoneNumber = self.phoneTF.text ?? ""
+                vc.countryCode = self.countryCode
+                vc.phoneNumber = self.countryCode + (self.phoneTF.text ?? "")
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             print(message)
@@ -72,37 +77,76 @@ class SignInVC: UIViewController {
         }
     }
     
-    @IBAction func Login(_ sender: Any) {
+    @IBAction func selectCountry(_ sender: UIButton) {
+        let countries = ["Egypt", "Saudi Arabia"]
+        countryDropDown = DropdownMenu(dataSource: countries, button: sender, customCellType: CountryCell.self)
+        countryDropDown?.setupDropdownMenu(width: 220, height: 40)
+        
+        countryDropDown?.customCell = { cell, indexPath in
+            if let countryCell = cell as? CountryCell {
+                countryCell.countryName = countries[indexPath.row]
+            }
+        }
+        
+        countryDropDown?.selectedElement = { [weak self] element in
+            switch element {
+            case "Egypt":
+                self?.flagImage.image = UIImage(named: "Egypt_flag")
+                self?.countryCodeLabel.text = "+20"
+                self?.countryCode = "20"
+                self?.phoneTF.placeholder = "100 123 5678"
+            case "Saudi Arabia":
+                self?.flagImage.image = UIImage(named: "Saudi_arabia_flag")
+                self?.countryCodeLabel.text = "+966"
+                self?.countryCode = "966"
+                self?.phoneTF.placeholder = "50 235 1456"
+            default:
+                break
+            }
+            print(element)
+        }
+    }
+    
+    @IBAction func Next(_ sender: Any) {
         if phoneTF.text!.isEmpty{
             self.showAlert(message: "Phone_number_is_required".localized)
         }
-        if viewModel!.isValidPhone(phone: "0\(phoneTF.text ?? "")"){
-            viewModel?.sendCode(mobile: "20\(phoneTF.text ?? "")" )
+        if viewModel!.isValidPhone(phone: phoneTF.text ?? "", countryCode: countryCode){
+            viewModel?.sendCode(mobile: "\(countryCode)\(phoneTF.text ?? "")")
         }
         else{
             self.showAlert(message: "Invalid_phone_number".localized)
         }
     }
     
-    @IBAction func CreateCaptainAccount(_ sender: Any) {
-        let vc = PersonalInformationVC(nibName: "PersonalInformationVC", bundle: nil)
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
+//    @IBAction func CreateCaptainAccount(_ sender: Any) {
+//        let vc = PersonalInformationVC(nibName: "PersonalInformationVC", bundle: nil)
+//        self.navigationController?.pushViewController(vc, animated: true)
+//    }
 }
 
 extension SignInVC: UITextFieldDelegate{
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-            //Prevent "0" characters as the first characters.
-            if textField.text?.count == 0 && string == "0" {
-                return false
-            }
-            
-            //Limit the character count to 10.
-            if ((textField.text!) + string).count > 10 {
-                return false
-            }
+        //Prevent "0" characters as the first characters.
+        if textField.text?.count == 0 && string == "0" {
+            return false
+        }
+        
+        //Limit the character count.
+        var max = 0
+        switch countryCode {
+        case "20":
+            max = 10
+        case "966":
+            max = 9
+        default:
+            break
+        }
+        if ((textField.text!) + string).count > max {
+            return false
+        }
         
         return true
     }

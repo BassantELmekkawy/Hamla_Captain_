@@ -71,7 +71,7 @@ class STC_Pay_InformationVC: UIViewController {
                 }
                 else {
                     let vm = SignInViewModel(api: SignInApi())
-                    vm.sendCode(mobile: "20\(self.captainRegisterData.phoneNumber ?? "")")
+                    vm.sendCode(mobile: self.captainRegisterData.phoneNumber ?? "")
                     let vc = VerificationVC(nibName: "VerificationVC", bundle: nil)
                     vm.sendCodeResult.bind { sendCodeResult in
                         guard let message = sendCodeResult?.message else { return }
@@ -111,7 +111,7 @@ class STC_Pay_InformationVC: UIViewController {
     @IBAction func SubmitMyRequest(_ sender: UIButton) {
         viewModel?.register(fullName: captainRegisterData.fullName ?? "",
                             birthday: captainRegisterData.dateOfBirth ?? "",
-                            mobile: "20\(captainRegisterData.phoneNumber ?? "")",
+                            mobile: captainRegisterData.phoneNumber ?? "",
                             nationalID: captainRegisterData.governmentID ?? "",
                             nationalExpiryDate: captainRegisterData.idExpiryDate ?? "",
                             nationalIDImage: captainRegisterData.imageDictionary?[1] ?? "",
@@ -165,7 +165,7 @@ class STC_Pay_InformationVC: UIViewController {
         
         viewModel?.register(fullName: captainRegisterData.fullName ?? "",
                             birthday: captainRegisterData.dateOfBirth ?? "",
-                            mobile: "20\(captainRegisterData.phoneNumber ?? "")",
+                            mobile: captainRegisterData.phoneNumber ?? "",
                             nationalID: captainRegisterData.governmentID ?? "",
                             nationalExpiryDate: "2025-12-31",
                             nationalIDImage: captainRegisterData.imageDictionary?[1] ?? "",

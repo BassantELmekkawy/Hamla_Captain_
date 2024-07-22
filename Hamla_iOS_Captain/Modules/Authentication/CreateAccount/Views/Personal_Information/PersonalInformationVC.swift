@@ -31,16 +31,16 @@ class PersonalInformationVC: UIViewController {
     @IBOutlet weak var governmentID_TF: JVFloatLabeledTextField!
     @IBOutlet weak var phoneTF: UITextField!
     @IBOutlet weak var phoneView: UIView!
-    
+    @IBOutlet weak var flagImage: UIImageView!
+    @IBOutlet weak var countryCodeLabel: UILabel!
     @IBOutlet weak var dateOfBirthTF: JVFloatLabeledTextField!
     @IBOutlet weak var idExpiryDateTF: JVFloatLabeledTextField!
     @IBOutlet weak var licenseExpiryDateTF: JVFloatLabeledTextField!
-    
     @IBOutlet var imageCollection: [UIImageView]!
     @IBOutlet weak var scrollView: UIScrollView!
-    
     @IBOutlet var errorMessage: [UILabel]!
     
+    var countryCode = "20"
     var phoneNumber = ""
     var tag = 0
     var selectedDate = ""
@@ -52,10 +52,11 @@ class PersonalInformationVC: UIViewController {
     var overlayView: UIView?
     
     var viewModel: CreateAccountViewModel?
+    var countryDropDown: DropdownMenu?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        PHPhotoLibrary.shared().presentLimitedLibraryPicker(from: self)
         self.viewModel = CreateAccountViewModel(api: RegisterApi())
         setUpView()
         bindData()
@@ -66,7 +67,18 @@ class PersonalInformationVC: UIViewController {
         setupNavigationBar()
         
         if !phoneNumber.isEmpty {
-            phoneTF.text = phoneNumber
+            phoneTF.text = String(phoneNumber.dropFirst(countryCode.count))
+            countryCodeLabel.text = "+\(countryCode)"
+            switch countryCode {
+            case "20":
+                flagImage.image = UIImage(named: "Egypt_flag")
+                phoneTF.placeholder = "100 123 5678"
+            case "966":
+                flagImage.image = UIImage(named: "Saudi_arabia_flag")
+                phoneTF.placeholder = "50 235 1456"
+            default:
+                break
+            }
         }
         
         fullNameTF.addPadding()
@@ -124,8 +136,8 @@ class PersonalInformationVC: UIViewController {
         view.endEditing(true)
     }
     
-    func showCalender(textfield: UITextField) {
-        let alertViewController = CalenderAlert(nibName: "CalenderAlert", bundle: nil)
+    func showCalender(textfield: UITextField, minDate: Date? = nil, maxDate: Date? = nil) {
+        let alertViewController = CalenderAlert(minDate: minDate, maxDate: maxDate)
         alertViewController.modalPresentationStyle = .overCurrentContext
         alertViewController.modalTransitionStyle = .crossDissolve
         alertViewController.didSelectDate = { selectedDate in
@@ -179,7 +191,7 @@ class PersonalInformationVC: UIViewController {
         else if let phone = phoneTF.text, phone.isEmpty {
             showErrorMessage(message: "Phone_number_is_required".localized, label: errorMessage[1], view: phoneView)
         }
-        else if !viewModel!.isValidPhone(phone: "0\(phoneTF.text ?? "")") {
+        else if !viewModel!.isValidPhone(phone: phoneTF.text ?? "", countryCode: countryCode) {
             showErrorMessage(message: "Invalid_phone_number".localized, label: errorMessage[1], view: phoneView)
         }
         else if let dateOfBirth = dateOfBirthTF.text, dateOfBirth.isEmpty {
@@ -207,12 +219,43 @@ class PersonalInformationVC: UIViewController {
         }
         return false
     }
-
+    
+    
+    @IBAction func selectCountry(_ sender: UIButton) {
+        let countries = ["Egypt", "Saudi Arabia"]
+        countryDropDown = DropdownMenu(dataSource: countries, button: sender, customCellType: CountryCell.self)
+        countryDropDown?.setupDropdownMenu(width: 220, height: 40)
+        
+        countryDropDown?.customCell = { cell, indexPath in
+            if let countryCell = cell as? CountryCell {
+                countryCell.countryName = countries[indexPath.row]
+            }
+        }
+        
+        countryDropDown?.selectedElement = { [weak self] element in
+            switch element {
+            case "Egypt":
+                self?.flagImage.image = UIImage(named: "Egypt_flag")
+                self?.countryCodeLabel.text = "+20"
+                self?.countryCode = "20"
+                self?.phoneTF.placeholder = "100 123 5678"
+            case "Saudi Arabia":
+                self?.flagImage.image = UIImage(named: "Saudi_arabia_flag")
+                self?.countryCodeLabel.text = "+966"
+                self?.countryCode = "966"
+                self?.phoneTF.placeholder = "50 235 1456"
+            default:
+                break
+            }
+            print(element)
+        }
+    }
+    
     @IBAction func Continue(_ sender: Any) {
         if isValidData() && imageDictionary.count == 3 {
             let captainRegisterData = registerData(
                 fullName: fullNameTF.text,
-                phoneNumber: phoneTF.text,
+                phoneNumber: countryCode + (phoneTF.text ?? ""),
                 dateOfBirth: selectedDate,
                 governmentID: governmentID_TF.text,
                 idExpiryDate: idExpiryDateTF.text,
@@ -247,8 +290,17 @@ extension PersonalInformationVC: UITextFieldDelegate{
                 return false
             }
             
-            //Limit the character count to 10.
-            if ((textField.text!) + string).count > 10 {
+            //Limit the character count.
+            var max = 0
+            switch countryCode {
+            case "20":
+                max = 10
+            case "966":
+                max = 9
+            default:
+                break
+            }
+            if ((textField.text!) + string).count > max {
                 return false
             }
         }
@@ -275,18 +327,27 @@ extension PersonalInformationVC: UITextFieldDelegate{
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         switch textField {
         case dateOfBirthTF:
+            let maxDate = getAdjustedDate(byAddingDays: -1)
+            showCalender(textfield: textField, maxDate: maxDate)
             hideErrorMessage(label: errorMessage[2], view: textField)
-            showCalender(textfield: textField)
         case idExpiryDateTF:
+            let minDate = getAdjustedDate(byAddingDays: 1)
+            showCalender(textfield: textField, minDate: minDate)
             hideErrorMessage(label: errorMessage[4], view: textField)
-            showCalender(textfield: textField)
         case licenseExpiryDateTF:
+            let minDate = getAdjustedDate(byAddingDays: 1)
+            showCalender(textfield: textField, minDate: minDate)
             hideErrorMessage(label: errorMessage[5], view: textField)
-            showCalender(textfield: textField)
         default:
             return true
         }
         return false
+    }
+    
+    func getAdjustedDate(byAddingDays days: Int) -> Date? {
+        var components = DateComponents()
+        components.day = days
+        return Calendar.current.date(byAdding: components, to: Date())
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

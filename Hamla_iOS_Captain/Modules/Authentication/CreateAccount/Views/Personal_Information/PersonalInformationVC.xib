@@ -8,15 +8,12 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="SF-Compact-Display-Bold.ttf">
-            <string>SFCompactDisplay-Bold</string>
-        </array>
-    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PersonalInformationVC" customModule="Hamla_iOS_Captain" customModuleProvider="target">
             <connections>
+                <outlet property="countryCodeLabel" destination="igW-py-bTp" id="uab-fL-JQ5"/>
                 <outlet property="dateOfBirthTF" destination="Ynu-vk-T03" id="Jqm-a4-7Ze"/>
+                <outlet property="flagImage" destination="iRo-HN-QKN" id="Dje-1L-xMH"/>
                 <outlet property="fullNameTF" destination="3On-L0-4NE" id="Z0L-H8-ulN"/>
                 <outlet property="governmentID_TF" destination="bjZ-6V-DTb" id="BaD-iQ-xpO"/>
                 <outlet property="idExpiryDateTF" destination="nXY-Kk-A9k" id="NFb-x0-16E"/>
@@ -123,16 +120,28 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="404" height="51"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DXZ-DG-YLB">
-                                                            <rect key="frame" x="8" y="8" width="109.66666666666667" height="35"/>
+                                                            <rect key="frame" x="0.0" y="8" width="125.66666666666667" height="35"/>
                                                             <state key="normal" title="Button"/>
                                                             <buttonConfiguration key="configuration" style="plain"/>
+                                                            <connections>
+                                                                <action selector="selectCountry:" destination="-1" eventType="touchUpInside" id="J2v-zE-5T3"/>
+                                                            </connections>
                                                         </button>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Flag" translatesAutoresizingMaskIntoConstraints="NO" id="iRo-HN-QKN">
-                                                            <rect key="frame" x="15.999999999999996" y="16" width="36.666666666666657" height="19"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Egypt_flag" translatesAutoresizingMaskIntoConstraints="NO" id="iRo-HN-QKN">
+                                                            <rect key="frame" x="16" y="14.666666666666657" width="32" height="22"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="32" id="1gH-Tl-0PP"/>
+                                                                <constraint firstAttribute="height" constant="22" id="JVo-eI-IT6"/>
+                                                            </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                                    <real key="value" value="5"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="+20" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="igW-py-bTp">
-                                                            <rect key="frame" x="52.666666666666671" y="17.333333333333343" width="65" height="16.333333333333329"/>
-                                                            <fontDescription key="fontDescription" name="SFCompactDisplay-Bold" family="SF Compact Display" pointSize="14"/>
+                                                            <rect key="frame" x="48.000000000000007" y="17" width="69.666666666666686" height="17"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -151,23 +160,22 @@
                                                     </subviews>
                                                     <color key="backgroundColor" name="background"/>
                                                     <constraints>
-                                                        <constraint firstItem="iRo-HN-QKN" firstAttribute="leading" secondItem="DXZ-DG-YLB" secondAttribute="leading" constant="8" id="1Zh-W1-rcn"/>
+                                                        <constraint firstItem="iRo-HN-QKN" firstAttribute="leading" secondItem="DXZ-DG-YLB" secondAttribute="leading" constant="16" id="1Zh-W1-rcn"/>
                                                         <constraint firstAttribute="bottom" secondItem="2UQ-UA-UlU" secondAttribute="bottom" constant="10" id="3Ej-Id-3PW"/>
-                                                        <constraint firstItem="iRo-HN-QKN" firstAttribute="width" secondItem="DXZ-DG-YLB" secondAttribute="width" multiplier="1:3" id="AXZ-Qn-Mj7"/>
                                                         <constraint firstItem="igW-py-bTp" firstAttribute="leading" secondItem="iRo-HN-QKN" secondAttribute="trailing" id="CyA-1d-cvi"/>
                                                         <constraint firstAttribute="trailing" secondItem="sYd-33-weJ" secondAttribute="trailing" constant="8" id="HWN-ER-BI5"/>
                                                         <constraint firstItem="DXZ-DG-YLB" firstAttribute="top" secondItem="SSo-wx-WcX" secondAttribute="top" constant="8" id="R0M-mY-5M7"/>
                                                         <constraint firstItem="2UQ-UA-UlU" firstAttribute="top" secondItem="SSo-wx-WcX" secondAttribute="top" constant="10" id="Tzw-wv-2Kx"/>
                                                         <constraint firstAttribute="bottom" secondItem="DXZ-DG-YLB" secondAttribute="bottom" constant="8" id="UUU-zl-15m"/>
-                                                        <constraint firstItem="2UQ-UA-UlU" firstAttribute="leading" secondItem="DXZ-DG-YLB" secondAttribute="trailing" constant="8" id="akh-st-CDz"/>
+                                                        <constraint firstItem="2UQ-UA-UlU" firstAttribute="leading" secondItem="DXZ-DG-YLB" secondAttribute="trailing" id="akh-st-CDz"/>
                                                         <constraint firstItem="sYd-33-weJ" firstAttribute="top" secondItem="SSo-wx-WcX" secondAttribute="top" constant="8" id="dyA-UL-0Mo"/>
                                                         <constraint firstAttribute="bottom" secondItem="sYd-33-weJ" secondAttribute="bottom" constant="8" id="exz-Bj-kMm"/>
-                                                        <constraint firstItem="DXZ-DG-YLB" firstAttribute="leading" secondItem="SSo-wx-WcX" secondAttribute="leading" constant="8" id="fgJ-Ii-8Tu"/>
+                                                        <constraint firstItem="DXZ-DG-YLB" firstAttribute="leading" secondItem="SSo-wx-WcX" secondAttribute="leading" id="fgJ-Ii-8Tu"/>
                                                         <constraint firstItem="sYd-33-weJ" firstAttribute="width" secondItem="SSo-wx-WcX" secondAttribute="width" multiplier="2:3" id="idv-is-sPm"/>
                                                         <constraint firstItem="sYd-33-weJ" firstAttribute="leading" secondItem="2UQ-UA-UlU" secondAttribute="trailing" id="jjv-Jy-LOO"/>
                                                         <constraint firstItem="iRo-HN-QKN" firstAttribute="centerY" secondItem="SSo-wx-WcX" secondAttribute="centerY" id="vY9-kN-aCk"/>
                                                         <constraint firstItem="igW-py-bTp" firstAttribute="centerY" secondItem="SSo-wx-WcX" secondAttribute="centerY" id="w3B-hN-MlQ"/>
-                                                        <constraint firstItem="DXZ-DG-YLB" firstAttribute="trailing" secondItem="igW-py-bTp" secondAttribute="trailing" id="zkJ-ei-5hu"/>
+                                                        <constraint firstItem="DXZ-DG-YLB" firstAttribute="trailing" secondItem="igW-py-bTp" secondAttribute="trailing" constant="8" id="zkJ-ei-5hu"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -730,7 +738,7 @@
         </designable>
     </designables>
     <resources>
-        <image name="Flag" width="32" height="19"/>
+        <image name="Egypt_flag" width="32" height="19"/>
         <image name="Rescheduling A Task" width="24" height="24"/>
         <image name="Upload to Cloud" width="24" height="24"/>
         <namedColor name="background">

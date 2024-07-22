@@ -18,35 +18,34 @@ class PhotoActionSheet: NSObject {
     weak var delegate: PhotoActionSheetDelegate?
     private weak var viewController: UIViewController?
     
-    func openCamera() {
-        
+    func openPicker(sourceType: UIImagePickerController.SourceType) {
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
-        pickerController.sourceType = .camera
+        pickerController.sourceType = sourceType
         pickerController.allowsEditing = true
         viewController?.present(pickerController, animated: true)
     }
     
-    func configureImagePicker(){
-        var configuration = PHPickerConfiguration()
-        configuration.filter = .images
-        configuration.selectionLimit = 1
-        let pickerViewController = PHPickerViewController(configuration: configuration)
-        pickerViewController.delegate = self
-        viewController?.present(pickerViewController, animated: true)
-    }
+//    func configureImagePicker(){
+//        var configuration = PHPickerConfiguration()
+//        configuration.filter = .images
+//        configuration.selectionLimit = 1
+//        let pickerViewController = PHPickerViewController(configuration: configuration)
+//        pickerViewController.delegate = self
+//        viewController?.present(pickerViewController, animated: true)
+//    }
     
     func showActionSheet(from vc: UIViewController) {
         self.viewController = vc
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         let cameraAction = UIAlertAction(title: "Camera", style: .default) { [weak self] _ in
-            self?.openCamera()
+            self?.openPicker(sourceType: .camera)
         }
         actionSheet.addAction(cameraAction)
         
         let photoLibraryAction = UIAlertAction(title: "Photo Library", style: .default) { [weak self] _ in
-            self?.configureImagePicker()
+            self?.openPicker(sourceType: .photoLibrary)
         }
         actionSheet.addAction(photoLibraryAction)
         
@@ -71,22 +70,22 @@ extension PhotoActionSheet: UIImagePickerControllerDelegate, UINavigationControl
     }
 }
 
-extension PhotoActionSheet: PHPickerViewControllerDelegate{
-    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        picker.dismiss(animated: true)
-        if let itemprovider = results.first?.itemProvider{
-          
-            if itemprovider.canLoadObject(ofClass: UIImage.self){
-               
-                itemprovider.loadObject(ofClass: UIImage.self) { image , error  in
-                    if let selectedImage = image as? UIImage{
-                        DispatchQueue.main.async {
-                            self.delegate?.didSelectImage(selectedImage)
-                        }
-                    }
-                }
-            }
-            
-        }
-    }
-}
+//extension PhotoActionSheet: PHPickerViewControllerDelegate{
+//    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+//        picker.dismiss(animated: true)
+//        if let itemprovider = results.first?.itemProvider{
+//
+//            if itemprovider.canLoadObject(ofClass: UIImage.self){
+//
+//                itemprovider.loadObject(ofClass: UIImage.self) { image , error  in
+//                    if let selectedImage = image as? UIImage{
+//                        DispatchQueue.main.async {
+//                            self.delegate?.didSelectImage(selectedImage)
+//                        }
+//                    }
+//                }
+//            }
+//
+//        }
+//    }
+//}
