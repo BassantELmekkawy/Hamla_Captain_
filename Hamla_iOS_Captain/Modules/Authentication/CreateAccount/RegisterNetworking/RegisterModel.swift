@@ -8,8 +8,8 @@
 import Foundation
 
 struct RegisterModel: Codable {
-    let status: Int
-    let message: String
+    let status: Int?
+    let message: String?
     let data: CaptainData?
 }
 
@@ -23,7 +23,7 @@ struct CaptainData: Codable {
     let mobile: String?
     let email: String?
     let avatar: String?
-    let rate: Int?
+    let rate: Double?
     let isActive: Bool?
     let available: Bool?
     let inOrder: Bool?

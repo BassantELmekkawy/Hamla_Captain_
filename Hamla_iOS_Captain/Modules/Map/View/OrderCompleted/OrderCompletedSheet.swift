@@ -39,6 +39,7 @@ class OrderCompletedSheet: UIViewController {
             ratingView.isHidden = true
             amount.addPadding()
         case true:
+            view.endEditing(true)
             ratingView.isHidden = false
             amount.isHidden = true
             costView.isHidden = true

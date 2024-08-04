@@ -24,8 +24,8 @@ class HomeVC: UIViewController {
     var ordersDetails: [Order]? = []
     var currentOrderDetails: Order?
     var ordersStatus: [Int: UpcomingRequest] = [:]
-    var ordersWithPrice: [Int: String]?
-    var ordersIDs: [Int] = []
+    var ordersWithPrice: [Int: String] = [:]
+    //var ordersIDs: [Int] = []
     var selectedOrderDetails: Order?
     var selectedOrderID: Int?
     var isCaptainOnline = false
@@ -136,7 +136,7 @@ class HomeVC: UIViewController {
                 }
             } else {
                 UserInfo.shared.setCaptainOnOrder(status: true)
-                self.viewModel?.getOrdersDetails(orderIDs: [String(currentOrder)])
+                self.viewModel?.isCaptainOnOrder()
             }
         }
         
@@ -145,12 +145,15 @@ class HomeVC: UIViewController {
             if result?.status == 0 {
                 self.viewModel?.observeOrders(captainId: String(UserInfo.shared.get_ID()))
                 UserInfo.shared.setCaptainOnOrder(status: false)
-                self.ordersIDs = []
+                //self.ordersIDs = []
+                DispatchQueue.main.async {
+                    self.ordersTableView.reloadData()
+                }
             }
             else {
                 UserInfo.shared.setCaptainOnOrder(status: true)
-                if let currentOrder = result?.data, let orderID = currentOrder.id {
-                    self.ordersIDs = [orderID]
+                if let currentOrder = result?.data {
+                    //self.ordersIDs = [orderID]
                     self.currentOrderDetails = currentOrder
                 }
             }
@@ -167,11 +170,12 @@ class HomeVC: UIViewController {
             }
             else {
                 if let orders = result?.data {
-                    if UserInfo.shared.isCaptainOnOrder() {
-                        self.currentOrderDetails = orders.first
-                    } else {
-                        self.ordersDetails = orders
-                    }
+//                    if UserInfo.shared.isCaptainOnOrder() {
+//                        self.currentOrderDetails = orders.first
+//                    } else {
+//                        self.ordersDetails = orders
+//                    }
+                    self.ordersDetails = orders
                     DispatchQueue.main.async {
                         self.ordersTableView.reloadData()
                     }
@@ -217,7 +221,7 @@ class HomeVC: UIViewController {
             }
             else {
                 UserInfo.shared.setCaptainOnOrder(status: true)
-                self.ordersIDs = []
+                //self.ordersIDs = []
                 let mapVC = MapVC(nibName: "MapVC", bundle: nil)
                 //let orderID = String(self.selectedOrderID!)
                 //self.viewModel?.getOrdersDetails(orderIDs: [orderID])
@@ -225,7 +229,7 @@ class HomeVC: UIViewController {
                 //mapVC.orderID = self.selectedOrderID!
                 mapVC.currentLocation = self.currentLocation
                 self.navigationController?.pushViewController(mapVC, animated: true)
-                print("Order ID:....... \(self.ordersIDs)")
+                //print("Order ID:....... \(self.ordersIDs)")
             }
             print(message)
         }
@@ -259,10 +263,14 @@ class HomeVC: UIViewController {
         
         viewModel?.assignOrder.bind { assignOrder in
             guard let orders = assignOrder, orders.count != 0 else {
-                self.ordersIDs = []
+                //self.ordersIDs = []
+                self.ordersDetails = []
+                DispatchQueue.main.async {
+                    self.ordersTableView.reloadData()
+                }
                 return
             }
-            self.ordersIDs = orders
+            //self.ordersIDs = orders
             let orderIDsStrings = orders.map { String($0) }
             
             print("orders: \(orders)")
@@ -271,7 +279,7 @@ class HomeVC: UIViewController {
             self.viewModel?.getOrdersDetails(orderIDs: orderIDsStrings)
             self.viewModel?.getCaptainPriceForOrders(orderIDs: orders)
             
-            print("orders:  \(self.ordersIDs)")
+            //print("orders:  \(self.ordersIDs)")
         }
         
         viewModel?.captainStatus.bind{ isOnline in
@@ -353,7 +361,7 @@ extension HomeVC: UpcomingRequestsDelegate, OrderDetailsDelegate, SetPriceDelega
     
     func navigateToMap() {
         let mapVC = MapVC(nibName: "MapVC", bundle: nil)
-        mapVC.orderDetails = self.ordersDetails![0]
+        mapVC.orderDetails = self.currentOrderDetails!
         mapVC.currentLocation = self.currentLocation
         self.navigationController?.pushViewController(mapVC, animated: true)
     }
@@ -367,7 +375,7 @@ extension HomeVC: UpcomingRequestsDelegate, OrderDetailsDelegate, SetPriceDelega
         alertViewController.minPrice = ordersDetails?[indexPath.row].estimateCostFrom ?? ""
         alertViewController.maxPrice = ordersDetails?[indexPath.row].estimateCostTo ?? ""
         alertViewController.avgPrice = ordersDetails?[indexPath.row].prices?.avg ?? ""
-        if let orderID = selectedOrderID, let price = ordersWithPrice?[orderID] {
+        if let orderID = selectedOrderID, let price = ordersWithPrice[orderID] {
             print(price)
             alertViewController.selectedPrice = price
         }
@@ -377,14 +385,14 @@ extension HomeVC: UpcomingRequestsDelegate, OrderDetailsDelegate, SetPriceDelega
     func sendPrice(price: String) {
         if let selectedOrderID = selectedOrderID {
             viewModel?.setOrderPrice(orderID: String(selectedOrderID), price: price)
-            ordersWithPrice?[selectedOrderID] = price
+            ordersWithPrice[selectedOrderID] = price
         }
     }
     
     func acceptRequest(indexPath: IndexPath) {
         selectedOrderDetails = ordersDetails?[indexPath.row]
         selectedOrderID = ordersDetails?[indexPath.row].id
-        print("Order id = \(ordersIDs[indexPath.row]) is accepted")
+        //print("Order id = \(ordersIDs[indexPath.row]) is accepted")
         viewModel?.acceptOrder(orderID: String(self.selectedOrderID!), captainLat: String(currentLocation.coordinate.latitude), captainLng: String(currentLocation.coordinate.longitude))
     }
     
@@ -405,7 +413,7 @@ extension HomeVC: UpcomingRequestsDelegate, OrderDetailsDelegate, SetPriceDelega
 //        print(self.CollectionView.numberOfItems(inSection: 0))
         viewModel?.rejectOrder(orderID: String(self.ordersDetails![indexPath.row].id!))
         ordersStatus.removeValue(forKey: (ordersDetails?[indexPath.row].id)!)
-        ordersIDs.remove(at: indexPath.row)
+        //ordersIDs.remove(at: indexPath.row)
         ordersDetails?.remove(at: indexPath.row)
         ordersTableView.deleteRows(at: [indexPath], with: .automatic)
     }

@@ -21,7 +21,7 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
     var point = 0
     
     var orderDetails: Order = Order()
-    var cost: Double = 0.0
+    //var cost: Double = 0.0
     var currentLocation = CLLocation()
     var currentStatus: OrderStatus = .goingToPickup
     var viewModel: MapViewModel?
@@ -30,7 +30,6 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
     let orderCompletedSheet = OrderCompletedSheet()
     
     var sheet: SheetViewController?
-    var isOrderCompleted: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,13 +44,11 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
         showRequest()
         bindData()
         
-        //carMarker = GMSMarker()
         locationManager.requestWhenInUseAuthorization()
         let status = locationManager.authorizationStatus
         
         switch status {
         case .authorizedAlways, .authorizedWhenInUse:
-            //currentLocation = locationManager.location!
             locationManager.startUpdatingLocation()
             print("Lat: ************ \(currentLocation.coordinate.latitude)")
             print("Lng: ************ \(currentLocation.coordinate.longitude)")
@@ -59,13 +56,7 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
             break
         }
         
-//        if CLLocationManager.locationServicesEnabled() {
-//            locationManager.requestLocation()
-//        } else {
-//            locationManager.requestWhenInUseAuthorization()
-//        }
-        
-        orderStatusSheet.numOfPoints = orderDetails.points?.count ?? 0
+        currentRequestVC.numOfPoints = orderDetails.points?.count ?? 0
         
         if orderDetails.status == "accepted" {
             viewModel?.pickupOrder(orderID: String(orderDetails.id!))
@@ -142,6 +133,7 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
             if result?.status == 0 {
                 self?.showAlert(message: message)
             } else {
+                self?.currentStatus = .goingToPickup
                 self?.currentRequestVC.updateStatusUI(status: self!.currentStatus)
                 self?.viewModel?.drawPath(start: (self?.carMarker!.position)!, end: (self?.pickupMarker!.position)!, mapView: (self?.mapView)!)
                 //self?.carMarker?.position = self!.pickupMarker!.position
@@ -155,6 +147,7 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
             if result?.status == 0 {
                 self?.showAlert(message: message)
             } else {
+                self?.currentStatus = .arrivedToPickup
                 self?.currentRequestVC.updateStatusUI(status: self!.currentStatus)
                 self?.pickupMarker?.map = nil
                 self?.viewModel?.removeCurrentPolyline()
@@ -167,6 +160,7 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
             if result?.status == 0 {
                 self?.showAlert(message: message)
             } else {
+                self?.currentStatus = .startLoad
                 self?.currentRequestVC.updateStatusUI(status: self!.currentStatus)
             }
             print(message)
@@ -177,6 +171,7 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
             if result?.status == 0 {
                 self?.showAlert(message: message)
             } else {
+                self?.currentStatus = .endLoad
                 self?.currentRequestVC.updateStatusUI(status: self!.currentStatus)
             }
             print(message)
@@ -187,11 +182,13 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
             if result?.status == 0 {
                 self?.showAlert(message: message)
             } else {
-                if self?.orderDetails.points != nil {
+                if self?.orderDetails.points?.count != 0 {
                     self?.currentRequestVC.point = self!.point + 1
                     self?.viewModel?.drawPath(start: (self?.carMarker!.position)!, end: (self?.stopPointMarkers[0].position)!, mapView: (self?.mapView)!)
+                    self?.currentStatus = .goingToPoint
                 } else {
                     self?.viewModel?.drawPath(start: (self?.carMarker!.position)!, end: (self?.dropoffMarker!.position)!, mapView: (self?.mapView)!)
+                    self?.currentStatus = .goingToDropoff
                 }
                 self?.currentRequestVC.updateStatusUI(status: self!.currentStatus)
             }
@@ -203,11 +200,16 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
             if result?.status == 0 {
                 self?.showAlert(message: message)
             } else {
+                self?.currentStatus = .arrivedPoint
                 //self?.currentRequestVC.point = self!.point + 1
                 self?.currentRequestVC.updateStatusUI(status: self!.currentStatus)
                 
                 self?.viewModel?.removeCurrentPolyline()
                 self?.stopPointMarkers[self!.point].map = nil
+                
+//                if let pointsCount = self?.orderDetails.points?.count, self!.point < pointsCount - 1 {
+//                    self?.point += 1
+//                }
             }
             print(message)
         }
@@ -217,14 +219,16 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
             if result?.status == 0 {
                 self?.showAlert(message: message)
             } else {
-                self?.currentRequestVC.point = self!.point + 1
-                self?.currentRequestVC.updateStatusUI(status: self!.currentStatus)
-                
                 if let pointsCount = self?.orderDetails.points?.count, self!.point < pointsCount - 1 {
                     self?.viewModel?.drawPath(start: (self?.carMarker!.position)!, end: (self?.stopPointMarkers[self!.point + 1].position)!, mapView: (self?.mapView)!)
+                    self?.currentStatus = .goingToPoint
+                    self?.point += 1
+                    self?.currentRequestVC.point = self!.point + 1
                 } else {
                     self?.viewModel?.drawPath(start: (self?.carMarker!.position)!, end: (self?.dropoffMarker!.position)!, mapView: (self?.mapView)!)
+                    self?.currentStatus = .goingToDropoff
                 }
+                self?.currentRequestVC.updateStatusUI(status: self!.currentStatus)
             }
             print(message)
         }
@@ -234,6 +238,7 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
             if result?.status == 0 {
                 self?.showAlert(message: message)
             } else {
+                self?.currentStatus = .arrivedToDropoff
                 self?.currentRequestVC.updateStatusUI(status: self!.currentStatus)
                 self?.viewModel?.removeCurrentPolyline()
                 self?.dropoffMarker?.map = nil
@@ -246,6 +251,7 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
             if result?.status == 0 {
                 self?.showAlert(message: message)
             } else {
+                self?.currentStatus = .startUnload
                 self?.currentRequestVC.updateStatusUI(status: self!.currentStatus)
             }
             print(message)
@@ -256,6 +262,7 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
             if result?.status == 0 {
                 self?.showAlert(message: message)
             } else {
+                self?.currentStatus = .endUnload
                 self?.currentRequestVC.updateStatusUI(status: self!.currentStatus)
             }
             print(message)
@@ -266,9 +273,15 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
             if result?.status == 0 {
                 self?.showAlert(message: message)
             } else {
-                self?.cost = result?.data?.cost ?? 0.0
-                self?.currentRequestVC.updateStatusUI(status: self!.currentStatus)
+                self?.currentStatus = .orderCompleted
+                let cost: Double = result?.data?.cost ?? 0.0
+                //self?.currentRequestVC.updateStatusUI(status: self!.currentStatus)
                 //self?.changeCameraPosition(latitude: (self?.carMarker?.position.latitude)!, longitude: (self?.carMarker?.position.longitude)!, zoom: 10.0)
+                self?.carMarker?.icon = UIImage(named: "car-icon-forest")
+                self?.sheet?.animateOut()
+                self?.showSheet(controller: self!.orderCompletedSheet, sizes: [.fixed(350)], horizontalPadding: 30)
+                self?.orderCompletedSheet.customerName.text = self?.orderDetails.customer?.fullName
+                self?.orderCompletedSheet.cost.text = String(cost)
             }
             print(message)
         }
@@ -299,6 +312,7 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
             if result?.status == 0 {
                 self?.showAlert(message: message)
             } else {
+                UserInfo.shared.setCaptainOnOrder(status: false)
                 self?.navigationController?.popViewController(animated: true)
             }
             print(message)
@@ -315,7 +329,7 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
     
     func showCurrentStatus() {
         if orderDetails.status == "start_order" {
-            if let points = orderDetails.points {
+            if let points = orderDetails.points, points.count != 0 {
                 for (index, point) in points.enumerated() {
                     if point.move == nil {
                         if point.arrival != nil {
@@ -347,7 +361,7 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
     }
     
     func showRequest() {
-        showSheet(controller: currentRequestVC, sizes: [.fixed(240) , .fixed(30)], horizontalPadding: 30)
+        showSheet(controller: currentRequestVC, sizes: [.fixed(240)], horizontalPadding: 30)
         currentRequestVC.customerName.text = orderDetails.customer?.fullName
     }
     
@@ -360,7 +374,6 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
             horizontalPadding: horizontalPadding,
             maxWidth: self.view.frame.width
         )
-        
         sheet = SheetViewController(controller: controller, sizes: sizes , options: options)
         sheet?.dismissOnPull = false
         sheet?.allowPullingPastMaxHeight = false
@@ -370,7 +383,6 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
         sheet?.cornerRadius = 20
         sheet?.allowGestureThroughOverlay = true
         sheet?.animateIn(to: view, in: self)
-        
     }
     
     func dismissOrder() {
@@ -390,61 +402,91 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
     }
     
     func updateStatus(status: OrderStatus) {
-        sheet?.animateOut()
-        if isOrderCompleted {
-            showSheet(controller: orderCompletedSheet, sizes: [.fixed(370)], horizontalPadding: 30)
-            orderCompletedSheet.customerName.text = orderDetails.customer?.fullName
-            orderCompletedSheet.cost.text = String(cost)
-        } else{
-            showSheet(controller: orderStatusSheet, sizes: [.fixed(400)])
-        }
-    }
-    
-    func updateOrderStatus(status: OrderStatus) {
         guard let id = orderDetails.id else { return }
         let orderID = String(id)
         switch status {
         case .goingToPickup:
-            return
-        case .arrivedToPickup:
             viewModel?.arrivedOrder(orderID: orderID)
-        case .startLoad:
+        case .arrivedToPickup:
             viewModel?.startLoad(orderID: orderID)
-        case .endLoad:
+        case .startLoad:
             viewModel?.endLoad(orderID: orderID)
-        case .goingToPoint:  // (start order / move point)
+        case .endLoad:   // (start order / move point)
             if point == 0 {
                 viewModel?.startOrder(orderID: orderID)
             } else {
                 viewModel?.movePoint(orderID: orderID)
             }
-        case .arrivedPoint:
+        case .goingToPoint:
             viewModel?.arrivedPoint(orderID: orderID)
-            if let pointsCount = orderDetails.points?.count, point < pointsCount - 1 {
-                point += 1
-            }
-        case .goingToDropoff:  // (start order / move point)
+        case .arrivedPoint:   // (start order / move point)
             if orderDetails.points != nil {
                 viewModel?.movePoint(orderID: orderID)
             } else {
                 viewModel?.startOrder(orderID: orderID)
             }
-        case .arrivedToDropoff:
+        case .goingToDropoff:
             viewModel?.dropoffOrder(orderID: orderID)
-        case .startUnload:
+        case .arrivedToDropoff:
             viewModel?.startUnload(orderID: orderID)
-        case .endUnload:
+        case .startUnload:
             viewModel?.endUnload(orderID: orderID)
-        case .orderCompleted:
+        case .endUnload:
             let lat = String(locationManager.location?.coordinate.latitude ?? 0.0)
             let lng = String(locationManager.location?.coordinate.longitude ?? 0.0)
             viewModel?.endOrder(orderID: orderID, dropoffLat: lat, dropoffLng: lng)
-            isOrderCompleted = true
+        case .orderCompleted:
+            break
         }
         //currentRequestVC.updateStatusUI(status: status)
-        self.currentStatus = status
-        sheet?.animateOut()
-        showRequest()
+        //self.currentStatus = status
+    }
+    
+    func updateOrderStatus(status: OrderStatus) {
+//        guard let id = orderDetails.id else { return }
+//        let orderID = String(id)
+//        switch status {
+//        case .goingToPickup:
+//            return
+//        case .arrivedToPickup:
+//            viewModel?.arrivedOrder(orderID: orderID)
+//        case .startLoad:
+//            viewModel?.startLoad(orderID: orderID)
+//        case .endLoad:
+//            viewModel?.endLoad(orderID: orderID)
+//        case .goingToPoint:  // (start order / move point)
+//            if point == 0 {
+//                viewModel?.startOrder(orderID: orderID)
+//            } else {
+//                viewModel?.movePoint(orderID: orderID)
+//            }
+//        case .arrivedPoint:
+//            viewModel?.arrivedPoint(orderID: orderID)
+//            if let pointsCount = orderDetails.points?.count, point < pointsCount - 1 {
+//                point += 1
+//            }
+//        case .goingToDropoff:  // (start order / move point)
+//            if orderDetails.points != nil {
+//                viewModel?.movePoint(orderID: orderID)
+//            } else {
+//                viewModel?.startOrder(orderID: orderID)
+//            }
+//        case .arrivedToDropoff:
+//            viewModel?.dropoffOrder(orderID: orderID)
+//        case .startUnload:
+//            viewModel?.startUnload(orderID: orderID)
+//        case .endUnload:
+//            viewModel?.endUnload(orderID: orderID)
+//        case .orderCompleted:
+//            let lat = String(locationManager.location?.coordinate.latitude ?? 0.0)
+//            let lng = String(locationManager.location?.coordinate.longitude ?? 0.0)
+//            viewModel?.endOrder(orderID: orderID, dropoffLat: lat, dropoffLng: lng)
+//            isOrderCompleted = true
+//        }
+//        //currentRequestVC.updateStatusUI(status: status)
+//        self.currentStatus = status
+//        sheet?.animateOut()
+//        showRequest()
     }
     
     func submitAmount(amount: String) {

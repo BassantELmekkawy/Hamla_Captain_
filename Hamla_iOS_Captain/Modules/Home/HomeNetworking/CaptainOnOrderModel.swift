@@ -8,7 +8,7 @@
 import Foundation
 
 struct CaptainOnOrderModel: Codable {
-    let status: Int
-    let message: String
+    let status: Int?
+    let message: String?
     let data: Order?
 }

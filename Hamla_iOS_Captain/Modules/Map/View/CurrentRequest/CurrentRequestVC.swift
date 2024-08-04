@@ -46,6 +46,8 @@ class CurrentRequestVC: UIViewController {
     @IBOutlet weak var customerName: UILabel!
     @IBOutlet weak var chatButton: UIButton!
     
+    @IBOutlet weak var updateStatusButton: UIButton!
+    
     weak var delegate: CurrentRequestDelegate?
     
     var status: OrderStatus = .goingToPickup
@@ -53,12 +55,37 @@ class CurrentRequestVC: UIViewController {
     var point = 0
     var notificationView: UIView?
     let unreadMessages = UILabel()
+    var numOfPoints = 0
+    var statusList: [OrderStatus] = [.goingToPickup,
+                                     .arrivedToPickup,
+                                     .startLoad,
+                                     .endLoad,
+                                     .goingToDropoff,
+                                     .arrivedToDropoff,
+                                     .startUnload,
+                                     .endUnload,
+                                     .orderCompleted]
+    var nextStatusIndex = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
         chatButton.setImage(UIImage(named: "Chat_enabled"), for: .normal)
         observeCaptainUnreadMessages()
         configureNotificationView()
+        
+        let pointStatus: [OrderStatus] = [.goingToPoint, .arrivedPoint]
+        if numOfPoints > 0 {
+            for i in 0..<numOfPoints {
+                statusList.insert(contentsOf: pointStatus, at: i * 2 + 4)
+            }
+        }
+        
+//        let index = (statusList.firstIndex(where: {$0 == status}) ?? 1) + 1
+//        if status == .goingToPoint || status == .arrivedPoint {
+//            nextStatusIndex = index + point * 2 - 2
+//        } else {
+//            nextStatusIndex = index
+//        }
     }
     
     func configureNotificationView() {
@@ -94,6 +121,10 @@ class CurrentRequestVC: UIViewController {
         }
     }
 
+    @IBAction func call(_ sender: Any) {
+        
+    }
+    
     @IBAction func chat(_ sender: Any) {
         delegate?.chat()
     }
@@ -103,40 +134,61 @@ class CurrentRequestVC: UIViewController {
     }
     
     @IBAction func UpdateStatus(_ sender: Any) {
+//        status = statusList[nextStatusIndex]
+//        nextStatusIndex += 1
+//        updateStatusUI(status: status)
         delegate?.updateStatus(status: status)
     }
     
     func updateStatusUI(status: OrderStatus) {
+        self.status = status
             switch status {
             case .goingToPickup:
-                return
+                updateStatusButton.setTitle("Arrived to pickup", for: .normal)
             case .arrivedToPickup:
                 statusTitle.text = "Arrived to pickup"
                 statusBar.backgroundColor = UIColor(named: "seagull")
+                updateStatusButton.setTitle("Start load", for: .normal)
             case .startLoad:
                 statusTitle.text = "Start load"
                 statusBar.backgroundColor = UIColor(named: "primary")
+                updateStatusButton.setTitle("End load", for: .normal)
             case .endLoad:
                 statusTitle.text = "End load"
                 statusBar.backgroundColor = UIColor(named: "primary")
+                if point < numOfPoints {
+                    updateStatusButton.setTitle("Going to point \(point + 1)", for: .normal)
+                } else {
+                    updateStatusButton.setTitle("Going to drop off", for: .normal)
+                }
             case .goingToPoint:
                 statusTitle.text = "Going to point \(point)"
                 statusBar.backgroundColor = UIColor(named: "primary")
+                updateStatusButton.setTitle("Arrived point \(point)", for: .normal)
             case .arrivedPoint:
                 statusTitle.text = "Arrived point \(point)"
                 statusBar.backgroundColor = UIColor(named: "primary")
+                if point < numOfPoints {
+                    updateStatusButton.setTitle("Going to point \(point + 1)", for: .normal)
+                } else {
+                    updateStatusButton.setTitle("Going to drop off", for: .normal)
+                }
             case .goingToDropoff:
                 statusTitle.text = "Going to drop off"
                 statusBar.backgroundColor = UIColor(named: "warm")
+                updateStatusButton.setTitle("Arrived to drop off", for: .normal)
             case .arrivedToDropoff:
                 statusTitle.text = "Arrived to drop off"
                 statusBar.backgroundColor = UIColor(named: "forest")
+                updateStatusButton.setTitle("Start unload", for: .normal)
             case .startUnload:
                 statusTitle.text = "Start unload"
                 statusBar.backgroundColor = UIColor(named: "primary")
+                updateStatusButton.setTitle("End unload", for: .normal)
             case .endUnload:
                 statusTitle.text = "End unload"
                 statusBar.backgroundColor = UIColor(named: "primary")
+                updateStatusButton.setTitle("Order completed", for: .normal)
             case .orderCompleted:
                 statusTitle.text = "Order completed"
                 statusBar.backgroundColor = UIColor(named: "forest")

@@ -9,8 +9,8 @@ import Foundation
 
 // MARK: - Response
 struct OrdersDetailsModel: Codable {
-    let status: Int
-    let message: String
+    let status: Int?
+    let message: String?
     let data: [Order]?
 }
 
@@ -81,7 +81,7 @@ struct Customer: Codable {
     let fullName: String?
     let mobile: String?
     let code: String?
-    let rate: Int?
+    let rate: Double?
     let avatar: String?
 
     enum CodingKeys: String, CodingKey {

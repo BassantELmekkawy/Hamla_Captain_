@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OrderImagesVC" customModule="Hamla_iOS_Captain" customModuleProvider="target">
+            <connections>
+                <outlet property="heightConstraint" destination="5Ud-tX-Oek" id="gT4-en-pBo"/>
+                <outlet property="imagesCollectionView" destination="9K4-cu-usY" id="E7r-FT-dKt"/>
+                <outlet property="infoLabel" destination="NOk-8q-srv" id="Tsb-zB-5sI"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NOk-8q-srv">
+                    <rect key="frame" x="30" y="79" width="333" height="76.666666666666686"/>
+                    <string key="text">"Before moving from the pickup point, it is crucial to take minimum 4 image for order. This step is essential for later validation of any damages."</string>
+                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                    <color key="textColor" name="quaternary"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="9K4-cu-usY">
+                    <rect key="frame" x="30" y="185.66666666666663" width="333" height="250"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstAttribute="height" priority="250" constant="250" id="5Ud-tX-Oek"/>
+                    </constraints>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="wpO-jA-J4n">
+                        <size key="itemSize" width="128" height="128"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vnb-35-czS">
+                    <rect key="frame" x="30" y="742" width="333" height="56"/>
+                    <color key="backgroundColor" name="primary"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="56" id="Y5f-LL-oSF"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Upload images">
+                        <fontDescription key="titleFontDescription" type="boldSystem" pointSize="16"/>
+                        <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </buttonConfiguration>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="uploadImages:" destination="-1" eventType="touchUpInside" id="QYR-0a-vhk"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PAh-Bx-C4y">
+                    <rect key="frame" x="323" y="455.66666666666669" width="40" height="40"/>
+                    <color key="backgroundColor" red="0.035294117647058823" green="0.3843137254901961" blue="0.78431372549019607" alpha="0.14999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="DyW-KN-wRo"/>
+                        <constraint firstAttribute="height" constant="40" id="t4n-84-TuC"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system">
+                        <color key="baseForegroundColor" name="primary"/>
+                    </buttonConfiguration>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="12"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="addImage:" destination="-1" eventType="touchUpInside" id="MVu-ou-iO1"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="PAh-Bx-C4y" firstAttribute="top" secondItem="9K4-cu-usY" secondAttribute="bottom" constant="20" id="8zZ-Rt-k2c"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="NOk-8q-srv" secondAttribute="trailing" constant="30" id="A1M-Dr-snZ"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Vnb-35-czS" secondAttribute="bottom" constant="20" id="FKg-FR-Tk8"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="9K4-cu-usY" secondAttribute="trailing" constant="30" id="Knc-Rv-xCu"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="PAh-Bx-C4y" secondAttribute="trailing" constant="30" id="KzJ-Jz-HHA"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Vnb-35-czS" secondAttribute="trailing" constant="30" id="MmR-2R-JUD"/>
+                <constraint firstItem="9K4-cu-usY" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="30" id="U4S-Ef-k2T"/>
+                <constraint firstItem="Vnb-35-czS" firstAttribute="top" relation="greaterThanOrEqual" secondItem="9K4-cu-usY" secondAttribute="bottom" constant="100" id="ahI-Ve-OzM"/>
+                <constraint firstItem="NOk-8q-srv" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="lzc-Km-PYj"/>
+                <constraint firstItem="Vnb-35-czS" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="30" id="myD-ps-sUd"/>
+                <constraint firstItem="NOk-8q-srv" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="30" id="oey-0Z-8Ua"/>
+                <constraint firstItem="9K4-cu-usY" firstAttribute="top" secondItem="NOk-8q-srv" secondAttribute="bottom" constant="30" id="zCH-i2-2Yr"/>
+            </constraints>
+            <point key="canvasLocation" x="130.53435114503816" y="-11.267605633802818"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="plus" catalog="system" width="128" height="113"/>
+        <namedColor name="primary">
+            <color red="0.035294117647058823" green="0.3843137254901961" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="quaternary">
+            <color red="0.29803921568627451" green="0.33725490196078434" blue="0.45098039215686275" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

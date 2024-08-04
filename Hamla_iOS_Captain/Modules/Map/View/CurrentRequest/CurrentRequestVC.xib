@@ -15,6 +15,7 @@
                 <outlet property="customerName" destination="27T-Zn-SnV" id="4lt-2V-OoR"/>
                 <outlet property="statusBar" destination="mbR-DY-Tye" id="upg-C3-6Cp"/>
                 <outlet property="statusTitle" destination="pvM-Um-bjB" id="Vpt-m9-C4H"/>
+                <outlet property="updateStatusButton" destination="Rzc-jT-2TU" id="4St-wj-47q"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -24,7 +25,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gsm-66-6Aj">
-                    <rect key="frame" x="0.0" y="0.0" width="401" height="215"/>
+                    <rect key="frame" x="0.0" y="0.0" width="401" height="248"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mbR-DY-Tye">
                             <rect key="frame" x="0.0" y="0.0" width="401" height="54"/>
@@ -102,6 +103,9 @@
                                     </constraints>
                                     <state key="normal" title="Button"/>
                                     <buttonConfiguration key="configuration" style="plain" image="Dial"/>
+                                    <connections>
+                                        <action selector="call:" destination="-1" eventType="touchUpInside" id="hKw-bG-48c"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rzl-Zx-fNT" userLabel="Chat">
                                     <rect key="frame" x="321" y="0.0" width="40" height="40"/>
@@ -118,7 +122,7 @@
                             </subviews>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="zzw-nT-2Of">
-                            <rect key="frame" x="20" y="159.66666666666666" width="361" height="35"/>
+                            <rect key="frame" x="20" y="154.66666666666666" width="361" height="35"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="siF-tJ-T0F">
                                     <rect key="frame" x="0.0" y="0.0" width="175.66666666666666" height="35"/>
@@ -171,11 +175,11 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rzc-jT-2TU">
                                     <rect key="frame" x="185.66666666666663" y="0.0" width="175.33333333333337" height="35"/>
                                     <color key="backgroundColor" name="primary"/>
-                                    <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="plain" title="Update status">
-                                        <fontDescription key="titleFontDescription" type="boldSystem" pointSize="10"/>
-                                        <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </buttonConfiguration>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" title="Arrived to pickup">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                             <real key="value" value="8"/>
@@ -194,12 +198,11 @@
                         <constraint firstItem="Zcx-Xe-7cr" firstAttribute="top" secondItem="NPh-P6-Whj" secondAttribute="bottom" constant="10" id="6cy-Wl-LgN"/>
                         <constraint firstItem="zzw-nT-2Of" firstAttribute="leading" secondItem="gsm-66-6Aj" secondAttribute="leading" constant="20" id="Exd-r9-YOn"/>
                         <constraint firstItem="NPh-P6-Whj" firstAttribute="top" secondItem="mbR-DY-Tye" secondAttribute="bottom" constant="10" id="FGO-SR-dtM"/>
-                        <constraint firstAttribute="height" constant="215" id="PJW-vI-zm3"/>
                         <constraint firstAttribute="trailing" secondItem="mbR-DY-Tye" secondAttribute="trailing" id="To7-Qd-7Ff"/>
                         <constraint firstItem="NPh-P6-Whj" firstAttribute="leading" secondItem="gsm-66-6Aj" secondAttribute="leading" constant="20" id="YiW-a2-Llf"/>
                         <constraint firstItem="mbR-DY-Tye" firstAttribute="top" secondItem="gsm-66-6Aj" secondAttribute="top" id="bXG-WJ-R3o"/>
                         <constraint firstItem="mbR-DY-Tye" firstAttribute="leading" secondItem="gsm-66-6Aj" secondAttribute="leading" id="bXW-MX-Lib"/>
-                        <constraint firstItem="zzw-nT-2Of" firstAttribute="top" secondItem="Zcx-Xe-7cr" secondAttribute="bottom" constant="30" id="iOY-DO-uWY"/>
+                        <constraint firstItem="zzw-nT-2Of" firstAttribute="top" secondItem="Zcx-Xe-7cr" secondAttribute="bottom" constant="25" id="iOY-DO-uWY"/>
                         <constraint firstAttribute="trailing" secondItem="zzw-nT-2Of" secondAttribute="trailing" constant="20" id="lKQ-7U-BAk"/>
                         <constraint firstItem="Zcx-Xe-7cr" firstAttribute="leading" secondItem="gsm-66-6Aj" secondAttribute="leading" constant="20" id="q7w-iY-Juc"/>
                     </constraints>
@@ -209,19 +212,12 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="enV-FX-unO">
-                    <rect key="frame" x="0.0" y="215" width="401" height="67"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="enV-FX-unO" secondAttribute="bottom" id="4uR-dx-xJb"/>
-                <constraint firstItem="enV-FX-unO" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Hhl-Xf-0qy"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="gsm-66-6Aj" secondAttribute="bottom" id="GZM-l0-pIL"/>
                 <constraint firstItem="gsm-66-6Aj" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="IaE-Xl-8eU"/>
-                <constraint firstItem="enV-FX-unO" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="P1X-Pd-LS2"/>
-                <constraint firstItem="enV-FX-unO" firstAttribute="top" secondItem="gsm-66-6Aj" secondAttribute="bottom" id="PXP-DH-X8J"/>
                 <constraint firstItem="gsm-66-6Aj" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Pwk-dP-Lov"/>
                 <constraint firstItem="gsm-66-6Aj" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="gNl-Sk-SR7"/>
             </constraints>

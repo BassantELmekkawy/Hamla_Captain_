@@ -138,6 +138,10 @@
 		9EB4BADB2C03D652009FF62F /* OrderHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB4BADA2C03D652009FF62F /* OrderHistoryViewModel.swift */; };
 		9EC1E5BB2BF65117005A0D83 /* DTTextField in Frameworks */ = {isa = PBXBuildFile; productRef = 9EC1E5BA2BF65117005A0D83 /* DTTextField */; };
 		9EC1E6082BF7B282005A0D83 /* Cosmos in Frameworks */ = {isa = PBXBuildFile; productRef = 9EC1E6072BF7B282005A0D83 /* Cosmos */; };
+		9EE201222C51517F00E5E973 /* OrderImagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE201202C51517F00E5E973 /* OrderImagesVC.swift */; };
+		9EE201232C51517F00E5E973 /* OrderImagesVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EE201212C51517F00E5E973 /* OrderImagesVC.xib */; };
+		9EE201262C52997000E5E973 /* OrderImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE201242C52997000E5E973 /* OrderImageCell.swift */; };
+		9EE201272C52997000E5E973 /* OrderImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EE201252C52997000E5E973 /* OrderImageCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -264,6 +268,10 @@
 		9EB4BAD62C03D0D3009FF62F /* OrderHistoryNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryNetworking.swift; sourceTree = "<group>"; };
 		9EB4BAD82C03D296009FF62F /* OrderHistoryApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryApi.swift; sourceTree = "<group>"; };
 		9EB4BADA2C03D652009FF62F /* OrderHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryViewModel.swift; sourceTree = "<group>"; };
+		9EE201202C51517F00E5E973 /* OrderImagesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderImagesVC.swift; sourceTree = "<group>"; };
+		9EE201212C51517F00E5E973 /* OrderImagesVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderImagesVC.xib; sourceTree = "<group>"; };
+		9EE201242C52997000E5E973 /* OrderImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderImageCell.swift; sourceTree = "<group>"; };
+		9EE201252C52997000E5E973 /* OrderImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderImageCell.xib; sourceTree = "<group>"; };
 		F4F3C3E3DEDDE2D59682C39C /* Pods-Hamla_iOS_Captain.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hamla_iOS_Captain.debug.xcconfig"; path = "Target Support Files/Pods-Hamla_iOS_Captain/Pods-Hamla_iOS_Captain.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -318,6 +326,17 @@
 				9E00DE212C443766008030FA /* CountryCell.xib */,
 			);
 			path = CountryCell;
+			sourceTree = "<group>";
+		};
+		9E46553A2C514F4500704EBE /* OrderAttachments */ = {
+			isa = PBXGroup;
+			children = (
+				9EE201202C51517F00E5E973 /* OrderImagesVC.swift */,
+				9EE201212C51517F00E5E973 /* OrderImagesVC.xib */,
+				9EE201242C52997000E5E973 /* OrderImageCell.swift */,
+				9EE201252C52997000E5E973 /* OrderImageCell.xib */,
+			);
+			path = OrderAttachments;
 			sourceTree = "<group>";
 		};
 		9E5267852C018D7000E1F9E5 /* Hamla_iOS_Captain */ = {
@@ -650,6 +669,7 @@
 		9E5267E92C018D7000E1F9E5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				9E46553A2C514F4500704EBE /* OrderAttachments */,
 				9E5267EA2C018D7000E1F9E5 /* OrderStatus */,
 				9E5267EF2C018D7000E1F9E5 /* MapView */,
 				9E5267F22C018D7000E1F9E5 /* CurrentRequest */,
@@ -1030,6 +1050,7 @@
 				9E5268712C018D7200E1F9E5 /* CurrentRequestVC.xib in Resources */,
 				9E5268542C018D7100E1F9E5 /* CalenderAlert.xib in Resources */,
 				9E52687B2C018D7200E1F9E5 /* SideMenuCell.xib in Resources */,
+				9EE201272C52997000E5E973 /* OrderImageCell.xib in Resources */,
 				9E52686C2C018D7200E1F9E5 /* OrderStatusCell.xib in Resources */,
 				9E5268662C018D7200E1F9E5 /* OrderHistoryVC.xib in Resources */,
 				9E52686F2C018D7200E1F9E5 /* MapVC.xib in Resources */,
@@ -1038,6 +1059,7 @@
 				9E4655332C497D5E00704EBE /* SetPriceAlertView.xib in Resources */,
 				9E29B35E2C3607F200440E44 /* GoogleService-Info.plist in Resources */,
 				9E5268962C025BA900E1F9E5 /* OrderCompletedSheet.xib in Resources */,
+				9EE201232C51517F00E5E973 /* OrderImagesVC.xib in Resources */,
 				9E00DE232C443766008030FA /* CountryCell.xib in Resources */,
 				9E5268572C018D7200E1F9E5 /* OrderDetailsVC.xib in Resources */,
 				9E5268492C018D7100E1F9E5 /* HomeVC.xib in Resources */,
@@ -1106,6 +1128,7 @@
 				9E5268512C018D7100E1F9E5 /* MyProfileNetworking.swift in Sources */,
 				9E52682B2C018D7100E1F9E5 /* UploadFileModel.swift in Sources */,
 				9EB4BAD92C03D296009FF62F /* OrderHistoryApi.swift in Sources */,
+				9EE201222C51517F00E5E973 /* OrderImagesVC.swift in Sources */,
 				9E5268672C018D7200E1F9E5 /* OrderHistoryVC.swift in Sources */,
 				9E52684E2C018D7100E1F9E5 /* BankAccountsVC.swift in Sources */,
 				9E5268612C018D7200E1F9E5 /* CheckCodeModel.swift in Sources */,
@@ -1124,6 +1147,7 @@
 				9EA3BE842C28DDA900C437E0 /* TruckTypesModel.swift in Sources */,
 				9E5268652C018D7200E1F9E5 /* OrderHistoryCell.swift in Sources */,
 				9EB4BADB2C03D652009FF62F /* OrderHistoryViewModel.swift in Sources */,
+				9EE201262C52997000E5E973 /* OrderImageCell.swift in Sources */,
 				9E52683A2C018D7100E1F9E5 /* UiLabel + twoColorLabel.swift in Sources */,
 				9E5268772C018D7200E1F9E5 /* SignInApi.swift in Sources */,
 				9E52685F2C018D7200E1F9E5 /* VerificationNetworking.swift in Sources */,
