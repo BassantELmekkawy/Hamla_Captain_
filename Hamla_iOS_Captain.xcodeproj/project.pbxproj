@@ -142,6 +142,7 @@
 		9EE201232C51517F00E5E973 /* OrderImagesVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EE201212C51517F00E5E973 /* OrderImagesVC.xib */; };
 		9EE201262C52997000E5E973 /* OrderImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE201242C52997000E5E973 /* OrderImageCell.swift */; };
 		9EE201272C52997000E5E973 /* OrderImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EE201252C52997000E5E973 /* OrderImageCell.xib */; };
+		9EFD440D2CAD2165005AFBB8 /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFD440C2CAD2165005AFBB8 /* PhotosUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -272,6 +273,7 @@
 		9EE201212C51517F00E5E973 /* OrderImagesVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderImagesVC.xib; sourceTree = "<group>"; };
 		9EE201242C52997000E5E973 /* OrderImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderImageCell.swift; sourceTree = "<group>"; };
 		9EE201252C52997000E5E973 /* OrderImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderImageCell.xib; sourceTree = "<group>"; };
+		9EFD440C2CAD2165005AFBB8 /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = System/Library/Frameworks/PhotosUI.framework; sourceTree = SDKROOT; };
 		F4F3C3E3DEDDE2D59682C39C /* Pods-Hamla_iOS_Captain.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hamla_iOS_Captain.debug.xcconfig"; path = "Target Support Files/Pods-Hamla_iOS_Captain/Pods-Hamla_iOS_Captain.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -285,6 +287,7 @@
 				9E3C0B962BF9190500473BC9 /* FirebaseMessaging in Frameworks */,
 				9EC1E6082BF7B282005A0D83 /* Cosmos in Frameworks */,
 				9E7DF25F2BBC95160038EC14 /* FXPageControl in Frameworks */,
+				9EFD440D2CAD2165005AFBB8 /* PhotosUI.framework in Frameworks */,
 				9EB0CE182BBDF06F005CAF90 /* Alamofire in Frameworks */,
 				9EB0CE302BBDF453005CAF90 /* MOLH in Frameworks */,
 				9E3149B32C0F7DCC00FAA9C8 /* JVFloatLabeledTextField in Frameworks */,
@@ -939,6 +942,7 @@
 		EBA4FAD954241B3132086744 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9EFD440C2CAD2165005AFBB8 /* PhotosUI.framework */,
 				81B1D98E5708F9462FD69E21 /* Pods_Hamla_iOS_Captain.framework */,
 			);
 			name = Frameworks;

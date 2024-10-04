@@ -34,38 +34,6 @@
             endingLineNumber = "66"
             landmarkName = "bindData()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "EDA34931-0D0C-4967-8FDE-E6A78C1EC097 - 8b11c1cf0bbf6bdc"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Hamla_iOS_Captain.RegisterModel&gt;) -&gt; () in Hamla_iOS_Captain.STC_Pay_InformationVC.bindData() -&gt; ()"
-                  moduleName = "Hamla_iOS_Captain"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bassant/Desktop/Hamla_iOS_Captain/Hamla_iOS_Captain/Modules/CreateAccount/Views/STC_Pay_Information/STC_Pay_InformationVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "66"
-                  endingLineNumber = "66"
-                  offsetFromSymbolStart = "1043">
-               </Location>
-               <Location
-                  uuid = "EDA34931-0D0C-4967-8FDE-E6A78C1EC097 - 8b11c1cf0bbf6bdc"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Hamla_iOS_Captain.RegisterModel&gt;) -&gt; () in Hamla_iOS_Captain.STC_Pay_InformationVC.bindData() -&gt; ()"
-                  moduleName = "Hamla_iOS_Captain"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bassant/Desktop/Hamla_iOS_Captain/Hamla_iOS_Captain/Modules/CreateAccount/Views/STC_Pay_Information/STC_Pay_InformationVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "66"
-                  endingLineNumber = "66"
-                  offsetFromSymbolStart = "1154">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -114,38 +82,6 @@
             endingLineNumber = "179"
             landmarkName = "isValidData()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "BAE0E4B3-4647-4FA7-B6D0-75595AD29925 - 6ac3f0a41cf941c4"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Hamla_iOS_Captain.PersonalInformationVC.isValidData() -&gt; Swift.Bool"
-                  moduleName = "Hamla_iOS_Captain"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bassant/Desktop/Hamla_iOS_Captain/Hamla_iOS_Captain/Modules/CreateAccount/Views/Personal_Information/PersonalInformationVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "179"
-                  endingLineNumber = "179"
-                  offsetFromSymbolStart = "1302">
-               </Location>
-               <Location
-                  uuid = "BAE0E4B3-4647-4FA7-B6D0-75595AD29925 - 6ac3f0a41cf941c4"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Hamla_iOS_Captain.PersonalInformationVC.isValidData() -&gt; Swift.Bool"
-                  moduleName = "Hamla_iOS_Captain"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/bassant/Desktop/Hamla_iOS_Captain/Hamla_iOS_Captain/Modules/CreateAccount/Views/Personal_Information/PersonalInformationVC.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "179"
-                  endingLineNumber = "179"
-                  offsetFromSymbolStart = "1518">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

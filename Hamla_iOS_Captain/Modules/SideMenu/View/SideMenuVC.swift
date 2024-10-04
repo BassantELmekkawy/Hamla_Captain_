@@ -15,7 +15,7 @@ class SideMenuVC: UIViewController {
     @IBOutlet weak var phone: UILabel!
     @IBOutlet weak var sideMenuTable: UITableView!
     
-    let sideMenu: [sideMenuModel] = [sideMenuModel(image: "wallet", label: "My_wallet".localized), sideMenuModel(image: "delivery-truck", label: "Order_history".localized), sideMenuModel(image: "settings", label: "Settings".localized), sideMenuModel(image: "credit-card", label: "Bank_accounts".localized), sideMenuModel(image: "wallet-2", label: "STC_account".localized), sideMenuModel(image: "Help Center", label: "Help_center".localized)]
+    let sideMenu: [sideMenuModel] = [sideMenuModel(image: "wallet", label: "My_wallet".localized), sideMenuModel(image: "delivery-truck", label: "My-orders".localized), sideMenuModel(image: "settings", label: "Settings".localized), sideMenuModel(image: "credit-card", label: "Bank_accounts".localized), sideMenuModel(image: "wallet-2", label: "STC_account".localized), sideMenuModel(image: "Help Center", label: "Help_center".localized)]
     
     override func viewDidLoad() {
         super.viewDidLoad()

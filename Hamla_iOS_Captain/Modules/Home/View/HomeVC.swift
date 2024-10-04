@@ -74,6 +74,18 @@ class HomeVC: UIViewController {
         locationManager.requestWhenInUseAuthorization()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        // Make sure overlay and side menu are always positioned correctly on layout changes
+        overlay.frame = view.bounds
+        
+        // Keep the side menu off-screen (closed) when layout changes occur
+        if sideMenuViewController.view.frame.origin.x < 0 {
+            sideMenuViewController.view.frame = CGRect(x: -sideMenuWidth, y: 0, width: sideMenuWidth, height: view.frame.height)
+        }
+    }
+    
     func setupSideMenu() {
         addOverlay(view: self.view)
         overlay.isHidden = true
@@ -90,7 +102,7 @@ class HomeVC: UIViewController {
         }
         
         view.addSubview(sideMenuViewController.view)
-        sideMenuViewController.didMove(toParent: self)
+        //sideMenuViewController.didMove(toParent: self)
         
         // Add tap gesture to close side menu
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))

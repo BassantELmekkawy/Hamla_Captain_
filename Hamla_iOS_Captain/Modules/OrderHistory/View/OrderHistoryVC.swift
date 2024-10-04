@@ -25,7 +25,7 @@ class OrderHistoryVC: UIViewController {
         super.viewDidLoad()
         
         self.navigationController?.navigationBar.isHidden = false
-        self.title = "Order_history".localized
+        self.title = "My-orders".localized
         
         orderHistoryTable.delegate = self
         orderHistoryTable.dataSource = self
