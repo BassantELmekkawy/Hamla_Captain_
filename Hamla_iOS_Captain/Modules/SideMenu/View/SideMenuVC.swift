@@ -15,6 +15,8 @@ class SideMenuVC: UIViewController {
     @IBOutlet weak var phone: UILabel!
     @IBOutlet weak var sideMenuTable: UITableView!
     
+    var captainDetails: CaptainData = CaptainData()
+    
     let sideMenu: [sideMenuModel] = [sideMenuModel(image: "wallet", label: "My_wallet".localized), sideMenuModel(image: "delivery-truck", label: "My-orders".localized), sideMenuModel(image: "settings", label: "Settings".localized), sideMenuModel(image: "credit-card", label: "Bank_accounts".localized), sideMenuModel(image: "wallet-2", label: "STC_account".localized), sideMenuModel(image: "Help Center", label: "Help_center".localized)]
     
     override func viewDidLoad() {
@@ -27,15 +29,15 @@ class SideMenuVC: UIViewController {
     }
     
     func setupView() {
-        let user = UserInfo.shared
-        let url = URL(string: user.get_image())
-        photo.kf.setImage(with: url)
-        name.text = user.get_username()
-        phone.text = user.get_phone()
+        let url = URL(string: captainDetails.avatar ?? "")
+        photo.kf.setImage(with: url, placeholder: UIImage(systemName: "person.crop.circle.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal))
+        name.text = captainDetails.fullName
+        phone.text = captainDetails.mobile
     }
     
     @IBAction func goToProfile(_ sender: Any) {
         let vc = MyProfileVC(nibName: "MyProfileVC", bundle: nil)
+        vc.captainDetails = captainDetails
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
