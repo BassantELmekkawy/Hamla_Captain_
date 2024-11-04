@@ -133,6 +133,7 @@
 		9EA893F62C1CD91700F165A2 /* MessageKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9EA893F52C1CD91700F165A2 /* MessageKit */; };
 		9EB0CE182BBDF06F005CAF90 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 9EB0CE172BBDF06F005CAF90 /* Alamofire */; };
 		9EB0CE302BBDF453005CAF90 /* MOLH in Frameworks */ = {isa = PBXBuildFile; productRef = 9EB0CE2F2BBDF453005CAF90 /* MOLH */; };
+		9EB4B88B2CD8F5D60089F63C /* OrderAttatchmentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB4B88A2CD8F5D60089F63C /* OrderAttatchmentsViewModel.swift */; };
 		9EB4BAD72C03D0D3009FF62F /* OrderHistoryNetworking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB4BAD62C03D0D3009FF62F /* OrderHistoryNetworking.swift */; };
 		9EB4BAD92C03D296009FF62F /* OrderHistoryApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB4BAD82C03D296009FF62F /* OrderHistoryApi.swift */; };
 		9EB4BADB2C03D652009FF62F /* OrderHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB4BADA2C03D652009FF62F /* OrderHistoryViewModel.swift */; };
@@ -266,6 +267,7 @@
 		9EA3BE972C2B6DB100C437E0 /* ChatVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
 		9EA3BE9A2C2C05BF00C437E0 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		9EA3BE9C2C2CA28000C437E0 /* PhotoViewerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewerVC.swift; sourceTree = "<group>"; };
+		9EB4B88A2CD8F5D60089F63C /* OrderAttatchmentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderAttatchmentsViewModel.swift; sourceTree = "<group>"; };
 		9EB4BAD62C03D0D3009FF62F /* OrderHistoryNetworking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryNetworking.swift; sourceTree = "<group>"; };
 		9EB4BAD82C03D296009FF62F /* OrderHistoryApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryApi.swift; sourceTree = "<group>"; };
 		9EB4BADA2C03D652009FF62F /* OrderHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderHistoryViewModel.swift; sourceTree = "<group>"; };
@@ -334,10 +336,8 @@
 		9E46553A2C514F4500704EBE /* OrderAttachments */ = {
 			isa = PBXGroup;
 			children = (
-				9EE201202C51517F00E5E973 /* OrderImagesVC.swift */,
-				9EE201212C51517F00E5E973 /* OrderImagesVC.xib */,
-				9EE201242C52997000E5E973 /* OrderImageCell.swift */,
-				9EE201252C52997000E5E973 /* OrderImageCell.xib */,
+				9EB4B8892CD8F5940089F63C /* ViewModel */,
+				9EB4B8882CD7B8390089F63C /* OrderImages */,
 			);
 			path = OrderAttachments;
 			sourceTree = "<group>";
@@ -419,6 +419,7 @@
 				9E5267FF2C018D7000E1F9E5 /* SideMenu */,
 				9E5267B52C018D7000E1F9E5 /* BankAccounts */,
 				9E5267BB2C018D7000E1F9E5 /* MyProfile */,
+				9E46553A2C514F4500704EBE /* OrderAttachments */,
 				9E5267C72C018D7000E1F9E5 /* OrderDetails */,
 				9E5267CD2C018D7000E1F9E5 /* MyWallet */,
 				9E5267DD2C018D7000E1F9E5 /* OrderHistory */,
@@ -672,7 +673,6 @@
 		9E5267E92C018D7000E1F9E5 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				9E46553A2C514F4500704EBE /* OrderAttachments */,
 				9E5267EA2C018D7000E1F9E5 /* OrderStatus */,
 				9E5267EF2C018D7000E1F9E5 /* MapView */,
 				9E5267F22C018D7000E1F9E5 /* CurrentRequest */,
@@ -913,6 +913,25 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		9EB4B8882CD7B8390089F63C /* OrderImages */ = {
+			isa = PBXGroup;
+			children = (
+				9EE201202C51517F00E5E973 /* OrderImagesVC.swift */,
+				9EE201212C51517F00E5E973 /* OrderImagesVC.xib */,
+				9EE201242C52997000E5E973 /* OrderImageCell.swift */,
+				9EE201252C52997000E5E973 /* OrderImageCell.xib */,
+			);
+			path = OrderImages;
+			sourceTree = "<group>";
+		};
+		9EB4B8892CD8F5940089F63C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				9EB4B88A2CD8F5D60089F63C /* OrderAttatchmentsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		9EB4BAD32C03D02B009FF62F /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -1145,6 +1164,7 @@
 				9E5268352C018D7100E1F9E5 /* UiNavigationItem.swift in Sources */,
 				9E412E3B2C0CCF3800B010E2 /* CaptainOnOrderModel.swift in Sources */,
 				9E5268292C018D7100E1F9E5 /* FirebaseManager.swift in Sources */,
+				9EB4B88B2CD8F5D60089F63C /* OrderAttatchmentsViewModel.swift in Sources */,
 				9E00DE222C443766008030FA /* CountryCell.swift in Sources */,
 				9E5268282C018D7100E1F9E5 /* OnboardingManager.swift in Sources */,
 				9E52682E2C018D7100E1F9E5 /* TargetType.swift in Sources */,

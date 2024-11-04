@@ -137,7 +137,7 @@
 "Price_range" = "نطاق السعر";
 "Total_price" = "السعر الإجمالي";
 "Order_confirmed" = "تم تأكيد الطلب!";
-
+"Images" = "الصور";
 
 // MARK: - Side Menu
 
@@ -172,3 +172,8 @@
 "Request_account_update" = "طلب تحديث الحساب";
 "Request_truck_update" = "طلب تحديث الشاحنة";
 "Phone_number" = "رقم الهاتف";
+
+
+// MARK: - Order Images
+
+"Order_images" = "صور الطلب";

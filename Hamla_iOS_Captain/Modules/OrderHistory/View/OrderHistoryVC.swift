@@ -25,6 +25,7 @@ class OrderHistoryVC: UIViewController {
         super.viewDidLoad()
         
         self.navigationController?.navigationBar.isHidden = false
+        setupNavigationBar()
         self.title = "My-orders".localized
         
         orderHistoryTable.delegate = self
@@ -113,5 +114,10 @@ extension OrderHistoryVC: UITableViewDelegate, UITableViewDataSource{
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = OrderDetailsVC(nibName: "OrderDetailsVC", bundle: nil)
+        vc.orderDetails = self.orders[indexPath.row]
+        vc.orderStatus = .orderConfirmed
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }

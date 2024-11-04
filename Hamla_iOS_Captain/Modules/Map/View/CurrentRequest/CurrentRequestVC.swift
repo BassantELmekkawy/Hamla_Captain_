@@ -37,6 +37,7 @@ protocol CurrentRequestDelegate: AnyObject {
     func updateStatus(status: OrderStatus)
     func chat()
     func dismissOrder()
+    func seeDetail()
 }
 
 class CurrentRequestVC: UIViewController {
@@ -130,7 +131,7 @@ class CurrentRequestVC: UIViewController {
     }
     
     @IBAction func SeeDetail(_ sender: Any) {
-        
+        delegate?.seeDetail()
     }
     
     @IBAction func UpdateStatus(_ sender: Any) {

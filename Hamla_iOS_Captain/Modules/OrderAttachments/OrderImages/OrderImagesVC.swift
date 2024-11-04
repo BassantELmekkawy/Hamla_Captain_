@@ -16,17 +16,48 @@ class OrderImagesVC: UIViewController {
     var numOfImages = 4
     var images: [UIImage?] = Array(repeating: nil, count: 4)
     var indexPath: IndexPath?
+    var loadingIndicator: UIActivityIndicatorView?
     let pickerVC = PhotoActionSheet()
+    var viewModel = OrderAttatchmentsViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupView()
+        bindData()
+    }
+    
+    func setupView() {
+        self.title = "Order_images".localized
         infoLabel.twoColorLabel(word: "minimum 4 image", color: UIColor(named: "quaternary") ?? .gray)
         imagesCollectionView.delegate = self
         imagesCollectionView.dataSource = self
         imagesCollectionView.register(UINib(nibName: "OrderImageCell", bundle: nil), forCellWithReuseIdentifier: "OrderImageCell")
         heightConstraint.constant = imagesCollectionView.collectionViewLayout.collectionViewContentSize.height
         pickerVC.delegate = self
+        
+        
+    }
+    
+    func bindData(){
+        viewModel.uploadImageResult.bind { [self] result in
+            guard let message = result.1?.message else { return }
+            if result.1?.status == 0 {
+                self.showAlert(message: message)
+            }
+            else {
+                self.loadingIndicator?.stopAnimating()
+            }
+
+            print(message)
+        }
+        
+        viewModel.errorMessage.bind{ error in
+            if let error = error {
+                self.showAlert(message: error)
+                print(error)
+            }
+        }
+        
     }
 
     @IBAction func addImage(_ sender: Any) {
@@ -78,5 +109,13 @@ extension OrderImagesVC: PhotoActionSheetDelegate {
         }
         images[indexPath.item] = image
         imagesCollectionView.reloadItems(at: [indexPath])
+        viewModel.uploadImageToserver(file: imageData, tag: indexPath.row)
+        loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
+        loadingIndicator?.hidesWhenStopped = true
+        loadingIndicator?.style = .large
+        loadingIndicator?.color = .lightGray
+        loadingIndicator?.center = imagesCollectionView.cellForItem(at: indexPath)!.center
+        imagesCollectionView.cellForItem(at: indexPath)?.addSubview(loadingIndicator!)
+        loadingIndicator?.startAnimating()
     }
 }

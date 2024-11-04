@@ -410,8 +410,13 @@ extension HomeVC: UpcomingRequestsDelegate, OrderDetailsDelegate, SetPriceDelega
     
     func seeDetail(indexPath: IndexPath) {
         let vc = OrderDetailsVC(nibName: "OrderDetailsVC", bundle: nil)
-        vc.orderDetails = self.ordersDetails![indexPath.row]
-        vc.orderStatus = .pendingAcceptance
+        if UserInfo.shared.isCaptainOnOrder() {
+            vc.orderDetails = self.currentOrderDetails!
+            vc.orderStatus = .orderConfirmed
+        } else {
+            vc.orderDetails = self.ordersDetails![indexPath.row]
+            vc.orderStatus = .pendingPrice
+        }
         vc.delegate = self
         vc.indexPath = indexPath
         self.navigationController?.pushViewController(vc, animated: true)

@@ -35,6 +35,7 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
         super.viewDidLoad()
         self.viewModel = MapViewModel(api: MapApi())
         self.navigationController?.navigationBar.isHidden = false
+        setupNavigationBar()
         locationManager.delegate = self
         currentRequestVC.delegate = self
         orderStatusSheet.delegate = self
@@ -398,6 +399,13 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
         vc.orderID = orderDetails.id ?? 0
         vc.receiverID = orderDetails.customer?.id ?? 0
         vc.customerName = orderDetails.customer?.fullName ?? ""
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func seeDetail() {
+        let vc = OrderDetailsVC(nibName: "OrderDetailsVC", bundle: nil)
+        vc.orderDetails = self.orderDetails
+        vc.orderStatus = .orderConfirmed
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
