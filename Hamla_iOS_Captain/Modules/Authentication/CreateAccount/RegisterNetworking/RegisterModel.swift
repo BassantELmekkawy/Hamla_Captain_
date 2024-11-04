@@ -14,31 +14,31 @@ struct RegisterModel: Codable {
 }
 
 struct CaptainData: Codable {
-    let id: Int?
-    let fullName: String?
-    let code: String?
-    let gender: String?
-    let suspend: Bool?
-    let birthday: String?
-    let mobile: String?
-    let email: String?
-    let avatar: String?
-    let rate: Double?
-    let isActive: Bool?
-    let available: Bool?
-    let inOrder: Bool?
-    let truck: Truck?
-    let ordersCount: Int?
-    let walletBalance: Double?
-    let language: String?
-    let isDarkMode: Bool?
-    let verified: String?
-    let tokenType: String?
-    let accessToken: String?
-    let appVersionIos: String?
-    let minVersionIos: [String: String]?
-    let appVersionAndroid: String?
-    let minVersionAndroid: [String: String]?
+    var id: Int?
+    var fullName: String?
+    var code: String?
+    var gender: String?
+    var suspend: Bool?
+    var birthday: String?
+    var mobile: String?
+    var email: String?
+    var avatar: String?
+    var rate: Double?
+    var isActive: Bool?
+    var available: Bool?
+    var inOrder: Bool?
+    var truck: Truck?
+    var ordersCount: Int?
+    var walletBalance: Double?
+    var language: String?
+    var isDarkMode: Bool?
+    var verified: String?
+    var tokenType: String?
+    var accessToken: String?
+    var appVersionIos: String?
+    var minVersionIos: [String: String]?
+    var appVersionAndroid: String?
+    var minVersionAndroid: [String: String]?
 
     enum CodingKeys: String, CodingKey {
         case id

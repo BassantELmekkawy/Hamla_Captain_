@@ -21,6 +21,7 @@ class HomeVC: UIViewController {
     var sideMenuViewController: SideMenuVC!
     var sideMenuWidth: CGFloat = 260
     var overlay = UIView()
+    var captainDetails: CaptainData?
     var ordersDetails: [Order]? = []
     var currentOrderDetails: Order?
     var ordersStatus: [Int: UpcomingRequest] = [:]
@@ -132,6 +133,8 @@ class HomeVC: UIViewController {
                 UserInfo.shared.setRootViewController(SignInVC())
             }
             else {
+                self.captainDetails = result?.data
+                self.sideMenuViewController.captainDetails = self.captainDetails ?? CaptainData()
                 UserInfo.shared.setData(model: (result?.data)!)
             }
             print(message)
