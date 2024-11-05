@@ -12,6 +12,8 @@ import CoreLocation
 class HomeVC: UIViewController {
 
     @IBOutlet weak var captainName: UILabel!
+    @IBOutlet weak var plateNumber: UILabel!
+    @IBOutlet weak var truckColorAndType: UILabel!
     @IBOutlet weak var ordersTableView: UITableView!
     @IBOutlet weak var captainStatus: UILabel!
     @IBOutlet weak var availabilitySwitch: UISwitch!
@@ -49,9 +51,11 @@ class HomeVC: UIViewController {
         ordersTableView.delegate = self
         ordersTableView.dataSource = self
         ordersTableView.register(UINib(nibName: "UpcomingRequestsCell", bundle: nil), forCellReuseIdentifier: "UpcomingRequestsCell")
-        setupSideMenu()
         
-        captainName.text = UserInfo.shared.get_username()
+        let user = UserInfo.shared
+        captainName.text = user.get_username()
+        plateNumber.text = user.getPlateNumber()
+        truckColorAndType.text = "\(user.getTruckColor()) - \(user.getTruckType())"
         
         viewModel?.getCaptainStatus(captainID: String(UserInfo.shared.get_ID()))
         
@@ -73,18 +77,6 @@ class HomeVC: UIViewController {
     
     func getCurrentLocation() {
         locationManager.requestWhenInUseAuthorization()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        // Make sure overlay and side menu are always positioned correctly on layout changes
-        overlay.frame = view.bounds
-        
-        // Keep the side menu off-screen (closed) when layout changes occur
-        if sideMenuViewController.view.frame.origin.x < 0 {
-            sideMenuViewController.view.frame = CGRect(x: -sideMenuWidth, y: 0, width: sideMenuWidth, height: view.frame.height)
-        }
     }
     
     func setupSideMenu() {
@@ -316,7 +308,7 @@ class HomeVC: UIViewController {
     }
     
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
-        let location = sender.location(in: sideMenuViewController.view)
+        let location = sender.location(in: self.view)
         if !sideMenuViewController.view.frame.contains(location) {
             hideSideMenu()
         }
@@ -363,6 +355,7 @@ class HomeVC: UIViewController {
     }
     
     @IBAction func ShowSideMenu(_ sender: Any) {
+        setupSideMenu()
         showSideMenu()
     }
     
