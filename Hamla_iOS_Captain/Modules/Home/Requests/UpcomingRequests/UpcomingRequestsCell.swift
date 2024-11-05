@@ -43,13 +43,13 @@ class UpcomingRequestsCell: UITableViewCell {
                 navigateToMapBtn.isHidden = true
                 rejectBtn.isHidden = false
                 setPriceBtn.isHidden = false
-                setPriceBtn.setTitle("Set price", for: .normal)
+                setPriceBtn.setTitle("Set_price".localized, for: .normal)
             case .updatePrice:
                 setPriceBtn.backgroundColor = UIColor(named: "quaternary")
                 navigateToMapBtn.isHidden = true
                 rejectBtn.isHidden = true
                 setPriceBtn.isHidden = false
-                setPriceBtn.setTitle("Update price", for: .normal)
+                setPriceBtn.setTitle("Update_price".localized, for: .normal)
             case .pendingAcceptance:
                 setPriceBtn.backgroundColor = UIColor(named: "accent")
                 setPriceBtn.setTitle("Accept".localized, for: .normal)

@@ -14,12 +14,19 @@ class SideMenuCell: UITableViewCell {
     @IBOutlet weak var menuLabel: UILabel!
     @IBOutlet weak var background: UIView!
     
+    let lang = Locale.current.language.languageCode
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         background.borderColor = UIColor(named: "#F2F2F2")
         background.borderWidth = 1
-        background.roundCorners([.layerMaxXMinYCorner, .layerMaxXMaxYCorner], radius: background.frame.height/2)
+        if lang == "ar" {
+            background.roundCorners([.layerMinXMinYCorner, .layerMinXMaxYCorner], radius: background.frame.height/2)
+        }
+        else {
+            background.roundCorners([.layerMaxXMinYCorner, .layerMaxXMaxYCorner], radius: background.frame.height/2)
+        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

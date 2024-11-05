@@ -25,6 +25,9 @@ class UserModelKeys{
     var isDarkMode       = "isDarkMode"
     var isPhoneVerified  = "isPhoneVerified"
     var captainOnOrder   = "captainOnOrder"
+    var plateNumber      = "plateNumber"
+    var truckColor       = "truckColor"
+    var truckType        = "truckType"
 }
  
 
@@ -48,6 +51,9 @@ class UserInfo{
         UserDefaults.standard.setValue(model.mobile ?? "", forKey: Keys.phone)
         UserDefaults.standard.setValue(model.accessToken ?? "", forKey: Keys.token)
         UserDefaults.standard.setValue(model.avatar ?? "", forKey: Keys.image)
+        UserDefaults.standard.setValue(model.truck?.plate ?? "", forKey: Keys.plateNumber)
+        UserDefaults.standard.setValue(model.truck?.color ?? "", forKey: Keys.truckColor)
+        UserDefaults.standard.setValue(model.truck?.type ?? "", forKey: Keys.truckType)
         setLogin(value: true)
       }
      
@@ -100,6 +106,9 @@ class UserInfo{
     func get_available ()-> Int { UserDefaults.standard.value(forKey: Keys.available) as? Int ?? 0}
     func get_rank ()-> Int { UserDefaults.standard.value(forKey: Keys.rank) as? Int ?? 0}
     func getheroCode() -> String { UserDefaults.standard.value(forKey: Keys.heroCode) as? String ?? ""}
+    func getPlateNumber() -> String { UserDefaults.standard.value(forKey: Keys.plateNumber) as? String ?? "" }
+    func getTruckColor() -> String { UserDefaults.standard.value(forKey: Keys.truckColor) as? String ?? "" }
+    func getTruckType() -> String { UserDefaults.standard.value(forKey: Keys.truckType) as? String ?? "" }
     func getStatusDarkMode() -> Bool { UserDefaults.standard.value(forKey: Keys.isDarkMode) as? Bool ?? false}
     func isPhoneVerified() -> Bool { UserDefaults.standard.value(forKey: Keys.isPhoneVerified) as? Bool ?? false}
     func isCaptainOnOrder() -> Bool { UserDefaults.standard.value(forKey: Keys.captainOnOrder) as? Bool ?? false}

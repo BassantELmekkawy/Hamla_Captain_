@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -16,7 +17,9 @@
                 <outlet property="captainName" destination="YJU-J0-gTW" id="8al-81-jsP"/>
                 <outlet property="captainStatus" destination="6Ax-N1-yy8" id="ljb-R8-bEK"/>
                 <outlet property="ordersTableView" destination="fOj-7R-qC6" id="r5t-Si-phk"/>
+                <outlet property="plateNumber" destination="lH3-4h-Ubv" id="YCM-8W-dDX"/>
                 <outlet property="tableHeader" destination="xB7-R0-vnx" id="DwA-0M-pXq"/>
+                <outlet property="truckColorAndType" destination="6FM-QJ-zdc" id="oXm-Ig-aMI"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -52,27 +55,32 @@
                     </subviews>
                 </stackView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ylc-SS-5tZ">
-                    <rect key="frame" x="20" y="133.33333333333334" width="145" height="50"/>
+                    <rect key="frame" x="20" y="133.33333333333334" width="132.33333333333334" height="50"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ABT 2245" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lH3-4h-Ubv">
-                            <rect key="frame" x="10" y="8.0000000000000018" width="86" height="21.666666666666671"/>
-                            <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="White - Hino Telolet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6FM-QJ-zdc">
-                            <rect key="frame" x="9.9999999999999929" y="29.666666666666654" width="112.33333333333331" height="14.333333333333332"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="YmS-qR-u8G">
+                            <rect key="frame" x="9.9999999999999929" y="8" width="112.33333333333331" height="34"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ABT 2245" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lH3-4h-Ubv">
+                                    <rect key="frame" x="0.0" y="0.0" width="86" height="16.666666666666668"/>
+                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="White - Hino Telolet" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6FM-QJ-zdc">
+                                    <rect key="frame" x="0.0" y="24.666666666666657" width="112.33333333333333" height="9.3333333333333357"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                        </stackView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="0.095549526593543072" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstItem="6FM-QJ-zdc" firstAttribute="leading" secondItem="ylc-SS-5tZ" secondAttribute="leading" constant="10" id="4Ea-tv-2ec"/>
-                        <constraint firstItem="lH3-4h-Ubv" firstAttribute="leading" secondItem="ylc-SS-5tZ" secondAttribute="leading" constant="10" id="7lQ-o8-RwZ"/>
-                        <constraint firstItem="lH3-4h-Ubv" firstAttribute="top" secondItem="ylc-SS-5tZ" secondAttribute="top" constant="8" id="ONw-Oc-Mhx"/>
-                        <constraint firstItem="6FM-QJ-zdc" firstAttribute="top" secondItem="lH3-4h-Ubv" secondAttribute="bottom" id="OlA-Ru-XEb"/>
+                        <constraint firstItem="YmS-qR-u8G" firstAttribute="top" secondItem="ylc-SS-5tZ" secondAttribute="top" constant="8" id="0AK-yt-gtv"/>
+                        <constraint firstAttribute="trailing" secondItem="YmS-qR-u8G" secondAttribute="trailing" constant="10" id="6WV-u1-JjM"/>
+                        <constraint firstAttribute="bottom" secondItem="YmS-qR-u8G" secondAttribute="bottom" constant="8" id="Z4H-TY-seh"/>
+                        <constraint firstItem="YmS-qR-u8G" firstAttribute="leading" secondItem="ylc-SS-5tZ" secondAttribute="leading" constant="10" id="cln-vx-Dep"/>
                         <constraint firstAttribute="height" constant="50" id="ghE-5y-sTC"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
@@ -167,6 +175,7 @@
             <constraints>
                 <constraint firstItem="zJS-cn-X6H" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="4w4-QN-RTv"/>
                 <constraint firstItem="Yvl-nT-syQ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="49" id="ACW-5S-dJe"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="ylc-SS-5tZ" secondAttribute="trailing" constant="20" id="E9a-VA-kGk"/>
                 <constraint firstItem="GeS-3I-ktC" firstAttribute="top" secondItem="ylc-SS-5tZ" secondAttribute="bottom" constant="20" id="I5G-ug-g2Y"/>
                 <constraint firstItem="fOj-7R-qC6" firstAttribute="top" secondItem="GeS-3I-ktC" secondAttribute="bottom" constant="20" id="Lbl-fU-1PM"/>
                 <constraint firstItem="ylc-SS-5tZ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="O27-u1-PdO"/>
@@ -181,7 +190,6 @@
                 <constraint firstItem="YLW-rN-YPS" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="nP2-U0-Zrm"/>
                 <constraint firstItem="GeS-3I-ktC" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="pfL-cT-49Z"/>
                 <constraint firstItem="Yvl-nT-syQ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="s9W-gg-gn4"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ylc-SS-5tZ" secondAttribute="trailing" constant="228" id="tOD-BF-1SX"/>
             </constraints>
             <point key="canvasLocation" x="-129.00763358778624" y="-11.267605633802818"/>
         </view>

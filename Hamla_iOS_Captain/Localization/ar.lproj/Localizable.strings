@@ -95,10 +95,10 @@
 "Current_requests" = "الطلبات الحالية";
 "Now" = "الآن";
 "Via" = "عبر";
-"See_Detail" = "رؤية التفاصيل";
+"See_Detail" = "عرض التفاصيل";
 "Reject" = "رفض";
 "Accept" = "قبول";
-"Set_price" = "تحديد السعر";
+"Set_price" = "اضافة سعر";
 "Update_price" = "تحديث السعر";
 "Navigate_to_map" = "الانتقال إلى الخريطة";
 "Online" = "متصل";
