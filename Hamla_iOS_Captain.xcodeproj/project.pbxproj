@@ -144,6 +144,8 @@
 		9EE201262C52997000E5E973 /* OrderImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE201242C52997000E5E973 /* OrderImageCell.swift */; };
 		9EE201272C52997000E5E973 /* OrderImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EE201252C52997000E5E973 /* OrderImageCell.xib */; };
 		9EFD440D2CAD2165005AFBB8 /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EFD440C2CAD2165005AFBB8 /* PhotosUI.framework */; };
+		9EFD44162CB40A37005AFBB8 /* SignatureVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EFD44142CB40A37005AFBB8 /* SignatureVC.swift */; };
+		9EFD44172CB40A37005AFBB8 /* SignatureVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EFD44152CB40A37005AFBB8 /* SignatureVC.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -276,6 +278,8 @@
 		9EE201242C52997000E5E973 /* OrderImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderImageCell.swift; sourceTree = "<group>"; };
 		9EE201252C52997000E5E973 /* OrderImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderImageCell.xib; sourceTree = "<group>"; };
 		9EFD440C2CAD2165005AFBB8 /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = System/Library/Frameworks/PhotosUI.framework; sourceTree = SDKROOT; };
+		9EFD44142CB40A37005AFBB8 /* SignatureVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignatureVC.swift; sourceTree = "<group>"; };
+		9EFD44152CB40A37005AFBB8 /* SignatureVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SignatureVC.xib; sourceTree = "<group>"; };
 		F4F3C3E3DEDDE2D59682C39C /* Pods-Hamla_iOS_Captain.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hamla_iOS_Captain.debug.xcconfig"; path = "Target Support Files/Pods-Hamla_iOS_Captain/Pods-Hamla_iOS_Captain.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -423,6 +427,7 @@
 				9E5267C72C018D7000E1F9E5 /* OrderDetails */,
 				9E5267CD2C018D7000E1F9E5 /* MyWallet */,
 				9E5267DD2C018D7000E1F9E5 /* OrderHistory */,
+				9EFD440E2CB408F4005AFBB8 /* Signature */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -958,6 +963,15 @@
 			path = Netwoking;
 			sourceTree = "<group>";
 		};
+		9EFD440E2CB408F4005AFBB8 /* Signature */ = {
+			isa = PBXGroup;
+			children = (
+				9EFD44142CB40A37005AFBB8 /* SignatureVC.swift */,
+				9EFD44152CB40A37005AFBB8 /* SignatureVC.xib */,
+			);
+			path = Signature;
+			sourceTree = "<group>";
+		};
 		EBA4FAD954241B3132086744 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1057,6 +1071,7 @@
 				9E5268882C018D7200E1F9E5 /* FleetInformationVC.xib in Resources */,
 				9E5268532C018D7100E1F9E5 /* MyProfileVC.xib in Resources */,
 				9E5268402C018D7100E1F9E5 /* .gitattributes in Resources */,
+				9EFD44172CB40A37005AFBB8 /* SignatureVC.xib in Resources */,
 				9E52686E2C018D7200E1F9E5 /* OrderStatusSheet.xib in Resources */,
 				9E5268742C018D7200E1F9E5 /* SignInVC.xib in Resources */,
 				9E5268852C018D7200E1F9E5 /* PersonalInformationVC.xib in Resources */,
@@ -1174,6 +1189,7 @@
 				9EE201262C52997000E5E973 /* OrderImageCell.swift in Sources */,
 				9E52683A2C018D7100E1F9E5 /* UiLabel + twoColorLabel.swift in Sources */,
 				9E5268772C018D7200E1F9E5 /* SignInApi.swift in Sources */,
+				9EFD44162CB40A37005AFBB8 /* SignatureVC.swift in Sources */,
 				9E52685F2C018D7200E1F9E5 /* VerificationNetworking.swift in Sources */,
 				9E52683E2C018D7100E1F9E5 /* DropDownMenu.swift in Sources */,
 				9E52686B2C018D7200E1F9E5 /* OrderStatusSheet.swift in Sources */,
