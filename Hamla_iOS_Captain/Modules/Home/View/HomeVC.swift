@@ -8,6 +8,7 @@
 import UIKit
 import FittedSheets
 import CoreLocation
+import MOLH
 
 class HomeVC: UIViewController {
 
@@ -34,7 +35,7 @@ class HomeVC: UIViewController {
     var isCaptainOnline = false
     let locationManager = CLLocationManager()
     var currentLocation = CLLocation()
-    let lang = Locale.current.language.languageCode
+    let lang = MOLHLanguage.currentAppleLanguage()
     
     var viewModel: HomeViewModel?
         
@@ -51,10 +52,7 @@ class HomeVC: UIViewController {
         ordersTableView.dataSource = self
         ordersTableView.register(UINib(nibName: "UpcomingRequestsCell", bundle: nil), forCellReuseIdentifier: "UpcomingRequestsCell")
         
-        let user = UserInfo.shared
-        captainName.text = user.get_username()
-        plateNumber.text = user.getPlateNumber()
-        truckColorAndType.text = "\(user.getTruckColor()) - \(user.getTruckType())"
+        self.captainName.text = UserInfo.shared.get_username()
         
         viewModel?.getCaptainStatus(captainID: String(UserInfo.shared.get_ID()))
         
@@ -127,6 +125,10 @@ class HomeVC: UIViewController {
                 self.captainDetails = result?.data
                 self.sideMenuViewController.captainDetails = self.captainDetails ?? CaptainData()
                 UserInfo.shared.setData(model: (result?.data)!)
+                let user = UserInfo.shared
+                
+                self.plateNumber.text = self.captainDetails?.truck?.plate
+                self.truckColorAndType.text = "\(self.captainDetails?.truck?.color ?? "") - \(self.captainDetails?.truck?.type ?? "")"
             }
             print(message)
         }

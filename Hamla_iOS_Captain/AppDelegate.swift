@@ -8,14 +8,17 @@
 import UIKit
 import GoogleMaps
 import FirebaseCore
+import MOLH
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, MOLHResetable {
 
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        //MOLHLanguage.setDefaultLanguage("en")
+        MOLH.shared.activate(true)
         setUpNavigationBar()
         GMSServices.provideAPIKey("AIzaSyB9Gu55XnI_UEP_hnW5GKVtWiAt-nxxxeU")
         FirebaseApp.configure()
@@ -44,5 +47,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = UIColor.black
     }
 
+    func reset() {
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
+            if let window = windowScene.windows.first {
+                let newRootViewController = SettingsVC(nibName: "SettingsVC", bundle: nil)
+                UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromRight, animations: {
+                    window.rootViewController = newRootViewController
+                }, completion: nil)
+                window.makeKeyAndVisible()
+            }
+        }
+    }
 }
 

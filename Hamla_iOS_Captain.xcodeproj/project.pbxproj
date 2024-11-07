@@ -14,6 +14,14 @@
 		9E11958F2BD54A4300C9F7A8 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 9E11958E2BD54A4300C9F7A8 /* Kingfisher */; };
 		9E29B35E2C3607F200440E44 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E29B35D2C3607F200440E44 /* GoogleService-Info.plist */; };
 		9E3149B32C0F7DCC00FAA9C8 /* JVFloatLabeledTextField in Frameworks */ = {isa = PBXBuildFile; productRef = 9E3149B22C0F7DCC00FAA9C8 /* JVFloatLabeledTextField */; };
+		9E35C3412CDD1AE400E1711D /* SettingsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E35C3392CDD1AE400E1711D /* SettingsCell.xib */; };
+		9E35C3432CDD1AE400E1711D /* LanguageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E35C3342CDD1AE400E1711D /* LanguageCell.xib */; };
+		9E35C3452CDD1AE400E1711D /* LanguageVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E35C3362CDD1AE400E1711D /* LanguageVC.xib */; };
+		9E35C3472CDD1AE400E1711D /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E35C3382CDD1AE400E1711D /* SettingsCell.swift */; };
+		9E35C3482CDD1AE400E1711D /* LanguageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E35C3352CDD1AE400E1711D /* LanguageVC.swift */; };
+		9E35C34A2CDD1AE400E1711D /* LanguageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E35C3332CDD1AE400E1711D /* LanguageCell.swift */; };
+		9E35C34E2CDD262400E1711D /* SettingsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E35C34C2CDD262400E1711D /* SettingsVC.xib */; };
+		9E35C34F2CDD262400E1711D /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E35C34B2CDD262400E1711D /* SettingsVC.swift */; };
 		9E3C0B942BF9190500473BC9 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 9E3C0B932BF9190500473BC9 /* FirebaseDatabase */; };
 		9E3C0B962BF9190500473BC9 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 9E3C0B952BF9190500473BC9 /* FirebaseMessaging */; };
 		9E3C0B982BF9190500473BC9 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 9E3C0B972BF9190500473BC9 /* FirebaseStorage */; };
@@ -154,6 +162,14 @@
 		9E00DE202C443766008030FA /* CountryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountryCell.swift; sourceTree = "<group>"; };
 		9E00DE212C443766008030FA /* CountryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountryCell.xib; sourceTree = "<group>"; };
 		9E29B35D2C3607F200440E44 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		9E35C3332CDD1AE400E1711D /* LanguageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageCell.swift; sourceTree = "<group>"; };
+		9E35C3342CDD1AE400E1711D /* LanguageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LanguageCell.xib; sourceTree = "<group>"; };
+		9E35C3352CDD1AE400E1711D /* LanguageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageVC.swift; sourceTree = "<group>"; };
+		9E35C3362CDD1AE400E1711D /* LanguageVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LanguageVC.xib; sourceTree = "<group>"; };
+		9E35C3382CDD1AE400E1711D /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		9E35C3392CDD1AE400E1711D /* SettingsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsCell.xib; sourceTree = "<group>"; };
+		9E35C34B2CDD262400E1711D /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		9E35C34C2CDD262400E1711D /* SettingsVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingsVC.xib; sourceTree = "<group>"; };
 		9E412E362C09FD6A00B010E2 /* UpcomingRequestsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingRequestsCell.swift; sourceTree = "<group>"; };
 		9E412E372C09FD6A00B010E2 /* UpcomingRequestsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpcomingRequestsCell.xib; sourceTree = "<group>"; };
 		9E412E3A2C0CCF3800B010E2 /* CaptainOnOrderModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptainOnOrderModel.swift; sourceTree = "<group>"; };
@@ -337,6 +353,45 @@
 			path = CountryCell;
 			sourceTree = "<group>";
 		};
+		9E35C3372CDD1AE400E1711D /* LanguageView */ = {
+			isa = PBXGroup;
+			children = (
+				9E35C3332CDD1AE400E1711D /* LanguageCell.swift */,
+				9E35C3342CDD1AE400E1711D /* LanguageCell.xib */,
+				9E35C3352CDD1AE400E1711D /* LanguageVC.swift */,
+				9E35C3362CDD1AE400E1711D /* LanguageVC.xib */,
+			);
+			path = LanguageView;
+			sourceTree = "<group>";
+		};
+		9E35C33A2CDD1AE400E1711D /* SettingsCell */ = {
+			isa = PBXGroup;
+			children = (
+				9E35C3382CDD1AE400E1711D /* SettingsCell.swift */,
+				9E35C3392CDD1AE400E1711D /* SettingsCell.xib */,
+			);
+			path = SettingsCell;
+			sourceTree = "<group>";
+		};
+		9E35C3402CDD1AE400E1711D /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				9E35C3372CDD1AE400E1711D /* LanguageView */,
+				9E35C33A2CDD1AE400E1711D /* SettingsCell */,
+				9E35C34D2CDD262400E1711D /* View */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		9E35C34D2CDD262400E1711D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				9E35C34B2CDD262400E1711D /* SettingsVC.swift */,
+				9E35C34C2CDD262400E1711D /* SettingsVC.xib */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		9E46553A2C514F4500704EBE /* OrderAttachments */ = {
 			isa = PBXGroup;
 			children = (
@@ -422,6 +477,7 @@
 				9E5267A62C018D7000E1F9E5 /* Home */,
 				9E5267E32C018D7000E1F9E5 /* Map */,
 				9E5267FF2C018D7000E1F9E5 /* SideMenu */,
+				9E35C3402CDD1AE400E1711D /* Settings */,
 				9E5267B52C018D7000E1F9E5 /* BankAccounts */,
 				9E5267BB2C018D7000E1F9E5 /* MyProfile */,
 				9E46553A2C514F4500704EBE /* OrderAttachments */,
@@ -1077,6 +1133,7 @@
 				9E5268852C018D7200E1F9E5 /* PersonalInformationVC.xib in Resources */,
 				9E52688C2C018D7200E1F9E5 /* OnboardingCollectionViewCell.xib in Resources */,
 				9E412E392C09FD6A00B010E2 /* UpcomingRequestsCell.xib in Resources */,
+				9E35C34E2CDD262400E1711D /* SettingsVC.xib in Resources */,
 				9E5268892C018D7200E1F9E5 /* STC_Pay_InformationVC.xib in Resources */,
 				9E52684D2C018D7100E1F9E5 /* BankAccountsVC.xib in Resources */,
 				9E52684C2C018D7100E1F9E5 /* BankAccountsCell.xib in Resources */,
@@ -1087,6 +1144,9 @@
 				9E5268642C018D7200E1F9E5 /* OrderHistoryCell.xib in Resources */,
 				9E5268712C018D7200E1F9E5 /* CurrentRequestVC.xib in Resources */,
 				9E5268542C018D7100E1F9E5 /* CalenderAlert.xib in Resources */,
+				9E35C3412CDD1AE400E1711D /* SettingsCell.xib in Resources */,
+				9E35C3432CDD1AE400E1711D /* LanguageCell.xib in Resources */,
+				9E35C3452CDD1AE400E1711D /* LanguageVC.xib in Resources */,
 				9E52687B2C018D7200E1F9E5 /* SideMenuCell.xib in Resources */,
 				9EE201272C52997000E5E973 /* OrderImageCell.xib in Resources */,
 				9E52686C2C018D7200E1F9E5 /* OrderStatusCell.xib in Resources */,
@@ -1158,6 +1218,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E52682D2C018D7100E1F9E5 /* ImageUploader.swift in Sources */,
+				9E35C3472CDD1AE400E1711D /* SettingsCell.swift in Sources */,
+				9E35C3482CDD1AE400E1711D /* LanguageVC.swift in Sources */,
+				9E35C34A2CDD1AE400E1711D /* LanguageCell.swift in Sources */,
 				9E5268602C018D7200E1F9E5 /* VerificationApi.swift in Sources */,
 				9E5268792C018D7200E1F9E5 /* SideMenuVC.swift in Sources */,
 				9E5268362C018D7100E1F9E5 /* CustomSegmantedControl.swift in Sources */,
@@ -1234,6 +1297,7 @@
 				9E5268422C018D7100E1F9E5 /* ViewModel.swift in Sources */,
 				9E5268552C018D7100E1F9E5 /* CalenderAlert.swift in Sources */,
 				9E5268622C018D7200E1F9E5 /* VerificationVC.swift in Sources */,
+				9E35C34F2CDD262400E1711D /* SettingsVC.swift in Sources */,
 				9E52685B2C018D7200E1F9E5 /* MyWalletVC.swift in Sources */,
 				9E5268412C018D7100E1F9E5 /* AppDelegate.swift in Sources */,
 				9E5268442C018D7100E1F9E5 /* OrdersDetailsModel.swift in Sources */,

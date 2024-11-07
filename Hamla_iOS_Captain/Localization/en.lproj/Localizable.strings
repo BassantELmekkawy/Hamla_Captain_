@@ -183,3 +183,9 @@
 // MARK: - Order Images
 
 "Order_images" = "Order images";
+
+
+// MARK: - Settings
+
+"Language" = "Language";
+"Change_the_language_of_the_app" = "Change the language of the app.";
