@@ -71,8 +71,6 @@ extension SideMenuVC: UITableViewDelegate, UITableViewDataSource{
             vc = MyWalletVC(nibName: "MyWalletVC", bundle: nil)
         case 1:
             vc = OrderHistoryVC(nibName: "OrderHistoryVC", bundle: nil)
-        case 2:
-            vc = SettingsVC(nibName: "SettingsVC", bundle: nil)
         case 3:
             vc = BankAccountsVC(nibName: "BankAccountsVC", bundle: nil)
         default:
