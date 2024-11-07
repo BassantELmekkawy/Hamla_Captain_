@@ -20,7 +20,7 @@ class HomeVC: UIViewController {
     @IBOutlet weak var availabilityInfo: UILabel!
     @IBOutlet weak var tableHeader: UILabel!
     
-    var sideMenuViewController: SideMenuVC!
+    var sideMenuViewController = SideMenuVC()
     var sideMenuWidth: CGFloat = 260
     var overlay = UIView()
     var captainDetails: CaptainData?
@@ -37,14 +37,13 @@ class HomeVC: UIViewController {
     let lang = Locale.current.language.languageCode
     
     var viewModel: HomeViewModel?
-    
-    //var upcomingRequests:[UpcomingRequest] = [.pendingAcceptance, .pendingPrice]
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
         
         self.viewModel = HomeViewModel(api: HomeApi())
+        //setupSideMenu()
         bindData()
         viewModel?.getCaptainDetails()
         

@@ -24,7 +24,7 @@ class OrderAttatchmentsViewModel: OrderAttatchmentsViewModelProtocol {
     var errorMessage: Observable<String?> = Observable(nil)
     var isLoading: Observable<Bool?>  = Observable(false)
     
-    func uploadImageToserver(file: Data, tag: Int) {
+    func uploadImageToserver(file: Data, tag: Int = 0) {
         ImageUploader
             .shared
             .uploadImageToServer(File: file, url: URLs.baseDashBoardUrl.rawValue, progressHandler: { progress in

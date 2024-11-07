@@ -9,7 +9,7 @@ import UIKit
 import GoogleMaps
 import FittedSheets
 
-class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate, OrderCompletedSheetDelegate {
+class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate, OrderCompletedSheetDelegate, SignatureViewDelegate {
     
     @IBOutlet weak var mapView: GMSMapView!
     var carMarker: GMSMarker?
@@ -28,6 +28,7 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
     var currentRequestVC: CurrentRequestVC = CurrentRequestVC()
     let orderStatusSheet = OrderStatusSheet()
     let orderCompletedSheet = OrderCompletedSheet()
+    let signatureVC = SignatureVC.shared
     
     var sheet: SheetViewController?
     
@@ -40,6 +41,7 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
         currentRequestVC.delegate = self
         orderStatusSheet.delegate = self
         orderCompletedSheet.delegate = self
+        signatureVC.delegate = self
         currentRequestVC.orderID = orderDetails.id ?? 0
         setupMapView()
         showRequest()
@@ -65,6 +67,14 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
         
         showCurrentStatus()
         
+    }
+    
+    func orderCompleted() {
+        guard let id = orderDetails.id else { return }
+        let orderID = String(id)
+        let lat = String(locationManager.location?.coordinate.latitude ?? 0.0)
+        let lng = String(locationManager.location?.coordinate.longitude ?? 0.0)
+        viewModel?.endOrder(orderID: orderID, dropoffLat: lat, dropoffLng: lng)
     }
     
     func setupMapView() {
@@ -275,10 +285,12 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
                 self?.showAlert(message: message)
             } else {
                 self?.currentStatus = .orderCompleted
+                self?.currentRequestVC.status = self!.currentStatus
                 let cost: Double = result?.data?.cost ?? 0.0
                 //self?.currentRequestVC.updateStatusUI(status: self!.currentStatus)
                 //self?.changeCameraPosition(latitude: (self?.carMarker?.position.latitude)!, longitude: (self?.carMarker?.position.longitude)!, zoom: 10.0)
                 self?.carMarker?.icon = UIImage(named: "car-icon-forest")
+                
                 self?.sheet?.animateOut()
                 self?.showSheet(controller: self!.orderCompletedSheet, sizes: [.fixed(350)], horizontalPadding: 30)
                 self?.orderCompletedSheet.customerName.text = self?.orderDetails.customer?.fullName
@@ -440,9 +452,8 @@ class MapVC: UIViewController, CurrentRequestDelegate, OrderStatusSheetDelegate,
         case .startUnload:
             viewModel?.endUnload(orderID: orderID)
         case .endUnload:
-            let lat = String(locationManager.location?.coordinate.latitude ?? 0.0)
-            let lng = String(locationManager.location?.coordinate.longitude ?? 0.0)
-            viewModel?.endOrder(orderID: orderID, dropoffLat: lat, dropoffLng: lng)
+            let vc = OrderImagesVC(nibName: "OrderImagesVC", bundle: nil)
+            self.navigationController?.pushViewController(vc, animated: true)
         case .orderCompleted:
             break
         }

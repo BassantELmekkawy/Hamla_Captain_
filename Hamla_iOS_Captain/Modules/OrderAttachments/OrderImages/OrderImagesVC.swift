@@ -33,9 +33,7 @@ class OrderImagesVC: UIViewController {
         imagesCollectionView.dataSource = self
         imagesCollectionView.register(UINib(nibName: "OrderImageCell", bundle: nil), forCellWithReuseIdentifier: "OrderImageCell")
         heightConstraint.constant = imagesCollectionView.collectionViewLayout.collectionViewContentSize.height
-        pickerVC.delegate = self
-        
-        
+        pickerVC.delegate = self        
     }
     
     func bindData(){
@@ -67,7 +65,8 @@ class OrderImagesVC: UIViewController {
     }
     
     @IBAction func uploadImages(_ sender: Any) {
-        
+        let vc = SignatureVC.shared
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 

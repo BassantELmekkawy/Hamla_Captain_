@@ -342,6 +342,7 @@
 			children = (
 				9EB4B8892CD8F5940089F63C /* ViewModel */,
 				9EB4B8882CD7B8390089F63C /* OrderImages */,
+				9EFD440E2CB408F4005AFBB8 /* Signature */,
 			);
 			path = OrderAttachments;
 			sourceTree = "<group>";
@@ -427,7 +428,6 @@
 				9E5267C72C018D7000E1F9E5 /* OrderDetails */,
 				9E5267CD2C018D7000E1F9E5 /* MyWallet */,
 				9E5267DD2C018D7000E1F9E5 /* OrderHistory */,
-				9EFD440E2CB408F4005AFBB8 /* Signature */,
 			);
 			path = Modules;
 			sourceTree = "<group>";

@@ -189,10 +189,11 @@ class CurrentRequestVC: UIViewController {
             case .endUnload:
                 statusTitle.text = "End unload"
                 statusBar.backgroundColor = UIColor(named: "primary")
-                updateStatusButton.setTitle("Order completed", for: .normal)
+                updateStatusButton.setTitle("Order images", for: .normal)
             case .orderCompleted:
-                statusTitle.text = "Order completed"
-                statusBar.backgroundColor = UIColor(named: "forest")
+                break
+                //statusTitle.text = "Order completed"
+                //statusBar.backgroundColor = UIColor(named: "forest")
             }
         }
 

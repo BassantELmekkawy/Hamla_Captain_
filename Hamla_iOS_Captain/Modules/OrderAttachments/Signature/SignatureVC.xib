@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SignatureVC" customModule="Hamla_iOS_Captain" customModuleProvider="target">
             <connections>
                 <outlet property="info" destination="fRe-Q5-jj7" id="iVz-yB-RFT"/>
+                <outlet property="loadingIndicator" destination="1bG-lP-QPk" id="eSa-rx-BBT"/>
                 <outlet property="signatureView" destination="6ar-Dn-jaB" id="dXq-QK-fTG"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -49,7 +50,21 @@
                 </button>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6ar-Dn-jaB" customClass="SignatureView" customModule="Hamla_iOS_Captain" customModuleProvider="target">
                     <rect key="frame" x="30" y="176.33333333333331" width="333" height="525.66666666666674"/>
+                    <subviews>
+                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="1bG-lP-QPk">
+                            <rect key="frame" x="146.66666666666666" y="243" width="40" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="40" id="DN9-Vq-elG"/>
+                                <constraint firstAttribute="width" constant="40" id="QIs-5t-2wP"/>
+                            </constraints>
+                            <color key="color" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </activityIndicatorView>
+                    </subviews>
                     <color key="backgroundColor" name="background"/>
+                    <constraints>
+                        <constraint firstItem="1bG-lP-QPk" firstAttribute="centerX" secondItem="6ar-Dn-jaB" secondAttribute="centerX" id="oYL-yg-XdK"/>
+                        <constraint firstItem="1bG-lP-QPk" firstAttribute="centerY" secondItem="6ar-Dn-jaB" secondAttribute="centerY" id="qqp-P8-TTf"/>
+                    </constraints>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                             <integer key="value" value="8"/>
