@@ -177,3 +177,6 @@
 // MARK: - Order Images
 
 "Order_images" = "صور الطلب";
+// MARK: - Settings
+"Language" = "اللغة";
+"Change_the_language_of_the_app" = "تغيير لغة التطبيق.";
