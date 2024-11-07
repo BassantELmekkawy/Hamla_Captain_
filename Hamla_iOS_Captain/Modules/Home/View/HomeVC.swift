@@ -8,6 +8,7 @@
 import UIKit
 import FittedSheets
 import CoreLocation
+import MOLH
 
 class HomeVC: UIViewController {
 
@@ -31,7 +32,7 @@ class HomeVC: UIViewController {
     var isCaptainOnline = false
     let locationManager = CLLocationManager()
     var currentLocation = CLLocation()
-    let lang = Locale.current.language.languageCode
+    let lang = MOLHLanguage.currentAppleLanguage()
     
     var viewModel: HomeViewModel?
     

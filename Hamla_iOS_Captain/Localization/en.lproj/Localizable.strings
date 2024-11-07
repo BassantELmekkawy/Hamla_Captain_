@@ -178,3 +178,7 @@
 "Request_account_update" = "Request account update";
 "Request_truck_update" = "Request truck update";
 "Phone_number" = "Phone number";
+
+// MARK: - Settings
+"Language" = "Language";
+"Change_the_language_of_the_app" = "Change the language of the app.";
