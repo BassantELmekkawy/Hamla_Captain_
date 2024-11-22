@@ -20,12 +20,15 @@ class MyProfileVC: UIViewController {
     
     var viewModel: MyProfileViewModel?
     var captainDetails: CaptainData = CaptainData()
+    let pickerVC = PhotoActionSheet()
+    var activityIndicator: UIActivityIndicatorView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         self.viewModel = MyProfileViewModel(api: MyProfileApi())
         bindData()
+        self.setupNavigationBar()
         self.navigationController?.navigationBar.isHidden = false
         self.title = "My_profile".localized
         photoBackgroundView.twoColorDiagonalView(color1: UIColor(named: "primary") ?? .blue, color2: UIColor(named: "LightBlue") ?? .blue, cornerRadius: 8)
@@ -37,11 +40,31 @@ class MyProfileVC: UIViewController {
         view.addGestureRecognizer(viewTapGesture)
         
         let textFieldFrameInVC = phoneTF.superview?.convert(phoneTF.frame, to: self.view)
-        print(textFieldFrameInVC)
+        
+        let photoTapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapProfilePhoto))
+        photo.addGestureRecognizer(photoTapGesture)
+        setupToolbar()
+    }
+    
+    func setupToolbar(){
+        let bar = UIToolbar()
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissKeyboard))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        bar.items = [flexSpace, doneButton]
+        bar.sizeToFit()
+        phoneTF.inputAccessoryView = bar
     }
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    @objc func didTapProfilePhoto() {
+        guard let photo = photo.image, captainDetails.avatar != nil else {
+            return
+        }
+        let vc = PhotoViewerVC(photo: photo)
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -63,12 +86,12 @@ class MyProfileVC: UIViewController {
     
     func setupView() {
         let url = URL(string: captainDetails.avatar ?? "")
-        photo.kf.setImage(with: url, placeholder: UIImage(systemName: "person.crop.circle.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal))
+        photo.kf.setImage(with: url, placeholder: UIImage(systemName: "person.fill")?.withTintColor(UIColor(named: "primary") ?? .blue, renderingMode: .alwaysOriginal))
         trips.text = String(captainDetails.ordersCount ?? 0)
         inWallet.text = String(captainDetails.walletBalance ?? 0)
-        rating.text = String(captainDetails.rate ?? 5)
+        rating.text = "\(captainDetails.rate ?? 5)/5"
         nameTF.text = captainDetails.fullName
-        phoneTF.text = captainDetails.mobile
+        phoneTF.text = "+\(UserInfo.shared.get_phone())"
         
         nameTF.addPadding()
         phoneTF.addPadding()
@@ -93,7 +116,7 @@ class MyProfileVC: UIViewController {
             }
             else{
                 let vc = VerificationVC(nibName: "VerificationVC", bundle: nil)
-                vc.phoneNumber = String( self.phoneTF.text?.dropFirst(2) ?? "")
+                vc.phoneNumber = String(self.phoneTF.text?.dropFirst() ?? "")  // drop '+' sign
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             print(message)
@@ -114,6 +137,18 @@ class MyProfileVC: UIViewController {
             }
         }
         
+        viewModel?.uploadImageResult.bind { [self] result in
+            guard let message = result?.message else { return }
+            if result?.status == 0 {
+                self.showAlert(message: message)
+            }
+            else {
+                self.photo.subviews.forEach { $0.removeFromSuperview() }
+            }
+
+            print(message)
+        }
+        
 //        viewModel?.isLoading.bind { [weak self] isLoading in
 //            guard let self = self else { return }
 //            self.activityIndicator.isHidden = false
@@ -127,9 +162,14 @@ class MyProfileVC: UIViewController {
 //        }
     }
     
+    @IBAction func updateProfilePhoto(_ sender: Any) {
+//        pickerVC.delegate = self
+//        pickerVC.showActionSheet(from: self)
+    }
+    
     @IBAction func updateProfile(_ sender: Any) {
-        if viewModel!.isValidPhone(phone: phoneTF.text ?? "" ){
-            viewModel?.checkPhone(mobile: phoneTF.text ?? "" )
+        if viewModel!.isValidPhone(phone: String(phoneTF.text?.dropFirst() ?? "")) { // drop '+' sign
+            viewModel?.checkPhone(mobile: String(phoneTF.text?.dropFirst() ?? ""))
         }
         else{
             self.showAlert(message: "Invalid_phone_number".localized)
@@ -140,31 +180,18 @@ class MyProfileVC: UIViewController {
 
 extension MyProfileVC: UITextFieldDelegate{
     
-//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//        
-//        if textField == phoneTF {
-//            //Prevent "0" character as the first character.
-//            if textField.text?.count == 0 && string == "0" {
-//                return false
-//            }
-//            
-//            //Limit the character count.
-//            var max = 0
-//            switch countryCode {
-//            case "20":
-//                max = 10
-//            case "966":
-//                max = 9
-//            default:
-//                break
-//            }
-//            if ((textField.text!) + string).count > max {
-//                return false
-//            }
-//        }
-//        
-//        return true
-//    }
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        if textField == phoneTF {
+            
+            //Limit the character count. ('+' + phone number)
+            if ((textField.text!) + string).count > 13 {
+                return false
+            }
+        }
+        
+        return true
+    }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         switch textField {
@@ -196,3 +223,22 @@ extension MyProfileVC: UITextFieldDelegate{
 //    }
 }
 
+extension MyProfileVC: PhotoActionSheetDelegate {
+    
+    func didSelectImage(_ image: UIImage) {
+        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
+            return
+        }
+        
+        photo.image = image
+        activityIndicator = UIActivityIndicatorView()
+        activityIndicator?.center = photo.center
+        activityIndicator?.color = .lightGray
+        activityIndicator?.style = .large
+        photo.addSubview(activityIndicator!)
+        
+        viewModel?.uploadImageToserver(file: imageData, progressHandler: { progress in
+            self.photo.addSubview(self.activityIndicator!)
+        })
+    }
+}

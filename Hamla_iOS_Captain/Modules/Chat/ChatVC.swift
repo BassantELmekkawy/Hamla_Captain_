@@ -388,10 +388,10 @@ extension ChatVC: MessageCellDelegate {
         let message = messages[indexPath.section]
         switch message.kind {
         case .photo(let media):
-            guard let imageUrl = media.url else {
+            guard let image = media.image else {
                 return
             }
-            let vc = PhotoViewerVC(with: imageUrl)
+            let vc = PhotoViewerVC(photo: image)
             self.navigationController?.pushViewController(vc, animated: true)
         default:
             break

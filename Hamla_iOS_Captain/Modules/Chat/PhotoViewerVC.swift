@@ -10,10 +10,10 @@ import Kingfisher
 
 class PhotoViewerVC: UIViewController {
     
-    private let url: URL
+    private let photo: UIImage?
     
-    init(with url: URL) {
-        self.url = url
+    init(photo: UIImage) {
+        self.photo = photo
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -34,9 +34,12 @@ class PhotoViewerVC: UIViewController {
         self.navigationController?.navigationBar.tintColor = .white
         view.backgroundColor = .black
         view.addSubview(imageView)
-        imageView.kf.setImage(with: url)
+        imageView.image = photo
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.navigationBar.tintColor = .black
+    }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         imageView.frame = view.bounds

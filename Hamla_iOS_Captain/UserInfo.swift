@@ -56,6 +56,10 @@ class UserInfo{
         UserDefaults.standard.setValue(value, forKey: Keys.login)
     }
     
+    func setPhone(phone: String) {
+        UserDefaults.standard.setValue(phone, forKey: Keys.phone)
+    }
+    
     func setToken(token: String) {
         UserDefaults.standard.setValue(token, forKey: Keys.token)
     }

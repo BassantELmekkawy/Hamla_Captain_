@@ -14,6 +14,7 @@ protocol MyProfileViewModelProtocol {
     func isValidPhone(phone: String) -> Bool
     var checkPhoneResult: Observable<SendCodeModel?> { get set }
     var updateProfileResult: Observable<RegisterModel?> { get set }
+    var uploadImageResult: Observable<(UploadFileModel?)> { get set }
     var errorMessage: Observable<String?> { get set }
     var isLoading: Observable<Bool?>{get set}
     
@@ -24,6 +25,7 @@ class MyProfileViewModel: MyProfileViewModelProtocol {
     var isLoading: Observable<Bool?>  = Observable(false)
     var checkPhoneResult: Observable<SendCodeModel?>  = Observable(nil)
     var updateProfileResult: Observable<RegisterModel?> = Observable(nil)
+    var uploadImageResult: Observable<(UploadFileModel?)> = Observable(nil)
     var errorMessage: Observable<String?> = Observable(nil)
     
     var api: MyProfileApiProtocol
@@ -68,8 +70,35 @@ class MyProfileViewModel: MyProfileViewModelProtocol {
         }
     }
     
+    func uploadImageToserver(file: Data, progressHandler: @escaping (Double) -> Void) {
+        ImageUploader
+            .shared
+            .uploadImageToServer(File: file, url: URLs.baseDashBoardUrl.rawValue, progressHandler: { progress in
+                print("Upload progress: \(progress * 100)%")
+                progressHandler(progress)
+            }) { result in
+                switch result{
+                case .success(let result):
+                    print(result)
+                    if result?.status == 1 {
+                        self.uploadImageResult.value = (result)
+                    }else{
+                        self.errorMessage.value = result?.message
+                    }
+                case .failure(let error):
+                    self.errorMessage.value = error.message
+                }
+            }
+    }
+    
     func isValidPhone(phone: String) -> Bool {
-        let PHONE_REGEX = #"^2(010|011|012|015)\d{8}$"#
+        var PHONE_REGEX = ""
+        if phone.hasPrefix("20") {
+            PHONE_REGEX = #"^20(10|11|12|15)\d{8}$"#
+        }
+        else if phone.hasPrefix("966") {
+            PHONE_REGEX = #"^966(5)(5|0|3|6|4|9|1|8|7)\\d{7}$"#
+        }
         let predicate = NSPredicate(format: "SELF MATCHES %@", PHONE_REGEX)
         let result = predicate.evaluate(with: phone)
         return result
