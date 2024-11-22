@@ -66,6 +66,7 @@ class VerificationVC: UIViewController{
             else if result?.is_new == true {
                 UserInfo.shared.isPhoneVerified(status: true)
                 if UserInfo.shared.getLogin() {
+                    UserInfo.shared.setPhone(phone: self.phoneNumber)
                     self.viewModel?.updateProfile(mobile: self.phoneNumber)
                     self.navigationController?.popViewController(animated: true)
                 }

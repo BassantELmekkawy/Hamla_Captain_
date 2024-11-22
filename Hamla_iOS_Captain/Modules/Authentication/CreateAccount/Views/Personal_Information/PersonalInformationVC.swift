@@ -262,7 +262,7 @@ class PersonalInformationVC: UIViewController {
                 licenseExpiryDate: licenseExpiryDateTF.text,
                 imageDictionary: imageDictionary
             )
-            if !phoneNumber.isEmpty && phoneTF.text != phoneNumber{
+            if phoneTF.text ?? "" != phoneNumber.dropFirst(countryCode.count){
                 UserInfo.shared.isPhoneVerified(status: false)
             }
             let vc = FleetInformationVC(nibName: "FleetInformationVC", bundle: nil)
