@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -88,7 +89,7 @@
                                                         <constraint firstAttribute="height" constant="51" id="GKx-Xx-Ahn"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                             <real key="value" value="8"/>
@@ -148,7 +149,7 @@
                                                         <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="100 123 5678" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sYd-33-weJ">
                                                             <rect key="frame" x="126.66666666666666" y="8" width="269.33333333333337" height="35"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                                                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                         </textField>
                                                         <view alpha="0.10000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2UQ-UA-UlU">
                                                             <rect key="frame" x="125.66666666666666" y="10" width="1" height="31"/>
@@ -268,7 +269,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="404" height="51"/>
                                                     <color key="backgroundColor" name="background"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                             <real key="value" value="8"/>
@@ -720,23 +721,6 @@
             <point key="canvasLocation" x="-38.167938931297705" y="32.394366197183103"/>
         </view>
     </objects>
-    <designables>
-        <designable name="3On-L0-4NE">
-            <size key="intrinsicContentSize" width="62" height="18.666666666666668"/>
-        </designable>
-        <designable name="Ynu-vk-T03">
-            <size key="intrinsicContentSize" width="81" height="18.666666666666668"/>
-        </designable>
-        <designable name="ZdH-3y-yOq">
-            <size key="intrinsicContentSize" width="125.33333333333333" height="18.666666666666668"/>
-        </designable>
-        <designable name="bjZ-6V-DTb">
-            <size key="intrinsicContentSize" width="97" height="18.666666666666668"/>
-        </designable>
-        <designable name="nXY-Kk-A9k">
-            <size key="intrinsicContentSize" width="89.333333333333329" height="18.666666666666668"/>
-        </designable>
-    </designables>
     <resources>
         <image name="Egypt_flag" width="32" height="19"/>
         <image name="Rescheduling A Task" width="24" height="24"/>
@@ -757,7 +741,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
