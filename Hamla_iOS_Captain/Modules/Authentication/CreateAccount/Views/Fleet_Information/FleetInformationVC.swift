@@ -24,7 +24,7 @@ class FleetInformationVC: UIViewController {
     var truckTypes: [String]?
     
     var dropDownMenu: DropdownMenu!
-    var circularProgressView: CircularProgressView?
+    var activityIndicator: UIActivityIndicatorView?
     var overlayView: UIView?
     var viewModel: CreateAccountViewModel?
     
@@ -67,7 +67,6 @@ class FleetInformationVC: UIViewController {
     }
     
     @objc func dismissKeyboard() {
-        // dismiss the keyboard by making the text field resign its first responder status
         view.endEditing(true)
     }
     
@@ -248,6 +247,10 @@ extension FleetInformationVC: UITextFieldDelegate{
         return true
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+    }
+    
     func getAdjustedDate(byAddingDays days: Int) -> Date? {
         var components = DateComponents()
         components.day = days
@@ -262,26 +265,19 @@ extension FleetInformationVC: PhotoActionSheetDelegate {
             return
         }
         
-//        let circularProgressView = CircularProgressView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-//        circularProgressView.center = view.center
-//        circularProgressView.progress = 0.7 // Set the progress value
-//        imageCollection[0].addSubview(circularProgressView)
-        
         imageCollection[tag].image = image
-        circularProgressView = CircularProgressView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-        circularProgressView?.center = imageCollection[tag].center
-        imageCollection[tag].addSubview(circularProgressView!)
+        activityIndicator = UIActivityIndicatorView()
+        activityIndicator?.style = .medium
+        activityIndicator?.color = .lightGray
+        activityIndicator?.center = imageCollection[tag].center
+        imageCollection[tag].addSubview(activityIndicator!)
         
-        //self.image = image
-        //circularProgressView?.progress = 0
         viewModel?.uploadImageToserver(file: imageData, tag: tag, progressHandler: { progress in
-            //self.progressView.progress = Float(progress)
-            self.circularProgressView?.progress = Float(progress)
-            
-            
+            self.activityIndicator?.startAnimating()            
             self.overlayView = UIView(frame: self.imageCollection[self.tag].bounds)
             self.overlayView?.backgroundColor = UIColor.black.withAlphaComponent(0.5)
             self.imageCollection[self.tag].addSubview(self.overlayView ?? UIView())
+            self.imageCollection[self.tag].addSubview(self.activityIndicator!)
         })
     }
 }

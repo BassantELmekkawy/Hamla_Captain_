@@ -29,7 +29,7 @@ final class ImageUploader {
             multipartFormData.append(fileData, withName: "file", fileName: "image.png", mimeType: "image/png")
             multipartFormData.append("captains".data(using: .utf8) ?? Data(), withName: "path")
             
-        }, to: url + "upload" ,method: .post, headers: headers).uploadProgress(closure: { (progress) in
+        }, to: url + "upload-files" ,method: .post, headers: headers).uploadProgress(closure: { (progress) in
             print(progress.fractionCompleted)
             progressHandler(progress.fractionCompleted)
             

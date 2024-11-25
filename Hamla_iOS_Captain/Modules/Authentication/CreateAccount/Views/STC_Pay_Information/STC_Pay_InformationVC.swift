@@ -27,6 +27,7 @@ class STC_Pay_InformationVC: UIViewController {
         
         self.viewModel = CreateAccountViewModel(api: RegisterApi())
         setUpView()
+        setupToolbar()
         bindData()
     }
 
@@ -47,8 +48,16 @@ class STC_Pay_InformationVC: UIViewController {
         view.addGestureRecognizer(viewTapGesture)
     }
     
+    func setupToolbar(){
+        let bar = UIToolbar()
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissKeyboard))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        bar.items = [flexSpace, doneButton]
+        bar.sizeToFit()
+        STC_AccountNumberTF.inputAccessoryView = bar
+    }
+    
     @objc func dismissKeyboard() {
-        // dismiss the keyboard by making the text field resign its first responder status
         view.endEditing(true)
     }
     

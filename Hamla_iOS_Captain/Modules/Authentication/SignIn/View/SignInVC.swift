@@ -23,6 +23,7 @@ class SignInVC: UIViewController {
         
         self.viewModel = SignInViewModel(api: SignInApi())
         setUpView()
+        setupToolbar()
         bindData()
     }
     
@@ -35,13 +36,28 @@ class SignInVC: UIViewController {
     }
     
     func setUpView(){
-        //self.navigationController?.navigationBar.isHidden = true
         setupNavigationBar()
-        
         activityIndicator.isHidden = true
         phoneTF.addPadding()
         phoneTF.delegate = self
+        
+        let viewTapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(viewTapGesture)
     }
+    
+    func setupToolbar(){
+        let bar = UIToolbar()
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissKeyboard))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        bar.items = [flexSpace, doneButton]
+        bar.sizeToFit()
+        phoneTF.inputAccessoryView = bar
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
     func bindData(){
         viewModel?.sendCodeResult.bind { result in
             guard let message = result?.message else { return }

@@ -48,7 +48,7 @@ class PersonalInformationVC: UIViewController {
     var image: UIImage?
     var datePicker: UIDatePicker?
     var imageDictionary: [Int: String] = [:]
-    var circularProgressView: CircularProgressView?
+    var activityIndicator: UIActivityIndicatorView?
     var overlayView: UIView?
     
     var viewModel: CreateAccountViewModel?
@@ -59,6 +59,7 @@ class PersonalInformationVC: UIViewController {
         PHPhotoLibrary.shared().presentLimitedLibraryPicker(from: self)
         self.viewModel = CreateAccountViewModel(api: RegisterApi())
         setUpView()
+        setupToolbar()
         bindData()
     }
     
@@ -131,8 +132,17 @@ class PersonalInformationVC: UIViewController {
         
     }
     
+    func setupToolbar(){
+        let bar = UIToolbar()
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissKeyboard))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        bar.items = [flexSpace, doneButton]
+        bar.sizeToFit()
+        phoneTF.inputAccessoryView = bar
+        governmentID_TF.inputAccessoryView = bar
+    }
+    
     @objc func dismissKeyboard() {
-        // dismiss the keyboard by making the text field resign its first responder status
         view.endEditing(true)
     }
     
@@ -284,6 +294,12 @@ extension PersonalInformationVC: UITextFieldDelegate{
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
+        if textField == governmentID_TF {
+            if ((textField.text!) + string).count > 14 {
+                return false
+            }
+        }
+        
         if textField == phoneTF {
             //Prevent "0" character as the first character.
             if textField.text?.count == 0 && string == "0" {
@@ -356,6 +372,10 @@ extension PersonalInformationVC: UITextFieldDelegate{
         }
         textField.borderColor = .clear
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+    }
 }
 
 extension PersonalInformationVC: PhotoActionSheetDelegate {
@@ -366,16 +386,17 @@ extension PersonalInformationVC: PhotoActionSheetDelegate {
         }
         
         imageCollection[tag].image = image
-        circularProgressView = CircularProgressView(frame: CGRect(x: 0, y: 0, width: 40, height: 40))
-        circularProgressView?.center = imageCollection[tag].center
-        imageCollection[tag].addSubview(circularProgressView!)
+        activityIndicator = UIActivityIndicatorView()
+        activityIndicator?.style = .medium
+        activityIndicator?.color = .lightGray
+        activityIndicator?.center = imageCollection[tag].center
         
         viewModel?.uploadImageToserver(file: imageData, tag: tag, progressHandler: { progress in
-            self.circularProgressView?.progress = Float(progress)            
-            
+            self.activityIndicator?.startAnimating()
             self.overlayView = UIView(frame: self.imageCollection[self.tag].bounds)
             self.overlayView?.backgroundColor = UIColor.black.withAlphaComponent(0.5)
             self.imageCollection[self.tag].addSubview(self.overlayView ?? UIView())
+            self.imageCollection[self.tag].addSubview(self.activityIndicator!)
         })
     }
 }

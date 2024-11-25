@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23094" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23084"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -80,8 +81,8 @@
                                                 <constraint firstAttribute="height" constant="51" id="7iw-11-mb2"/>
                                             </constraints>
                                             <color key="textColor" name="primary-dark"/>
-                                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
-                                            <textInputTraits key="textInputTraits"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                     <real key="value" value="8"/>
@@ -123,7 +124,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="333" height="53"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="textColor" name="primary-dark"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="floatingLabelYPadding">
@@ -190,7 +191,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="333" height="53"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="textColor" name="primary-dark"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="floatingLabelYPadding">
@@ -257,7 +258,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="333" height="53"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="textColor" name="primary-dark"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="floatingLabelYPadding">
@@ -550,23 +551,6 @@
             <point key="canvasLocation" x="-132.06106870229007" y="-11.267605633802818"/>
         </view>
     </objects>
-    <designables>
-        <designable name="IfV-uh-DP0">
-            <size key="intrinsicContentSize" width="64" height="18.666666666666668"/>
-        </designable>
-        <designable name="hVp-Uo-gnr">
-            <size key="intrinsicContentSize" width="156.66666666666666" height="18.666666666666668"/>
-        </designable>
-        <designable name="nfF-7u-1IY">
-            <size key="intrinsicContentSize" width="67.333333333333329" height="18.666666666666668"/>
-        </designable>
-        <designable name="pFh-qo-YuI">
-            <size key="intrinsicContentSize" width="90" height="18.666666666666668"/>
-        </designable>
-        <designable name="sBJ-EN-ocC">
-            <size key="intrinsicContentSize" width="71.333333333333329" height="18.666666666666668"/>
-        </designable>
-    </designables>
     <resources>
         <image name="Expand Arrow" width="24" height="24"/>
         <image name="Rescheduling A Task" width="24" height="24"/>
@@ -587,7 +571,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
