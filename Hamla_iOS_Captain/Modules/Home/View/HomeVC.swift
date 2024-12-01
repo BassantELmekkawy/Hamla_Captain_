@@ -51,6 +51,7 @@ class HomeVC: UIViewController {
         ordersTableView.delegate = self
         ordersTableView.dataSource = self
         ordersTableView.register(UINib(nibName: "UpcomingRequestsCell", bundle: nil), forCellReuseIdentifier: "UpcomingRequestsCell")
+        sideMenuViewController = SideMenuVC(nibName: "SideMenuVC", bundle: nil)
         
         self.captainName.text = UserInfo.shared.get_username()
         
@@ -79,7 +80,6 @@ class HomeVC: UIViewController {
     func setupSideMenu() {
         addOverlay(view: self.view)
         overlay.isHidden = true
-        sideMenuViewController = SideMenuVC(nibName: "SideMenuVC", bundle: nil)
         addChild(sideMenuViewController)
         
         switch lang {

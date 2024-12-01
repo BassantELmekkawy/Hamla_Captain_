@@ -75,8 +75,7 @@ class STC_Pay_InformationVC: UIViewController {
                 UserInfo.shared.setData(model: (result?.data)!)
                 if UserInfo.shared.isPhoneVerified() {
                     UserInfo.shared.setLogin(value: true)
-                    let vc = HomeVC(nibName: "HomeVC", bundle: nil)
-                    self.navigationController?.pushViewController(vc, animated: true)
+                    UserInfo.shared.setRootViewController(HomeVC(nibName: "HomeVC", bundle: nil))
                 }
                 else {
                     let vm = SignInViewModel(api: SignInApi())

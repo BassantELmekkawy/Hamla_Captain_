@@ -9,18 +9,21 @@ import UIKit
 
 class MyWalletVC: UIViewController {
 
+    
+    @IBOutlet weak var totalBalanceLabel: UILabel!
     @IBOutlet weak var totalBalanceBackground: UIView!
     @IBOutlet weak var transactionsTable: UITableView!
     @IBOutlet weak var noTransactionsView: UIView!
     
     var numberOfTransactions = 0
+    var totalBalance: Double = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.navigationController?.navigationBar.isHidden = false
         self.title = "My wallet"
-        
+        totalBalanceLabel.text = "\(totalBalance) EGP"
         transactionsTable.delegate = self
         transactionsTable.dataSource = self
         

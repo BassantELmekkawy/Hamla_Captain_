@@ -81,8 +81,7 @@ class VerificationVC: UIViewController{
                 UserInfo.shared.isPhoneVerified(status: true)
                 UserInfo.shared.setLogin(value: true)
                 UserInfo.shared.setData(model: (result?.data)!)
-                let vc = HomeVC(nibName: "HomeVC", bundle: nil)
-                self.navigationController?.pushViewController(vc, animated: true)
+                UserInfo.shared.setRootViewController(HomeVC(nibName: "HomeVC", bundle: nil))
             }
             print(message)
         }

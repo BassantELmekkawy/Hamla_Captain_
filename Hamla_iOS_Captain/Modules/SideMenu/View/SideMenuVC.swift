@@ -30,7 +30,7 @@ class SideMenuVC: UIViewController {
     
     func setupView() {
         let url = URL(string: captainDetails.avatar ?? "")
-        photo.kf.setImage(with: url, placeholder: UIImage(systemName: "person.crop.circle.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal))
+        photo.kf.setImage(with: url, placeholder: UIImage(systemName: "person.fill")?.withTintColor(.white))
         name.text = captainDetails.fullName
         phone.text = captainDetails.mobile
     }
@@ -65,23 +65,25 @@ extension SideMenuVC: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        var vc: UIViewController?
         switch indexPath.row{
         case 0:
-            vc = MyWalletVC(nibName: "MyWalletVC", bundle: nil)
+            let vc = MyWalletVC(nibName: "MyWalletVC", bundle: nil)
+            vc.totalBalance = captainDetails.walletBalance ?? 0.0
+            self.navigationController?.pushViewController(vc, animated: true)
         case 1:
-            vc = OrderHistoryVC(nibName: "OrderHistoryVC", bundle: nil)
+            let vc = OrderHistoryVC(nibName: "OrderHistoryVC", bundle: nil)
+            self.navigationController?.pushViewController(vc, animated: true)
         case 2:
-            vc = SettingsVC(nibName: "SettingsVC", bundle: nil)
+            let vc = SettingsVC(nibName: "SettingsVC", bundle: nil)
+            self.navigationController?.pushViewController(vc, animated: true)
         case 3:
-            vc = BankAccountsVC(nibName: "BankAccountsVC", bundle: nil)
+            let vc = BankAccountsVC(nibName: "BankAccountsVC", bundle: nil)
+            self.navigationController?.pushViewController(vc, animated: true)
         case 5:
-            vc = SupportChatVC()
+            let vc = SupportChatVC()
+            self.navigationController?.pushViewController(vc, animated: true)
         default:
             print("default")
-        }
-        if let viewController = vc{
-            self.navigationController?.pushViewController(viewController, animated: true)
         }
     }
     
