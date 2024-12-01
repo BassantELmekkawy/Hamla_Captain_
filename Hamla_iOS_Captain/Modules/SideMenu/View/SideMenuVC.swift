@@ -75,6 +75,8 @@ extension SideMenuVC: UITableViewDelegate, UITableViewDataSource{
             vc = SettingsVC(nibName: "SettingsVC", bundle: nil)
         case 3:
             vc = BankAccountsVC(nibName: "BankAccountsVC", bundle: nil)
+        case 5:
+            vc = SupportChatVC()
         default:
             print("default")
         }
