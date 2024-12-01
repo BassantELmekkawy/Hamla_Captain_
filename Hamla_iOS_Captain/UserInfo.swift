@@ -21,7 +21,7 @@ class UserModelKeys{
     var rate             = "rate"
     var available        = "available"
     var rank             = "rank"
-    var heroCode         = "captain_code"
+    var captainCode         = "captain_code"
     var isDarkMode       = "isDarkMode"
     var isPhoneVerified  = "isPhoneVerified"
     var captainOnOrder   = "captainOnOrder"
@@ -45,6 +45,7 @@ class UserInfo{
     
     func setData(model: CaptainData) {
         UserDefaults.standard.setValue(model.id ?? 0, forKey: Keys.id)
+        UserDefaults.standard.setValue(model.code ?? 0, forKey: Keys.captainCode)
         UserDefaults.standard.setValue(model.email ?? "", forKey: Keys.email)
         UserDefaults.standard.setValue(model.gender ?? "", forKey: Keys.gender)
         UserDefaults.standard.setValue(model.fullName ?? "", forKey: Keys.username)
@@ -75,8 +76,8 @@ class UserInfo{
         UserDefaults.standard.setValue(available, forKey: Keys.available)
     }
     
-    func setheroCode(code:String) {
-        UserDefaults.standard.setValue(code, forKey: Keys.heroCode)
+    func setCaptainCode(code:String) {
+        UserDefaults.standard.setValue(code, forKey: Keys.captainCode)
     }
     
     func isDarkMode(status:Bool) {
@@ -105,7 +106,7 @@ class UserInfo{
     func get_rate ()-> Double { UserDefaults.standard.value(forKey: Keys.rate) as? Double ?? 0}
     func get_available ()-> Int { UserDefaults.standard.value(forKey: Keys.available) as? Int ?? 0}
     func get_rank ()-> Int { UserDefaults.standard.value(forKey: Keys.rank) as? Int ?? 0}
-    func getheroCode() -> String { UserDefaults.standard.value(forKey: Keys.heroCode) as? String ?? ""}
+    func getCaptainCode() -> String { UserDefaults.standard.value(forKey: Keys.captainCode) as? String ?? ""}
     func getPlateNumber() -> String { UserDefaults.standard.value(forKey: Keys.plateNumber) as? String ?? "" }
     func getTruckColor() -> String { UserDefaults.standard.value(forKey: Keys.truckColor) as? String ?? "" }
     func getTruckType() -> String { UserDefaults.standard.value(forKey: Keys.truckType) as? String ?? "" }
@@ -128,7 +129,7 @@ class UserInfo{
         UserDefaults.standard.removeObject(forKey: Keys.image)
         UserDefaults.standard.removeObject(forKey: Keys.rank)
         UserDefaults.standard.removeObject(forKey: Keys.available)
-        UserDefaults.standard.removeObject(forKey: Keys.heroCode)
+        UserDefaults.standard.removeObject(forKey: Keys.captainCode)
     }
     
      func setRootViewController(_ viewController: UIViewController) {

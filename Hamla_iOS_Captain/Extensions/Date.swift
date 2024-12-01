@@ -47,7 +47,7 @@ extension Date {
 extension DateFormatter {
     static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.dateFormat = "hh:mm a dd/MM/yyyy"
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
         formatter.locale = Locale(identifier: "en_US_POSIX")
         return formatter
     }()

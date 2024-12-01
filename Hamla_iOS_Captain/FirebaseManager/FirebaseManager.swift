@@ -177,6 +177,38 @@ class FirebaseManager {
         messageRef.setValue(messageData)
     }
     
+    func sendSupportMessage(message: String, type: String) {
+        let user = UserInfo.shared
+        let captainCode = user.getCaptainCode()
+        let captainId = user.get_ID()
+        let captainName = user.get_username()
+        let ref = Database.database().reference()
+        let senderInfoRef = ref.child("LiveChat").child(captainCode).child("senderInfo")
+        let messageRef = ref.child("LiveChat").child(captainCode).child("messages").childByAutoId()
+
+        let messageData: [String: Any] = [
+            "date": DateFormatter.dateFormatter.string(from: Date()),
+            "message": message,
+            "senderType": "Captain"
+        ]
+
+        let senderInfo: [String: Any] = [
+            "id": captainId,
+            "name": captainName,
+            "type": "Captain"
+        ]
+        
+        messageRef.setValue(messageData)
+        
+        senderInfoRef.updateChildValues(senderInfo) { error, _ in
+            if let error = error {
+                print("Error updating senderInfo: \(error.localizedDescription)")
+            } else {
+                print("senderInfo successfully created/updated.")
+            }
+        }
+    }
+    
 //    func sendMessage(orderID: String, receiverId: Int, message: String, type: String) {
 //        let ref = Database.database().reference()
 //        let messageRef = ref.child("chatting").child(orderID).child("messages").childByAutoId()
@@ -301,6 +333,36 @@ class FirebaseManager {
             let date = Date(timeIntervalSince1970: TimeInterval(createdAt) / 1000)
             let sender = Sender(senderId: String(senderId), displayName: senderName)
             let message = Message(sender: sender, messageId: snapshot.key, sentDate: date , kind: kind, seen: seen)
+            completion(message)
+        }
+    }
+    
+    func observeNewSupportMessage(completion: @escaping (Message?) -> Void) {
+        let user = UserInfo.shared
+        let captainCode = user.getCaptainCode()
+        let captainId = user.get_ID()
+        let captainName = user.get_username()
+        let ref = Database.database().reference()
+        ref.child("LiveChat").child(captainCode).child("messages").observe(.childAdded) { snapshot  in
+            print("Snapshot received: \(snapshot)")
+            
+            guard let data = snapshot.value as? [String: Any] else {
+                print("Failed to cast snapshot value to [String: Any]")
+                return
+            }
+            
+            guard let dateString = data["date"] as? String,
+                  let messageText = data["message"] as? String,
+                  let senderType = data["senderType"] as? String else {
+                print("Failed to parse message data")
+                return
+            }
+            print("Message data parsed successfully")
+               
+            let senderId = senderType == "Captain" ? String(captainId) : "0"
+            let date = DateFormatter.dateFormatter.date(from: dateString)
+            let sender = Sender(senderId: senderId, displayName: senderType)
+            let message = Message(sender: sender, messageId: snapshot.key, sentDate: date! , kind: .text(messageText), seen: true)
             completion(message)
         }
     }
