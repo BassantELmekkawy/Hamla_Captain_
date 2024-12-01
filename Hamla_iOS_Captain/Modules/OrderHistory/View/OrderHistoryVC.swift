@@ -46,7 +46,7 @@ class OrderHistoryVC: UIViewController {
                 self.showAlert(message: message)
             }
             else {
-                self.orders = (result?.data)!
+                self.orders = (result?.data)!.reversed()
                 DispatchQueue.main.async {
                     self.orderHistoryTable.reloadData()
                 }
@@ -117,7 +117,11 @@ extension OrderHistoryVC: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = OrderDetailsVC(nibName: "OrderDetailsVC", bundle: nil)
         vc.orderDetails = self.orders[indexPath.row]
-        vc.orderStatus = .orderConfirmed
+        if selectedState == .canceled {
+            vc.orderStatus = .orderCanceled
+        } else {
+            vc.orderStatus = .orderConfirmed
+        }
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }

@@ -136,7 +136,8 @@
 "Receipt" = "الإيصال";
 "Price_range" = "نطاق السعر";
 "Total_price" = "السعر الإجمالي";
-"Order_confirmed" = "تم تأكيد الطلب!";
+"Order_confirmed" = "طلب مؤكد!";
+"Order_canceled" = "طلب ملغي!";
 "Images" = "الصور";
 
 // MARK: - Side Menu
