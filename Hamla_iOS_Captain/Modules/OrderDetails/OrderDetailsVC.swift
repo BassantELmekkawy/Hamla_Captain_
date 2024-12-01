@@ -12,6 +12,7 @@ enum Status{
     case pendingPrice
     case pendingAcceptance
     case orderConfirmed
+    case orderCanceled
 }
 
 protocol OrderDetailsDelegate: AnyObject {
@@ -33,6 +34,7 @@ class OrderDetailsVC: UIViewController {
     @IBOutlet weak var pickType: UILabel!
     @IBOutlet weak var paymentImage: UIImageView!
     @IBOutlet weak var paymentMethod: UILabel!
+    @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var priceRange: UILabel!
     @IBOutlet weak var imagesBtn: UIView!
     
@@ -63,23 +65,42 @@ class OrderDetailsVC: UIViewController {
             imagesBtn.isHidden = true
         case .orderConfirmed:
             statusButton?.backgroundColor = UIColor(named: "forest")
-            statusButton?.setTitle("Order_confirmed".localized, for: .normal)
+            statusButton?.setTitle("      \("Order_confirmed".localized)", for: .normal)
+            statusButton.contentHorizontalAlignment = .left
             statusButton?.cornerRadius = 18
             statusButton?.isEnabled = false
             imagesBtn.isHidden = false
+        case .orderCanceled:
+            statusButton?.backgroundColor = UIColor(named: "forest")
+            statusButton?.setTitle("      \("Order_canceled".localized)", for: .normal)
+            statusButton.contentHorizontalAlignment = .left
+            statusButton?.cornerRadius = 18
+            statusButton?.isEnabled = false
+            imagesBtn.isHidden = true
         }
         
         customerName.text = orderDetails.customer?.fullName
-        phoneNumber.text = orderDetails.customer?.mobile
+        phoneNumber.text = "+\(orderDetails.customer?.mobile ?? "0")"
         pickupLocation.text = orderDetails.pickupLocationName
         dropoffLocation.text = orderDetails.dropoffLocationName
-        weight.text = orderDetails.weight
-        pickAmount.text = orderDetails.pickAmount
+        weight.text = "\(orderDetails.weight ?? "0") Kg"
+        pickAmount.text = "\(orderDetails.pickAmount ?? "0") Fills"
         date.text = orderDetails.date
         pickType.text = orderDetails.pickType
         paymentImage.kf.setImage(with: URL(string: orderDetails.paymentMethod?.icon ?? ""), placeholder: UIImage(named: "cash"))
         paymentMethod.text = orderDetails.paymentMethod?.name
-        priceRange.text = "\(orderDetails.estimateCostFrom ?? "") \(orderDetails.estimateCostTo ?? "") EGP"
+        if orderStatus == .pendingPrice {
+            priceLabel.text = "Price_range".localized
+            priceRange.text = "\(orderDetails.estimateCostFrom ?? "0") EGP -  \(orderDetails.estimateCostTo ?? "0") EGP"
+        }
+        else {
+            priceLabel.text = "Total_price".localized
+            priceRange.text = "\(orderDetails.cost ?? "0") EGP"
+        }
+        
+        if orderDetails.date == "Now" {
+            date.textColor = UIColor(named: "sunrise")
+        }
     }
     
     @IBAction func setOrderAction(_ sender: Any) {
@@ -88,13 +109,14 @@ class OrderDetailsVC: UIViewController {
             delegate?.showPriceAlert(indexPath: indexPath)
         case .pendingAcceptance:
             delegate?.acceptRequest(indexPath: indexPath)
-        case .orderConfirmed:
+        default:
             break
         }
     }
     
     @IBAction func seeOrderImages(_ sender: Any) {
         let vc = OrderImagesVC(nibName: "OrderImagesVC", bundle: nil)
+        vc.orderId = orderDetails.id ?? 0
         navigationController?.pushViewController(vc, animated: true)
     }
 }

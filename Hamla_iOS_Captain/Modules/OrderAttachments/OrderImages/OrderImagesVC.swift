@@ -13,6 +13,7 @@ class OrderImagesVC: UIViewController {
     @IBOutlet weak var imagesCollectionView: UICollectionView!
     @IBOutlet weak var heightConstraint: NSLayoutConstraint!
     
+    var orderId = 0
     var numOfImages = 4
     var images: [UIImage?] = Array(repeating: nil, count: 4)
     var indexPath: IndexPath?

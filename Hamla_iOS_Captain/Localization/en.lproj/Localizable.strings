@@ -143,6 +143,7 @@
 "Price_range" = "Price range";
 "Total_price" = "Total price";
 "Order_confirmed" = "Order confirmed!";
+"Order_canceled" = "Order canceled!";
 "Images" = "Images";
 
 // MARK: - Side Menu
