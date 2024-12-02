@@ -15,7 +15,7 @@ class SignatureVC: UIViewController {
 
     @IBOutlet weak var info: UILabel!
     @IBOutlet weak var signatureView: SignatureView!
-    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var viewModel = OrderAttatchmentsViewModel()
     static var shared = SignatureVC()
@@ -36,7 +36,6 @@ class SignatureVC: UIViewController {
                 self.showAlert(message: message)
             }
             else {
-                self.loadingIndicator?.stopAnimating()
                 delegate?.orderCompleted()
                 if let viewControllers = self.navigationController?.viewControllers {
                     for viewController in viewControllers {
@@ -57,6 +56,18 @@ class SignatureVC: UIViewController {
             }
         }
         
+        viewModel.isLoading.bind { [weak self] isLoading in
+            guard let self = self else { return }
+            self.activityIndicator.isHidden = false
+            if let isLoading = isLoading, isLoading {
+                self.activityIndicator.startAnimating()
+                self.view.isUserInteractionEnabled = false
+            } else {
+                self.activityIndicator.stopAnimating()
+                self.view.isUserInteractionEnabled = true
+            }
+        }
+        
     }
 
     @IBAction func submit(_ sender: Any) {
@@ -65,7 +76,6 @@ class SignatureVC: UIViewController {
             return
         }
         viewModel.uploadImageToserver(file: imageData)
-        loadingIndicator?.startAnimating()
     }
 }
 

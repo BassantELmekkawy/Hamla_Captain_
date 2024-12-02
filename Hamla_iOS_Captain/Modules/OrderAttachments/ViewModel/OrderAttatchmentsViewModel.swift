@@ -25,11 +25,13 @@ class OrderAttatchmentsViewModel: OrderAttatchmentsViewModelProtocol {
     var isLoading: Observable<Bool?>  = Observable(false)
     
     func uploadImageToserver(file: Data, tag: Int = 0) {
+        self.isLoading.value = true
         ImageUploader
             .shared
             .uploadImageToServer(File: file, url: URLs.baseDashBoardUrl.rawValue, progressHandler: { progress in
                 print("Upload progress: \(progress * 100)%")
             }) { result in
+                self.isLoading.value = false
                 self.tag.value = tag
                 switch result{
                 case .success(let result):

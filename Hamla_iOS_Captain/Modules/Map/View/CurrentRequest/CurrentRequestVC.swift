@@ -145,51 +145,34 @@ class CurrentRequestVC: UIViewController {
         self.status = status
             switch status {
             case .goingToPickup:
-                updateStatusButton.setTitle("Arrived to pickup", for: .normal)
+                break
             case .arrivedToPickup:
                 statusTitle.text = "Arrived to pickup"
                 statusBar.backgroundColor = UIColor(named: "seagull")
-                updateStatusButton.setTitle("Start load", for: .normal)
             case .startLoad:
                 statusTitle.text = "Start load"
                 statusBar.backgroundColor = UIColor(named: "primary")
-                updateStatusButton.setTitle("End load", for: .normal)
             case .endLoad:
                 statusTitle.text = "End load"
                 statusBar.backgroundColor = UIColor(named: "primary")
-                if point < numOfPoints {
-                    updateStatusButton.setTitle("Going to point \(point + 1)", for: .normal)
-                } else {
-                    updateStatusButton.setTitle("Going to drop off", for: .normal)
-                }
             case .goingToPoint:
                 statusTitle.text = "Going to point \(point)"
                 statusBar.backgroundColor = UIColor(named: "primary")
-                updateStatusButton.setTitle("Arrived point \(point)", for: .normal)
             case .arrivedPoint:
                 statusTitle.text = "Arrived point \(point)"
                 statusBar.backgroundColor = UIColor(named: "primary")
-                if point < numOfPoints {
-                    updateStatusButton.setTitle("Going to point \(point + 1)", for: .normal)
-                } else {
-                    updateStatusButton.setTitle("Going to drop off", for: .normal)
-                }
             case .goingToDropoff:
                 statusTitle.text = "Going to drop off"
                 statusBar.backgroundColor = UIColor(named: "warm")
-                updateStatusButton.setTitle("Arrived to drop off", for: .normal)
             case .arrivedToDropoff:
                 statusTitle.text = "Arrived to drop off"
                 statusBar.backgroundColor = UIColor(named: "forest")
-                updateStatusButton.setTitle("Start unload", for: .normal)
             case .startUnload:
                 statusTitle.text = "Start unload"
                 statusBar.backgroundColor = UIColor(named: "primary")
-                updateStatusButton.setTitle("End unload", for: .normal)
             case .endUnload:
                 statusTitle.text = "End unload"
                 statusBar.backgroundColor = UIColor(named: "primary")
-                updateStatusButton.setTitle("Order images", for: .normal)
             case .orderCompleted:
                 break
                 //statusTitle.text = "Order completed"

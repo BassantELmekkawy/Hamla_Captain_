@@ -12,8 +12,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SignatureVC" customModule="Hamla_iOS_Captain" customModuleProvider="target">
             <connections>
+                <outlet property="activityIndicator" destination="1bG-lP-QPk" id="gaP-l4-M9n"/>
                 <outlet property="info" destination="fRe-Q5-jj7" id="iVz-yB-RFT"/>
-                <outlet property="loadingIndicator" destination="1bG-lP-QPk" id="eSa-rx-BBT"/>
                 <outlet property="signatureView" destination="6ar-Dn-jaB" id="dXq-QK-fTG"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
